@@ -1,37 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../feature/assessment/presentation/screens/assessment_slide_view_screen.dart';
-import '../../feature/assessment/presentation/screens/assessment_scroll_view_screen.dart';
-import '../../feature/assignment/presentation/screens/assignment_screen.dart';
-import '../../feature/assignment/presentation/screens/assignment_submit_screen.dart';
-import '../../feature/assignment/presentation/screens/collaborative_assignment_instruction_screen.dart';
-import '../../feature/assignment/presentation/screens/collaborative_assignment_screen.dart';
-import '../../feature/assignment/presentation/screens/assignment_review_screen.dart';
-import '../../feature/authentication/presentation/screens/authentication_screen.dart';
-import '../../feature/authentication/presentation/screens/emis_webview_screen.dart';
-import '../../feature/circular/presentation/screens/circular_details_screen.dart';
-import '../../feature/circular/presentation/screens/circular_screen.dart';
-import '../../feature/course/presentation/screens/course_assessment_screen.dart';
-import '../../feature/course/presentation/screens/course_assignment_screen.dart';
-import '../../feature/course/presentation/screens/course_details_screen.dart';
-import '../../feature/course/presentation/screens/course_learning_outcome_screen.dart';
-import '../../feature/course/presentation/screens/course_script_screen.dart';
-import '../../feature/course/presentation/screens/course_list_screen.dart';
-import '../../feature/course/presentation/screens/course_live_class_screen.dart';
-import '../../feature/course/presentation/screens/document_view_screen.dart';
-import '../../feature/course/presentation/screens/overall_progress_screen.dart';
-import '../../feature/discussion/presentation/screens/detailed_discussion.dart';
-import '../../feature/discussion/presentation/screens/discussion_list_screen.dart';
-import '../../feature/discussion/presentation/screens/discussion_screen.dart';
-import '../../feature/discussion/presentation/screens/module_discussions_screen.dart';
-import '../../feature/landing/presentation/screens/landing_screen.dart';
-import '../../feature/leaderboard/presentation/screens/leaderboard_screen.dart';
-import '../../feature/notes/presentation/screens/note_details_screen.dart';
-import '../../feature/notes/presentation/screens/note_edit_screen.dart';
-import '../../feature/notification/presentation/screens/notification_screen.dart';
-import '../../feature/root/presentation/screens/root_screen.dart';
+
 import '../../feature/splash/presentation/screens/splash_screen.dart';
-import '../../feature/transcript_video/presentaion/screens/transcript_video_screen.dart';
+
 
 class AppRoute {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -84,76 +55,7 @@ mixin RouteGenerator {
           ///StartUp
           case AppRoute.splashScreen:
             return const SplashScreen();
-          case AppRoute.authenticationScreen:
-            return const AuthenticationScreen();
-          case AppRoute.eMISWebViewScreen:
-            return EMISWebViewScreen(arguments: setting.arguments);
 
-          ///User Landing
-          case AppRoute.landingScreen:
-            return const LandingScreen();
-          case AppRoute.rootScreen:
-            return RootScreen(arguments: setting.arguments);
-
-          case AppRoute.notificationScreen:
-            return const NotificationScreen();
-          case AppRoute.leaderboardScreen:
-            return const LeaderboardScreen();
-          case AppRoute.overallProgressScreen:
-            return const OverallProgressScreen();
-
-          ///Course
-          case AppRoute.courseListScreen:
-            return CourseListScreen(arguments: setting.arguments);
-          case AppRoute.courseDetailsScreen:
-            return CourseDetailsScreen(arguments: setting.arguments);
-          case AppRoute.courseLearningOutcomeScreen:
-            return CourseLearningOutcomeScreen(arguments: setting.arguments);
-          case AppRoute.courseScriptScreen:
-            return CourseScriptScreen(arguments: setting.arguments);
-          case AppRoute.transcriptVideoScreen:
-            return TranscriptVideoScreen(arguments: setting.arguments);
-          case AppRoute.courseAssignmentScreen:
-            return CourseAssignmentScreen(arguments: setting.arguments);
-          case AppRoute.courseLiveClassScreen:
-            return CourseLiveClassScreen(arguments: setting.arguments);
-          case AppRoute.courseAssessmentScreen:
-            return CourseAssessmentScreen(arguments: setting.arguments);
-          case AppRoute.discussionScreen:
-            return const DiscussionScreen();
-          case AppRoute.moduleDiscussionsScreen:
-            return ModuleDiscussionsScreen(arguments: setting.arguments);
-          case AppRoute.assignmentScreen:
-            return AssignmentScreen(arguments: setting.arguments);
-          case AppRoute.collaborativeAssignmentScreen:
-            return CollaborativeAssignmentScreen(arguments: setting.arguments);
-          case AppRoute.collaborativeAssignmentInstructionScreen:
-            return CollaborativeAssignmentInstructionScreen(
-                arguments: setting.arguments);
-          case AppRoute.assignmentReviewScreen:
-            return AssignmentReviewScreen(
-                arguments: setting.arguments);
-          case AppRoute.assignmentSubmitScreen:
-            return AssignmentSubmitScreen(arguments: setting.arguments);
-          case AppRoute.assessmentScrollViewScreen:
-            return AssessmentScrollViewScreen(arguments: setting.arguments);
-          case AppRoute.assessmentSlideViewScreen:
-            return AssessmentSlideViewScreen(arguments: setting.arguments);
-          case AppRoute.detailedDiscussion:
-            return DetailedDiscussion(arguments: setting.arguments);
-          case AppRoute.discussionListScreen:
-            return const DiscussionListScreen();
-          case AppRoute.noteDetailsScreen:
-            return NoteDetailsScreen(arguments: setting.arguments);
-          case AppRoute.noteEditScreen:
-            return NoteEditScreen(arguments: setting.arguments);
-          case AppRoute.circularScreen:
-            return const CircularScreen();
-          case AppRoute.circularDetailsScreen:
-            return CircularDetailsScreen(arguments: setting.arguments);
-          case AppRoute.documentViewScreen:
-            return DocumentViewScreen(
-                arguments: setting.arguments);
           default:
             return const SplashScreen();
         }

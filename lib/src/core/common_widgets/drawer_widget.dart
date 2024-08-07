@@ -3,8 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../feature/accessibility/presentation/controllers/accessibility_controller.dart';
-import '../../feature/accessibility/presentation/screens/accessibility_bottom_sheet.dart';
+import '../config/local_storage_services.dart';
 import '../routes/app_route.dart';
 import '../service/auth_cache_manager.dart';
 import '../service/notifier/app_events_notifier.dart';
@@ -38,161 +37,7 @@ class _DrawerWidgetState extends State<DrawerWidget>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    left: size.w16, top: size.h32, right: size.w16),
-                child: Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              color: clr.cardStrokeColor, width: size.w1)),
-                      child: CircleAvatar(
-                        radius: 24.r,
-                        backgroundColor: clr.appPrimaryColorGreen,
-                        child: Center(
-                          child: Text(
-                            localStorage
-                                .getStringValue(StringData.userName)![0]
-                                .toUpperCase(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700,
-                                fontSize: size.textXLarge),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: size.w12),
-                    Expanded(
-                      child: Text(
-                        localStorage.getStringValue(StringData.userName)!,
-                        style: TextStyle(
-                            color: clr.appPrimaryColorGreen,
-                            fontSize: size.textMedium,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: StringData.fontFamilyPoppins),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: size.h24),
-              Padding(
-                padding: EdgeInsets.only(left: size.w16),
-                child: CustomSwitchButton(
-                  value: App.currentAppLanguage == AppLanguage.english,
-                  textOn: 'EN',
-                  textSize: size.textXXSmall,
-                  textOff: 'বাং',
-                  bgColor: clr.whiteColor,
-                  width: 64.w,
-                  animationDuration: const Duration(milliseconds: 300),
-                  onChanged: (bool state) {
-                    App.setAppLanguage(state ? 1 : 0).then((value) {
-                      if (mounted) {
-                        setState(() {});
-                      }
-                      AppEventsNotifier.notify(EventAction.bottomNavAllScreen);
-                      AppEventsNotifier.notify(EventAction.bottomNavBar);
-                      AppEventsNotifier.notify(EventAction.graphChart);
-                    });
-                  },
-                  buttonHolder: const Icon(
-                    Icons.check,
-                    color: Colors.transparent,
-                  ),
-                  onTap: () {},
-                  onDoubleTap: () {},
-                  onSwipe: () {},
-                ),
-              ),
-              SizedBox(height: size.h12),
-              Container(height: size.h1, color: clr.cardStrokeColor),
-              DrawerLinkWidget(
-                cardColor: clr.drawerFillColor,
-                icon: Icons.auto_stories,
-                iconColor: clr.appPrimaryColorGreen,
-                text: label(e: en.lms, b: bn.lms),
-                onTap: () {},
-              ),
-              DrawerLinkWidget(
-                icon: Icons.local_library,
-                text: label(e: en.teachersGuide, b: bn.teachersGuide),
-                onTap: () {},
-              ),
-              DrawerLinkWidget(
-                svgIcon: ImageAssets.icBook,
-                text: label(e: en.eLibrary, b: bn.eLibrary),
-                onTap: () {},
-              ),
-              DrawerLinkWidget(
-                svgIcon: ImageAssets.icSocialLearning,
-                text: label(
-                    e: en.socialLearningPlatform, b: bn.socialLearningPlatform),
-                onTap: () {},
-              ),
-              DrawerLinkWidget(
-                icon: Icons.forum,
-                text: label(e: en.discussionArea, b: bn.discussionArea),
-                onTap: () =>
-                    Navigator.of(context).pushNamed(AppRoute.discussionScreen),
-              ),
-              DrawerLinkWidget(
-                icon: Icons.play_circle,
-                text: label(e: en.tutorial, b: bn.tutorial),
-                onTap: () {},
-              ),
-              DrawerLinkWidget(
-                icon: Icons.chat_bubble,
-                text: label(e: en.messageText, b: bn.messageText),
-                onTap: () {},
-              ),
-              DrawerLinkWidget(
-                svgIcon: ImageAssets.icCircular,
-                text: label(e: en.circular, b: bn.circular),
-                onTap: () =>
-                    Navigator.of(context).pushNamed(AppRoute.circularScreen),
-              ),
-              /*DrawerLinkWidget(
-                icon: Icons.accessible,
-                text: label(e: en.accessibilityText, b: bn.accessibilityText),
-                onTap: () {},
-                widget: Obx(
-                  () => SizedBox(
-                      width: 40.sp,
-                      height: 40.sp,
-                      child: FittedBox(
-                        child: CupertinoSwitch(
-                          applyTheme: true,
-                          value: accessibilityController.isGrayscale.value,
-                          onChanged: (v) {
-                            accessibilityController.toggleGrayscale();
-                          },
-                          activeColor: clr.appPrimaryColorGreen,
-                        ),
-                      )),
-                ),
-              ),*/
-              DrawerLinkWidget(
-                icon: Icons.accessible,
-                text: label(e: en.accessibilityText, b: bn.accessibilityText),
-                onTap: () => onTapAccessibility(),
-              ),
-              DrawerLinkWidget(
-                icon: Icons.contact_support,
-                text: label(e: en.aboutUs, b: bn.aboutUs),
-                onTap: () {},
-              ),
-              DrawerLinkWidget(
-                icon: Icons.logout,
-                iconColor: clr.textColorBlack,
-                text: label(e: en.logoutText, b: bn.logoutText),
-                onTap: showLogoutPromptDialog,
-              ),
+
               SizedBox(height: size.h64)
             ],
           ),
@@ -201,12 +46,6 @@ class _DrawerWidgetState extends State<DrawerWidget>
     );
   }
 
-  void onTapAccessibility() {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) => const AccessibilityBottomSheet(),
-    ).then((value) => setState(() {}));
-  }
 
   void showLogoutPromptDialog() {
     CustomDialogWidget.show(

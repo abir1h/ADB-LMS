@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_theme.dart';
-import '../controllers/splash_controller.dart';
 import '../../../../core/constants/image_assets.dart';
 import '../../../../core/constants/strings.dart';
+import '../../../../core/routes/app_route.dart';
+// import '../../../../core/routes/app_routes.dart';
+import '../services/splash_service.dart';
+import '../../../../core/constants/language.dart';
+import '../../../../core/utility/app_label.dart';
+// import '../../../book/presentation/services/book_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,8 +18,18 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with AppTheme {
-  final SplashController splashController = Get.put(SplashController());
+class _SplashScreenState extends State<SplashScreen>
+    with AppTheme, Language, SplashService {
+  @override
+  void initState() {
+    super.initState();
+    _callMethod();
+  }
+
+  _callMethod() async {
+    // ResponseEntity responseEntity = await getAuthors();
+    // print(responseEntity.message);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> with AppTheme {
               ),
               SizedBox(height: size.h32 + size.h6),
               Text(
-                "Welcome To LMS",
+                label(e: en.splashScreenText, b: en.splashScreenText),
                 style: TextStyle(
                     color: clr.appPrimaryColorGreen,
                     fontSize: size.textXXSmall + size.textXXSmall,
@@ -46,5 +60,19 @@ class _SplashScreenState extends State<SplashScreen> with AppTheme {
         ),
       ),
     );
+  }
+
+  @override
+  void navigateToLandingScreen() {
+    // Navigator.of(context)
+    //     .pushNamedAndRemoveUntil(AppRoute.landingScreen, (x) => false);
+    // Navigator.of(context)
+    //     .pushNamedAndRemoveUntil(AppRoute.baseScreen, (x) => false);
+  }
+
+  @override
+  void navigateToAuthScreen() {
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(AppRoute.authenticationScreen, (x) => false);
   }
 }
