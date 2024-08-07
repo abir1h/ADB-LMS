@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import '../../../../core/service/auth_cache_manager.dart';
 
 abstract class _ViewModel {
-  void navigateToAuthScreen();
+  void navigateToBaseScreen();
   void navigateToLandingScreen();
 }
 
-mixin SplashService implements _ViewModel {
+mixin SplashService<T extends StatefulWidget> on State<T>
+    implements _ViewModel {
   late _ViewModel _view;
 
   ///Service configurations
   @override
   void initState() {
+    super.initState();
     _view = this;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _fetchUserSession();
@@ -26,11 +28,8 @@ mixin SplashService implements _ViewModel {
     await Future.delayed(const Duration(seconds: 2));
 
     ///Navigate to logical page
-    // await AuthCacheManager.isUserLoggedIn()
-    //     ?
-    _view.navigateToLandingScreen()
-        // : _view.navigateToAuthScreen()
-    // _view.navigateToAuthScreen()
-    ;
+    await AuthCacheManager.isUserLoggedIn()
+        ? _view.navigateToBaseScreen()
+        : _view.navigateToLandingScreen();
   }
 }

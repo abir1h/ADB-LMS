@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/image_assets.dart';
-import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/app_route.dart';
-// import '../../../../core/routes/app_routes.dart';
 import '../services/splash_service.dart';
 import '../../../../core/constants/language.dart';
-import '../../../../core/utility/app_label.dart';
-// import '../../../book/presentation/services/book_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,16 +15,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with AppTheme, Language, SplashService {
-  @override
-  void initState() {
-    super.initState();
-    // _callMethod();
-  }
-
-  _callMethod() async {
-    // ResponseEntity responseEntity = await getAuthors();
-    // print(responseEntity.message);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +66,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   @override
-  void navigateToAuthScreen() {
-   /* Navigator.of(context)
-        .pushNamedAndRemoveUntil(AppRoute.authenticationScreen, (x) => false);*/
+  void navigateToBaseScreen() {
+    Navigator.pushNamed(context, AppRoute.baseScreen);
   }
 }
