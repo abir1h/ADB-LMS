@@ -20,6 +20,12 @@ class ThemeColor {
   Color get appSecondaryColorPink => HexColor("BB009C");
   Color get scaffoldBackgroundColor => HexColor("F9FEFD");
   Color get secondaryBackgroundColor => HexColor("FFFEFE");
+  Color get cardColor1 => HexColor("34495E");
+  Color get cardColorBorder1 => HexColor("71808F");
+  Color get cardColor2 => HexColor("16A085");
+  Color get cardColorBorder2 => HexColor("5CBDAA");
+  Color get cardColor3 => HexColor("B16376");
+  Color get cardColorBorder3 => HexColor("C8919E");
 
   Color get whiteColor => HexColor("FFFFFF");
   Color get shadeWhiteColor => HexColor("FDFDFD");
@@ -69,7 +75,7 @@ class ThemeColor {
   Color get cardFillColorCruise => HexColor("B3E0DD");
   Color get cardFillColorAliceBlue => HexColor("F0FCF9");
   Color get cardFillColorMintCream => HexColor("F9FFFD");
-  Color get cardFillColorOlive=> HexColor("DEEEC6");
+  Color get cardFillColorOlive => HexColor("DEEEC6");
   Color get drawerFillColor => HexColor("E6F8F4");
 
   Color get clickableLinkColor => HexColor("4A88FF");

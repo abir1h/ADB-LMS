@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/feature/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,7 @@ class _BaseScreenState extends State<BaseScreen>
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 if (index == 0) {
-                  return Container(
+                  return DashboardScreen(
                     key: ObjectKey(DateTime.now()),
                   );
                 } else if (index == 1) {
@@ -235,7 +236,7 @@ class _NavButtonItemState extends State<NavButtonItem> with AppTheme {
                   style: TextStyle(
                     color: clr.blackColor,
                     fontSize: size.textXXSmall,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
               ),
