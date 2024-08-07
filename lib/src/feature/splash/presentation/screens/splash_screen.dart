@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    _callMethod();
+    // _callMethod();
   }
 
   _callMethod() async {
@@ -35,28 +35,38 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: clr.scaffoldBackgroundColor,
-      body: Padding(
-        padding: EdgeInsets.only(bottom: 0.5.sh + 30.h),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
                 ImageAssets.icLogo,
-                height: size.h64,
+
+                fit: BoxFit.cover,
               ),
-              SizedBox(height: size.h32 + size.h6),
-              Text(
-                label(e: en.splashScreenText, b: en.splashScreenText),
-                style: TextStyle(
-                    color: clr.appPrimaryColorGreen,
-                    fontSize: size.textXXSmall + size.textXXSmall,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: StringData.fontFamilyPoppins),
-              ),
-            ],
-          ),
+            ),
+
+          /*  Text(
+              label(e: en.splashScreenText, b: bn.splashScreenText),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: clr.appPrimaryColorBlue,
+                  fontSize: size.textXXSmall + size.textXXSmall,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: StringData.fontFamilyPoppins),
+            ),*//*Text(
+              label(e: en.splashScreenText, b: bn.splashScreenText),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: clr.appPrimaryColorBlue,
+                  fontSize: size.textXXSmall + size.textXXSmall,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: StringData.fontFamilyPoppins),
+            ),*/
+          ],
         ),
       ),
     );
@@ -66,13 +76,13 @@ class _SplashScreenState extends State<SplashScreen>
   void navigateToLandingScreen() {
     // Navigator.of(context)
     //     .pushNamedAndRemoveUntil(AppRoute.landingScreen, (x) => false);
-    // Navigator.of(context)
-    //     .pushNamedAndRemoveUntil(AppRoute.baseScreen, (x) => false);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(AppRoute.landingScreen, (x) => false);
   }
 
   @override
   void navigateToAuthScreen() {
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil(AppRoute.authenticationScreen, (x) => false);
+   /* Navigator.of(context)
+        .pushNamedAndRemoveUntil(AppRoute.authenticationScreen, (x) => false);*/
   }
 }

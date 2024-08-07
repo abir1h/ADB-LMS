@@ -47,7 +47,7 @@ class _ExpandableTextState extends State<ExpandableText>
                 child: Text(
                   label(e: en.seeMore, b: bn.seeMore),
                   style: widget.style.copyWith(
-                      color: clr.appPrimaryColorGreen,
+                      color: clr.appPrimaryColorBlue,
                       fontSize: size.textXSmall),
                 ),
               ),
@@ -59,7 +59,7 @@ class _ExpandableTextState extends State<ExpandableText>
                 child: Text(
                   label(e: en.seeLess, b: bn.seeLess),
                   style: widget.style.copyWith(
-                      color: clr.appPrimaryColorGreen,
+                      color: clr.appPrimaryColorBlue,
                       fontSize: size.textXSmall),
                 ),
               ),

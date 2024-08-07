@@ -59,10 +59,10 @@ class _ApplicationState extends State<Application> with AppTheme{
             useInheritedMediaQuery: true,
             theme: ThemeData(
                 colorScheme: ColorScheme.fromSwatch()
-                    .copyWith(primary: clr.appPrimaryColorGreen),
+                    .copyWith(primary: clr.appPrimaryColorBlue),
                 scaffoldBackgroundColor: clr.scaffoldBackgroundColor,
                 dividerColor: Colors.transparent,
-                fontFamily: StringData.fontFamilyKalpurush,
+                fontFamily: StringData.fontFamilyRoboto,
                 canvasColor: Colors.transparent),
             // initialRoute: AppRoutes.splash,
             // getPages: AppPages.pages,

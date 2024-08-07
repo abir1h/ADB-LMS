@@ -1,50 +1,15 @@
+import 'package:adb_mobile/src/feature/authentication/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
-
+import '../../feature/landing/presentation/screens/landing_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
-
 
 class AppRoute {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   static const String splashScreen = "splashScreen";
-  static const String authenticationScreen = "authenticationScreen";
-  static const String eMISWebViewScreen = "eMISWebViewScreen";
-
+  static const String loginScreen = "loginScreen";
   static const String landingScreen = "landingScreen";
-  static const String rootScreen = "rootScreen";
-  static const String notificationScreen = "notificationScreen";
-  static const String leaderboardScreen = "leaderboardScreen";
-  static const String overallProgressScreen = "overallProgressScreen";
-  static const String courseListScreen = "courseListScreen";
-  static const String courseDetailsScreen = "courseDetailsScreen";
-  static const String courseLearningOutcomeScreen =
-      "courseLearningOutcomeScreen";
-  static const String courseScriptScreen = "courseScriptScreen";
-  static const String transcriptVideoScreen = "transcriptVideoScreen";
-  static const String courseAssignmentScreen = "courseAssignmentScreen";
-  static const String courseLiveClassScreen = "courseLiveClassScreen";
-  static const String courseAssessmentScreen = "courseAssessmentScreen";
-  static const String discussionScreen = "discussionScreen";
-  static const String moduleDiscussionsScreen = "moduleDiscussionsScreen";
-  static const String assignmentScreen = "assignmentScreen";
-  static const String collaborativeAssignmentScreen =
-      "collaborativeAssignmentScreen";
-  static const String collaborativeAssignmentInstructionScreen =
-      "collaborativeAssignmentInstructionScreen";
-  static const String assignmentReviewScreen =
-      "assignmentReviewScreen";
-  static const String assignmentSubmitScreen = "assignmentSubmitScreen";
-  static const String assessmentScrollViewScreen = "assessmentScrollViewScreen";
-  static const String assessmentSlideViewScreen = "assessmentSlideViewScreen";
-  static const String detailedDiscussion = "detailedDiscussion";
-  static const String discussionListScreen = "discussionListScreen";
-  static const String noteDetailsScreen = "noteDetailsScreen";
-  static const String noteEditScreen = "noteEditScreen";
-  static const String circularScreen = "circularScreen";
-  static const String circularDetailsScreen = "circularDetailsScreen";
-  static const String documentViewScreen =
-      "documentViewScreen";
 }
 
 mixin RouteGenerator {
@@ -55,6 +20,10 @@ mixin RouteGenerator {
           ///StartUp
           case AppRoute.splashScreen:
             return const SplashScreen();
+          case AppRoute.landingScreen:
+            return const LandingScreen();
+          case AppRoute.loginScreen:
+            return const LoginScreen();
 
           default:
             return const SplashScreen();

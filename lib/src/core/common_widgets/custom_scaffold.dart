@@ -63,7 +63,7 @@ class CustomScaffold extends StatelessWidget with AppTheme {
                         color: Colors.transparent,
                         child: Icon(
                           Icons.arrow_back,
-                          color: clr.appPrimaryColorGreen,
+                          color: clr.appPrimaryColorBlue,
                           size: size.r24,
                         ),
                       ),
@@ -73,7 +73,7 @@ class CustomScaffold extends StatelessWidget with AppTheme {
                       child: Text(
                         title,
                         style: TextStyle(
-                            color: clr.appPrimaryColorGreen,
+                            color: clr.appPrimaryColorBlue,
                             fontSize: size.textXMedium,
                             fontWeight: FontWeight.w500,
                             fontFamily: StringData.fontFamilyPoppins),
@@ -96,7 +96,7 @@ class CustomScaffold extends StatelessWidget with AppTheme {
                           color: Colors.transparent,
                           child: Icon(
                             Icons.refresh,
-                            color: clr.appPrimaryColorGreen,
+                            color: clr.appPrimaryColorBlue,
                             size: size.r28,
                           ),
                         ),

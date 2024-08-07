@@ -11,7 +11,7 @@ class LanguageEn {
   String appNameText = "CLMS";
   String appBarText = "LMS Home";
 
-  String splashScreenText = "Welcome To CLMS";
+  String splashScreenText = "Supporting Post-COVID-19 Small-Scale Employment Creation Project (SPCSSECP)";
   String authScreenHeaderText = "About HSEP";
   String authScreenContentText =
       "CLMS is a self-contained large-scale learning management system. It includes LMS,eLibrary, eTeacher guide, social learning platform or PLC  the entire system is designed in such a way that it can play an effective role in improving the professional quality of teachers.";
@@ -190,6 +190,7 @@ class LanguageBn {
 
   String appNameText = "এলএমএস";
   String appBarText = "এলএমএস হোম";
+  String splashScreenText = "সাপোর্টিং পোস্ট কোভিড-১৯ স্মল স্কেল এমপ্লয়মেন্ট ক্রিয়েশন প্রজেক্ট (এসপিসিএসএসইসিপি)";
 
   String authScreenHeaderText = "HSEP সম্পর্কে";
   String authScreenContentText =

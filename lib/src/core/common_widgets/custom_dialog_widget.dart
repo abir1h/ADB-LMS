@@ -51,7 +51,7 @@ mixin CustomDialogWidget {
                           SizedBox(height: ThemeSize.instance.h10),
                           Icon(icon,
                               size: 32.r,
-                              color: ThemeColor.instance.appPrimaryColorGreen),
+                              color: ThemeColor.instance.appPrimaryColorBlue),
                           SizedBox(height: ThemeSize.instance.h12),
                           Text(
                             title,
@@ -96,10 +96,10 @@ mixin CustomDialogWidget {
                                         borderRadius:
                                             BorderRadius.circular(10.w),
                                         color: ThemeColor
-                                            .instance.appPrimaryColorGreen,
+                                            .instance.appPrimaryColorBlue,
                                         border: Border.all(
                                             color: ThemeColor
-                                                .instance.appPrimaryColorGreen,
+                                                .instance.appPrimaryColorBlue,
                                             width: 1.w),
                                       ),
                                       child: Center(
@@ -135,7 +135,7 @@ mixin CustomDialogWidget {
                                             .instance.shadeWhiteColor2,
                                         border: Border.all(
                                             color: ThemeColor
-                                                .instance.appPrimaryColorGreen,
+                                                .instance.appPrimaryColorBlue,
                                             width: 1.w),
                                       ),
                                       child: Center(
@@ -143,7 +143,7 @@ mixin CustomDialogWidget {
                                           rightButtonText,
                                           style: TextStyle(
                                               color: ThemeColor.instance
-                                                  .appPrimaryColorGreen,
+                                                  .appPrimaryColorBlue,
                                               fontSize:
                                                   ThemeSize.instance.textSmall,
                                               fontWeight: FontWeight.w500,

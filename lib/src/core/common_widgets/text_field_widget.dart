@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../constants/strings.dart';
 import '../constants/app_theme.dart';
 
-class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
+class AppTextFieldWithIcon extends StatelessWidget with AppTheme {
   final bool readOnly;
   final String title;
   final String hintText;
@@ -12,8 +12,9 @@ class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
   final FocusNode? focusNode;
   final TextInputType keyboardType;
   final bool autoMaxLine;
+  final Widget? prefixIcon;
 
-  AppTextFieldWithTitle({
+  AppTextFieldWithIcon({
     Key? key,
     this.readOnly = false,
     this.title = '',
@@ -23,45 +24,32 @@ class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.autoMaxLine = false,
+    this.prefixIcon ,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (title != '')
-          Padding(
-            padding: EdgeInsets.only(bottom: size.h4),
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: size.textSmall,
-                color: clr.textColorAppleBlack,
-              ),
-              textScaleFactor: 1,
-            ),
-          ),
-        AppTextField(
-          readOnly: readOnly,
-          autoMaxLine: autoMaxLine,
-          controller: controller,
-          hintText: hintText,
-          obscureText: obscureText,
-          keyboardType: keyboardType,
-          focusNode: focusNode,
-        ),
-      ],
+    return AppTextField(
+      readOnly: readOnly,
+      autoMaxLine: autoMaxLine,
+      controller: controller,
+      hintText: hintText,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      focusNode: focusNode,
+
     );
   }
 }
+
+
 
 class AppTextField extends StatefulWidget {
   final bool readOnly;
   final String hintText;
   final bool obscureText;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final TextEditingController controller;
   final FocusNode? focusNode;
   final TextInputType keyboardType;
@@ -69,59 +57,53 @@ class AppTextField extends StatefulWidget {
   final VoidCallback? onTaped;
   final FormFieldValidator<String>? validator;
 
-  const AppTextField(
-      {Key? key,
-      this.readOnly = false,
-      required this.hintText,
-      required this.controller,
-      this.focusNode,
-      this.obscureText = false,
-      this.suffixIcon,
-      this.keyboardType = TextInputType.text,
-      this.autoMaxLine = false,
-      this.validator,
-      this.onTaped})
-      : super(key: key);
+  const AppTextField({
+    Key? key,
+    this.readOnly = false,
+    required this.hintText,
+    required this.controller,
+    this.focusNode,
+    this.obscureText = false,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.keyboardType = TextInputType.text,
+    this.autoMaxLine = false,
+    this.validator,
+    this.onTaped,
+  }) : super(key: key);
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
 }
 
 class _AppTextFieldState extends State<AppTextField> with AppTheme {
-  // bool _hasFocused = false;
+  late bool _obscureText;
   FocusNode focusNode = FocusNode();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //
-  //   _hasFocused = focusNode.hasFocus;
-  //   focusNode.addListener(() {
-  //     _changeBorder();
-  //   });
-  // }
-  //
-  // void _changeBorder() {
-  //   setState(() {
-  //     _hasFocused = focusNode.hasFocus;
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = widget.obscureText;
+  }
+
+  void _toggleObscureText() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final focusNode = widget.focusNode ?? FocusNode();
+
     return Container(
-      height: size.h40,
+      height: size.h56,
       width: double.infinity,
-      // padding: EdgeInsets.symmetric(horizontal: size.s12, vertical: 0),
-      decoration: BoxDecoration(color: clr.fromBoxFillColor
-          // borderRadius: BorderRadius.circular(size.s8),
-          // border: Border.all(
-          //   color: _hasFocused
-          //       ? HexColor(HexColorCode.appPrimaryColor)
-          //       : HexColor(HexColorCode.hintTextColor),
-          //   width: size.s1,
-          // ),
-          ),
+      decoration: BoxDecoration(
+        color: clr.fromBoxFillColor,
+        borderRadius: BorderRadius.circular(size.r8),
+
+      ),
       child: Center(
         child: TextFormField(
           onTap: widget.onTaped,
@@ -129,39 +111,52 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
           controller: widget.controller,
           focusNode: focusNode,
           cursorRadius: const Radius.circular(100),
-          cursorColor: clr.appPrimaryColorGreen,
+          cursorColor: clr.appPrimaryColorBlue,
           cursorWidth: size.w2,
           autocorrect: false,
-          maxLines: (widget.autoMaxLine) ? null : 1,
+          maxLines: widget.autoMaxLine ? null : 1,
           keyboardType: widget.keyboardType,
-          obscureText: widget.obscureText,
+          obscureText: _obscureText,
           validator: widget.validator,
           decoration: InputDecoration(
-            // isDense: true,
             border: InputBorder.none,
             focusedBorder: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: clr.appPrimaryColorGreen, width: size.w1),
+              borderSide: BorderSide(
+                color: clr.appPrimaryColorBlue,
+                width: size.w1,
+              ),
               borderRadius: BorderRadius.all(Radius.circular(size.w8)),
             ),
             enabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: clr.boxStrokeColor, width: size.w1),
-                borderRadius: BorderRadius.all(Radius.circular(size.w8))),
+              borderSide: BorderSide(
+                color: clr.boxStrokeColor,
+                width: size.w1,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(size.w8)),
+            ),
             hintText: widget.hintText,
             contentPadding: EdgeInsets.symmetric(horizontal: size.w12),
             hintStyle: TextStyle(
-                color: clr.placeHolderTextColorGray,
-                fontSize: size.textSmall,
-                fontWeight: FontWeight.w400,
-                fontFamily: StringData.fontFamilyRoboto),
-            suffixIcon: widget.suffixIcon,
-          ),
-          style: TextStyle(
-              color: clr.textColorBlack,
+              color: clr.placeHolderTextColorGray,
               fontSize: size.textSmall,
               fontWeight: FontWeight.w400,
-              fontFamily: StringData.fontFamilyRoboto),
+              fontFamily: StringData.fontFamilyRoboto,
+            ),
+            suffixIcon: _obscureText==true?IconButton(
+              icon: Icon(
+                _obscureText ? Icons.visibility : Icons.visibility_off,
+                color: clr.placeHolderTextColorGray,
+              ),
+              onPressed: _toggleObscureText,
+            ):SizedBox(),
+            prefixIcon: widget.prefixIcon,
+          ),
+          style: TextStyle(
+            color: clr.textColorBlack,
+            fontSize: size.textSmall,
+            fontWeight: FontWeight.w400,
+            fontFamily: StringData.fontFamilyRoboto,
+          ),
         ),
       ),
     );
