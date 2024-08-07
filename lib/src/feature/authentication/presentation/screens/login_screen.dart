@@ -78,11 +78,13 @@ class _LoginScreenState extends State<LoginScreen> with AppTheme, Language {
 
               controller: TextEditingController(),
 
+            ),SizedBox(
+              height: size.h24,
             ),
-           /* CustomButton(
+            CustomButton(
               onTap: () {},
-              title: StringData.regText2,
-              bgColor: clr.appSecondaryColorPink,
+              title: StringData.enterText,
+              bgColor: clr.appPrimaryColorBlue,
               boxShadow: [
                 BoxShadow(
                   color: clr.blackColor.withOpacity(.3),
@@ -90,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> with AppTheme, Language {
                   offset: Offset(0.0, size.r1 * 5),
                 ),
               ],
-            )*/
+            )
           ],
         ),
       ),

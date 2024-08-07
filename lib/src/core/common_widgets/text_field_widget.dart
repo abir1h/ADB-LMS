@@ -47,7 +47,7 @@ class AppTextFieldWithIcon extends StatelessWidget with AppTheme {
 class AppTextField extends StatefulWidget {
   final bool readOnly;
   final String hintText;
-  final bool obscureText;
+  final bool? obscureText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final TextEditingController controller;
@@ -63,7 +63,7 @@ class AppTextField extends StatefulWidget {
     required this.hintText,
     required this.controller,
     this.focusNode,
-    this.obscureText = false,
+    this.obscureText,
     this.suffixIcon,
     this.prefixIcon,
     this.keyboardType = TextInputType.text,
@@ -83,7 +83,7 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
   @override
   void initState() {
     super.initState();
-    _obscureText = widget.obscureText;
+    _obscureText = widget.obscureText??false;
   }
 
   void _toggleObscureText() {
@@ -142,13 +142,13 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
               fontWeight: FontWeight.w400,
               fontFamily: StringData.fontFamilyRoboto,
             ),
-            suffixIcon: _obscureText==true?IconButton(
+            suffixIcon: widget.obscureText==true?IconButton(
               icon: Icon(
                 _obscureText ? Icons.visibility : Icons.visibility_off,
                 color: clr.placeHolderTextColorGray,
               ),
               onPressed: _toggleObscureText,
-            ):SizedBox(),
+            ):const SizedBox(),
             prefixIcon: widget.prefixIcon,
           ),
           style: TextStyle(
