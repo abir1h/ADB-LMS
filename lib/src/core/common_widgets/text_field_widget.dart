@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../constants/strings.dart';
 import '../constants/app_theme.dart';
 
-class AppTextFieldWithIcon extends StatelessWidget with AppTheme {
+class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
   final bool readOnly;
   final String title;
   final String hintText;
@@ -14,7 +14,7 @@ class AppTextFieldWithIcon extends StatelessWidget with AppTheme {
   final bool autoMaxLine;
   final Widget? prefixIcon;
 
-  AppTextFieldWithIcon({
+  AppTextFieldWithTitle({
     Key? key,
     this.readOnly = false,
     this.title = '',
@@ -29,15 +29,33 @@ class AppTextFieldWithIcon extends StatelessWidget with AppTheme {
 
   @override
   Widget build(BuildContext context) {
-    return AppTextField(
-      readOnly: readOnly,
-      autoMaxLine: autoMaxLine,
-      controller: controller,
-      hintText: hintText,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      focusNode: focusNode,
-
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (title != '')
+          Padding(
+            padding: EdgeInsets.only(bottom: size.h10),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: size.textSmall,
+                color: clr.textColorAppleBlack,
+              ),
+              textScaleFactor: 1,
+            ),
+          ),
+        AppTextField(
+          readOnly: readOnly,
+          autoMaxLine: autoMaxLine,
+          controller: controller,
+          hintText: hintText,
+          obscureText: obscureText,
+          keyboardType: keyboardType,
+          focusNode: focusNode,
+          prefixIcon: null,
+        ),
+      ],
     );
   }
 }
@@ -149,7 +167,7 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
               ),
               onPressed: _toggleObscureText,
             ):const SizedBox(),
-            prefixIcon: widget.prefixIcon,
+            prefixIcon: widget.prefixIcon??null,
           ),
           style: TextStyle(
             color: clr.textColorBlack,
