@@ -4,6 +4,7 @@ import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/common_widgets/text_field_widget.dart';
 import '../../../../core/common_widgets/custom_button.dart';
 import '../../../../core/constants/common_imports.dart';
+import '../../../../core/routes/app_route.dart';
 import '../services/login_screen_service.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,15 +14,14 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with AppTheme, Language, LoginScreenService {
-
+class _LoginScreenState extends State<LoginScreen>
+    with AppTheme, Language, LoginScreenService {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: clr.scaffoldBackgroundColor,
       body: SingleChildScrollView(
-        padding:
-        EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h20),
+        padding: EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h20),
         physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -51,22 +51,28 @@ class _LoginScreenState extends State<LoginScreen> with AppTheme, Language, Logi
             ),
             AppTextField(
               hintText: 'ফোন নম্বর',
-              prefixIcon: Icon(Icons.person,color: clr.appPrimaryColorBlue,size: size.h24,),
+              prefixIcon: Icon(
+                Icons.person,
+                color: clr.appPrimaryColorBlue,
+                size: size.h24,
+              ),
               obscureText: false,
-
               controller: username,
-            ), SizedBox(
+            ),
+            SizedBox(
               height: size.h24,
             ),
             AppTextField(
               hintText: 'পাসওয়ার্ড',
-              prefixIcon: Icon(Icons.lock,color: clr.appPrimaryColorBlue,size: size.h24,),
+              prefixIcon: Icon(
+                Icons.lock,
+                color: clr.appPrimaryColorBlue,
+                size: size.h24,
+              ),
               obscureText: true,
-
-
               controller: password,
-
-            ),SizedBox(
+            ),
+            SizedBox(
               height: size.h24,
             ),
             CustomButton(
@@ -87,7 +93,6 @@ class _LoginScreenState extends State<LoginScreen> with AppTheme, Language, Logi
     );
   }
 
-
   @override
   void showWarning(String message) {
     CustomToasty.of(context).showWarning(message);
@@ -96,5 +101,10 @@ class _LoginScreenState extends State<LoginScreen> with AppTheme, Language, Logi
   @override
   void showSuccess(String message) {
     CustomToasty.of(context).showSuccess(message);
+  }
+
+  @override
+  void onNavigateToBaseScreen() {
+    Navigator.pushNamed(context, AppRoute.baseScreen);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/core/routes/app_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/auth_data_entity.dart';
@@ -10,6 +11,7 @@ import '../../../../core/service/auth_cache_manager.dart';
 abstract class _ViewModel {
   void showWarning(String message);
   void showSuccess(String message);
+  void onNavigateToBaseScreen();
 }
 
 mixin LoginScreenService<T extends StatefulWidget> on State<T>
@@ -44,13 +46,14 @@ mixin LoginScreenService<T extends StatefulWidget> on State<T>
 
         if (authDataEntity.id.isNotEmpty) {
           _view.showSuccess("User Logged In");
+          CustomToasty.of(context).releaseUI();
+          _view.onNavigateToBaseScreen();
         } else {
           _view.showWarning("Something went wrong");
+          CustomToasty.of(context).releaseUI();
         }
       } catch (error) {
         _view.showWarning("An error occurred: $error");
-      } finally {
-        CustomToasty.of(context).releaseUI();
       }
     } else {
       if (username.text.isEmpty) {
