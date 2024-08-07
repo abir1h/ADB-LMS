@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> with AppTheme, Language, Logi
       backgroundColor: clr.scaffoldBackgroundColor,
       body: SingleChildScrollView(
         padding:
-        EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h12),
+        EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h20),
         physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

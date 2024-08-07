@@ -20,7 +20,7 @@ mixin LoginScreenService<T extends StatefulWidget> on State<T>
 
   final AuthUseCase _authUseCase = AuthUseCase(
       authRepository:
-      AuthRepositoryImp(authRemoteDataSource: AuthRemoteDataSourceImp()));
+          AuthRepositoryImp(authRemoteDataSource: AuthRemoteDataSourceImp()));
 
   ///Service configurations
   @override
@@ -30,21 +30,36 @@ mixin LoginScreenService<T extends StatefulWidget> on State<T>
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
   }
 
-
-  Future<AuthDataEntity> userLogin(
-      String userName, String password) async {
+  Future<AuthDataEntity> userLogin(String userName, String password) async {
     return _authUseCase.userLoginUseCase(userName, password);
   }
 
   void onTapLogin() async {
-    CustomToasty.of(context).lockUI();
-    AuthDataEntity authDataEntity = await userLogin(username.text, password.text);
-    if (authDataEntity.id.isNotEmpty) {
-      _view.showSuccess("User Logged In");
-      // _view.onSuccessRequest();
+    if (username.text.isNotEmpty && password.text.isNotEmpty) {
+      CustomToasty.of(context).lockUI();
+
+      try {
+        AuthDataEntity authDataEntity =
+            await userLogin(username.text, password.text);
+
+        if (authDataEntity.id.isNotEmpty) {
+          _view.showSuccess("User Logged In");
+        } else {
+          _view.showWarning("Something went wrong");
+        }
+      } catch (error) {
+        _view.showWarning("An error occurred: $error");
+      } finally {
+        CustomToasty.of(context).releaseUI();
+      }
     } else {
-      _view.showWarning("Something went wrong");
+      if (username.text.isEmpty) {
+        _view.showWarning("Username is required");
+      }
+
+      if (password.text.isEmpty) {
+        _view.showWarning("Password is required");
+      }
     }
-    CustomToasty.of(context).releaseUI();
   }
 }

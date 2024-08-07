@@ -96,7 +96,6 @@ class AppTextField extends StatefulWidget {
 
 class _AppTextFieldState extends State<AppTextField> with AppTheme {
   late bool _obscureText;
-  FocusNode focusNode = FocusNode();
 
   @override
   void initState() {
@@ -127,7 +126,6 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
           onTap: widget.onTaped,
           readOnly: widget.readOnly,
           controller: widget.controller,
-          focusNode: focusNode,
           cursorRadius: const Radius.circular(100),
           cursorColor: clr.appPrimaryColorBlue,
           cursorWidth: size.w2,
