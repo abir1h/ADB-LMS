@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> with AppTheme, Language, Logi
               prefixIcon: Icon(Icons.person,color: clr.appPrimaryColorBlue,size: size.h24,),
               obscureText: false,
 
-              controller: TextEditingController(),
+              controller: username,
             ), SizedBox(
               height: size.h24,
             ),
@@ -64,13 +64,13 @@ class _LoginScreenState extends State<LoginScreen> with AppTheme, Language, Logi
               obscureText: true,
 
 
-              controller: TextEditingController(),
+              controller: password,
 
             ),SizedBox(
               height: size.h24,
             ),
             CustomButton(
-              onTap: () {},
+              onTap: onTapLogin,
               title: StringData.enterText,
               bgColor: clr.appPrimaryColorBlue,
               boxShadow: [

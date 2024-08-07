@@ -15,6 +15,8 @@ abstract class _ViewModel {
 mixin LoginScreenService<T extends StatefulWidget> on State<T>
     implements _ViewModel {
   late _ViewModel _view;
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   final AuthUseCase _authUseCase = AuthUseCase(
       authRepository:
@@ -23,6 +25,7 @@ mixin LoginScreenService<T extends StatefulWidget> on State<T>
   ///Service configurations
   @override
   void initState() {
+    super.initState();
     _view = this;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
   }
@@ -33,9 +36,9 @@ mixin LoginScreenService<T extends StatefulWidget> on State<T>
     return _authUseCase.userLoginUseCase(userName, password);
   }
 
-  void onTapLogin(String userName, String password) async {
+  void onTapLogin() async {
     CustomToasty.of(context).lockUI();
-    AuthDataEntity authDataEntity = await userLogin(userName, password);
+    AuthDataEntity authDataEntity = await userLogin(username.text, password.text);
     if (authDataEntity.id.isNotEmpty) {
       _view.showSuccess("User Logged In");
       // _view.onSuccessRequest();
