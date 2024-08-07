@@ -26,5 +26,6 @@ class StringData {
   static const   String loginText = "পূর্বে রেজিস্ট্রেশন করে থাকলে";
   static const   String loginText2 = "লগইন করুন";
   static const   String regText2 = "রেজিস্ট্রেশন করুন";
+  static const   String enterText = "প্রবেশ করুন";
 
 }
