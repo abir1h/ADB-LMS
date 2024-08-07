@@ -354,7 +354,7 @@ Future<void> downloadFile({
         CustomToasty.of(context).showWarning("File already downloaded");
       }
     } else {
-      client.getUrl(Uri.parse(ApiCredential.mediaBaseUrl + url)).then(
+      client.getUrl(Uri.parse(ApiCredential.baseUrl + url)).then(
         (HttpClientRequest request) {
           CustomToasty.of(context).showSuccess("Downloading file...");
           return request.close();
