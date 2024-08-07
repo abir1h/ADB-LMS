@@ -31,7 +31,7 @@ class NoInternetWidget extends StatelessWidget with AppTheme, Language {
                       title ??
                           label(e: en.noInternetText, b: bn.noInternetText),
                       style: TextStyle(
-                          color: clr.appPrimaryColorGreen,
+                          color: clr.appPrimaryColorBlue,
                           fontSize: size.textXMedium,
                           fontWeight: FontWeight.w600,
                           fontFamily: StringData.fontFamilyPoppins),
@@ -54,7 +54,7 @@ class NoInternetWidget extends StatelessWidget with AppTheme, Language {
                         Icon(
                           Icons.check_circle,
                           size: size.r20,
-                          color: clr.appPrimaryColorGreen,
+                          color: clr.appPrimaryColorBlue,
                         ),
                         SizedBox(width: size.w8),
                         Text(
@@ -74,7 +74,7 @@ class NoInternetWidget extends StatelessWidget with AppTheme, Language {
                       padding: EdgeInsets.symmetric(
                           horizontal: size.w20, vertical: size.h8),
                       decoration: BoxDecoration(
-                          color: clr.appPrimaryColorGreen,
+                          color: clr.appPrimaryColorBlue,
                           borderRadius:
                               BorderRadius.circular(size.w1 + size.w4)),
                       child: Text(

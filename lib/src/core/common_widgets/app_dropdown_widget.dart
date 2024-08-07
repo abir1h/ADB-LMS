@@ -177,7 +177,7 @@ class _AppDropDownWidgetState<T> extends State<AppDropDownWidget<T>>
                               height: size.h20,
                               width: size.h20,
                               child: CircularProgressIndicator(
-                                color: clr.appPrimaryColorGreen,
+                                color: clr.appPrimaryColorBlue,
                                 strokeWidth: 1.6.w,
                               ),
                             ),

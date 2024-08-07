@@ -7,7 +7,7 @@ abstract class _ViewModel {
   void navigateToLandingScreen();
 }
 
-mixin SplashService implements _ViewModel {
+mixin LoginScreenService implements _ViewModel {
   late _ViewModel _view;
 
   ///Service configurations

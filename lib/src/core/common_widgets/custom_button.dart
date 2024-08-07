@@ -14,6 +14,7 @@ class CustomButton extends StatelessWidget with AppTheme {
   final double? verticalPadding;
   final double? radius;
   final bool expanded;
+  final List<BoxShadow>? boxShadow;
   const CustomButton(
       {super.key,
       required this.onTap,
@@ -26,6 +27,7 @@ class CustomButton extends StatelessWidget with AppTheme {
       this.horizontalPadding,
       this.verticalPadding,
       this.radius,
+      this.boxShadow,
       this.expanded = false});
 
   @override
@@ -43,8 +45,9 @@ class CustomButton extends StatelessWidget with AppTheme {
               vertical: verticalPadding ?? size.h10),
           width: expanded ? double.maxFinite : null,
           decoration: BoxDecoration(
-              color: bgColor ?? clr.appPrimaryColorGreen,
+              color: bgColor ?? clr.appPrimaryColorBlue,
               borderRadius: BorderRadius.circular(radius ?? size.w10),
+              boxShadow: boxShadow??[],
               border: Border.all(
                   color: borderColor ?? Colors.transparent, width: size.w1)),
           child: Row(

@@ -47,23 +47,23 @@ class _DrawerWidgetState extends State<DrawerWidget>
   }
 
 
-  void showLogoutPromptDialog() {
-    CustomDialogWidget.show(
-      context: context,
-      title: label(e: en.logoutWarningText, b: bn.logoutWarningText),
-      infoText: label(
-          e: "Your ID login is required for your courses and assessment news.",
-          b: "আপনার কোর্সগুলো এবং মূল্যায়নের খবরের জন্য আপনার আইডি লগইন থাকা প্রয়োজন।"),
-      leftButtonText: label(e: en.cancelText, b: bn.cancelText),
-      rightButtonText: label(e: en.exitText, b: bn.exitText),
-    ).then((value) {
-      if (value) {
-        AuthCacheManager.userLogout();
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            AppRoute.authenticationScreen, (x) => false);
-      }
-    });
-  }
+  // void showLogoutPromptDialog() {
+  //   CustomDialogWidget.show(
+  //     context: context,
+  //     title: label(e: en.logoutWarningText, b: bn.logoutWarningText),
+  //     infoText: label(
+  //         e: "Your ID login is required for your courses and assessment news.",
+  //         b: "আপনার কোর্সগুলো এবং মূল্যায়নের খবরের জন্য আপনার আইডি লগইন থাকা প্রয়োজন।"),
+  //     leftButtonText: label(e: en.cancelText, b: bn.cancelText),
+  //     rightButtonText: label(e: en.exitText, b: bn.exitText),
+  //   ).then((value) {
+  //     if (value) {
+  //       AuthCacheManager.userLogout();
+  //       Navigator.of(context).pushNamedAndRemoveUntil(
+  //           AppRoute.authenticationScreen, (x) => false);
+  //     }
+  //   });
+  // }
 
   @override
   void onEventReceived(EventAction action) {

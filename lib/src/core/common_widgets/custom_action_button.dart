@@ -125,7 +125,7 @@ class _CustomActionButtonState<T> extends State<CustomActionButton<T>>
           width: _expanded ? MediaQuery.of(context).size.width : 44.w,
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: widget.buttonColor ?? clr.appPrimaryColorGreen,
+            color: widget.buttonColor ?? clr.appPrimaryColorBlue,
             borderRadius: BorderRadius.circular(
                 _expanded ? widget.radius ?? size.h12 : 100),
             boxShadow: const [

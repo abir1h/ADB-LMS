@@ -11,7 +11,7 @@ class CircularLoader extends StatelessWidget with AppTheme {
         height: loaderSize ?? size.h32,
         width: loaderSize ?? size.h32,
         child: CircularProgressIndicator(
-          color: clr.appPrimaryColorGreen,
+          color: clr.appPrimaryColorBlue,
           strokeWidth: size.w2,
         ));
   }

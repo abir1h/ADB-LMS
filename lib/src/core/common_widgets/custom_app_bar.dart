@@ -50,7 +50,7 @@ class CustomAppBar extends StatelessWidget with AppTheme {
               fontSize: size.textXMedium,
               fontFamily: StringData.fontFamilyPoppins,
               fontWeight: FontWeight.w500,
-              color: clr.appPrimaryColorGreen,
+              color: clr.appPrimaryColorBlue,
             ),
           ),
           centerTitle: false,
