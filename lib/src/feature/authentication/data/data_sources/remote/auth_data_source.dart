@@ -10,9 +10,10 @@ class AuthRemoteDataSourceImp extends AuthRemoteDataSource {
   @override
   Future<AuthDataModel> userLoginAction(
       String username, String password) async {
-    Map<String, String> data = {
+    Map<String, dynamic> data = {
       "Username": username,
       "Password": password,
+      // "LoginType": 0
     };
     final responseJson = await Server.instance
         .postRequest(url: ApiCredential.login, postData: data);
