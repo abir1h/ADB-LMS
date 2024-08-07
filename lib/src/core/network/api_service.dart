@@ -66,9 +66,11 @@ class Server {
       debugPrint("RESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
     } on SocketException catch (_) {
-      return json.decode('{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
+      return json.decode(
+          '{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
     } on Exception catch (_) {
-      return json.decode('{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
+      return json.decode(
+          '{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
     }
   }
 
@@ -94,9 +96,11 @@ class Server {
       debugPrint("RESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
     } on SocketException catch (_) {
-      return json.decode('{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
+      return json.decode(
+          '{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
     } on Exception catch (_) {
-      return json.decode('{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
+      return json.decode(
+          '{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
     }
   }
 
@@ -127,32 +131,32 @@ class Server {
       debugPrint("RESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
     } on SocketException catch (_) {
-      return json.decode('{"message": "Request failed! Check internet connection.", "error": "Error message"}');
+      return json.decode(
+          '{"message": "Request failed! Check internet connection.", "error": "Error message"}');
     } on Exception catch (_) {
-      return json.decode('{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
+      return json.decode(
+          '{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
     }
   }
 
   Future<dynamic> getRequest({required String url}) async {
     try {
       String token = await AuthCacheManager.getUserToken();
-      ///TODO:DELETE LATER
-      ///
-      // String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMTM1Mzc2NCIsInVzZXJuYW1lIjoiTUQuIFJPS0lCVUwgSVNMQU0iLCJyb2xlIjo0LCJ0eXBlIjoidHJhaW5lZSIsImlhdCI6MTcxNjI5MzE0NiwiZXhwIjoxNzE4ODg1MTQ2fQ.Xk73Az_0RDFIcpbuS0JlAUlsgsTn-GEL2nzUonYQPrY";
 
       var response = await _client.get(Uri.parse(host + url), headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        // "Content-Type": " application/json, charset=utf-8",
         "Authorization": "Bearer $token"
       });
       debugPrint(
           "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
     } on SocketException catch (_) {
-      return json.decode('{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
+      return json.decode(
+          '{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
     } on Exception catch (_) {
-      return json.decode('{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
+      return json.decode(
+          '{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
     }
   }
 
@@ -169,9 +173,11 @@ class Server {
           "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
     } on SocketException catch (_) {
-      return json.decode('{"message": "Request failed! Check internet connection.", "error": "Error message"}');
+      return json.decode(
+          '{"message": "Request failed! Check internet connection.", "error": "Error message"}');
     } on Exception catch (_) {
-      return json.decode('{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
+      return json.decode(
+          '{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
     }
   }
 
@@ -188,9 +194,11 @@ class Server {
           "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
     } on SocketException catch (_) {
-      return json.decode('{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
+      return json.decode(
+          '{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
     } on Exception catch (_) {
-      return json.decode('{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
+      return json.decode(
+          '{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
     }
   }
 

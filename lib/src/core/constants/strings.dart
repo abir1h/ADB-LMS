@@ -3,10 +3,11 @@ class StringData {
 
   static const String userId = "userId";
   static const String userName = "userName";
-  static const String role = "role";
+  static const String email = "email";
   static const String accessTokenKey = "accessTokenKey";
   static const String refreshTokenKey = "refreshTokenKey";
-  static const String expiresIn = "expiresIn";
+  static const String expiredTime = "expiredTime";
+
   static const String userRoleKey = "userRoleKey";
   static const String userPermissionKey = "userPermissionKey";
 
