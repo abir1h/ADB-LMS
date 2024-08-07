@@ -1,5 +1,5 @@
-import '../../../shared/domain/entities/response_entity.dart';
+import '../entities/auth_data_entity.dart';
 
 abstract class AuthRepository {
-  Future<ResponseEntity> userLogin(String username, String password);
+  Future<AuthDataEntity> userLogin(String username, String password);
 }
