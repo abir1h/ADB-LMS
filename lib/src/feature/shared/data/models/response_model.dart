@@ -4,26 +4,30 @@ import 'package:flutter/foundation.dart';
 class ResponseModel<T> {
   final String message;
   final String? error;
+  final int? status;
   final T? data;
 
   const ResponseModel({
     required this.message,
     this.error,
+    this.status,
     this.data,
   });
 
   factory ResponseModel.fromJson(
       Map<String, dynamic> json, T Function(dynamic) fromJsonT) {
     return ResponseModel<T>(
-      message: json["message"] ?? "",
-      error: json["error"],
-      data: json["data"] == null ? null : fromJsonT(json["data"]),
+      message: json["Message"] ?? "",
+      error: json["Error"],
+      status: json["Status"],
+      data: json["Data"] == null ? null : fromJsonT(json["Data"]),
     );
   }
 
   Map<String, dynamic> toJson(Map<String, dynamic> Function(T) toJsonT) => {
-        "message": message,
-        "error": error,
-        "data": data == null ? null : toJsonT(data as T),
+        "Message": message,
+        "Error": error,
+        "Status": status,
+        "Data": data == null ? null : toJsonT(data as T),
       };
 }

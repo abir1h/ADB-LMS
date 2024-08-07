@@ -8,6 +8,7 @@ import '../core/constants/app_theme.dart';
 
 class Application extends StatelessWidget with AppTheme {
   const Application({super.key});
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([

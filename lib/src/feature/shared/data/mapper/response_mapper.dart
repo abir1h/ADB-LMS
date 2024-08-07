@@ -7,6 +7,7 @@ class ResponseModelToEntityMapper<E, M> {
     return ResponseModel(
         message: entity.message!,
         error: entity.error,
+        status: entity.status,
         data: entity.data != null ? fromEntity(entity.data) : null);
   }
 
@@ -15,6 +16,7 @@ class ResponseModelToEntityMapper<E, M> {
     return ResponseEntity(
         message: model.message,
         error: model.error,
+        status: model.status,
         data: model.data != null ? fromModel(model.data) : null);
   }
 }

@@ -15,25 +15,25 @@ class Server {
   late http.Client _client;
   static Server get instance => _s;
   Server._() {
-    // _client = http.Client();
-    _client = RetryClient(
-      http.Client(),
-      whenError: (object, e){
-        // print(e);
-        return true;
-      },
-      when: (response){
-        print(response);
-        return response.statusCode == 401;
-        },
-      onRetry: (request, response, retryCount) {
-        print(request);
-        print(retryCount);
-        if (retryCount == 0 && response?.statusCode == 401) {
-          // refresh and update the token
-        }
-      },
-    );
+    _client = http.Client();
+    // _client = RetryClient(
+    //   http.Client(),
+    //   whenError: (object, e){
+    //     // print(e);
+    //     return true;
+    //   },
+    //   when: (response){
+    //     print(response);
+    //     return response.statusCode == 401;
+    //     },
+    //   onRetry: (request, response, retryCount) {
+    //     print(request);
+    //     print(retryCount);
+    //     if (retryCount == 0 && response?.statusCode == 401) {
+    //       // refresh and update the token
+    //     }
+    //   },
+    // );
   }
 
   final StreamController<String> _sessionExpireStreamController =
@@ -60,18 +60,15 @@ class Server {
           "Authorization": "Bearer $token"
         },
         body: utf8.encode(body),
-      ).timeout(const Duration(seconds: 2), onTimeout: () {
-        dynamic as = json.decode('{"message": "TIMEOUT Request", "error": "Time Out"}');
-        return as;
-      });
+      );
       debugPrint("REQUEST => ${response.request.toString()}");
       debugPrint("REQUEST DATA => $body");
       debugPrint("RESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
     } on SocketException catch (_) {
-      return json.decode('{"message": "Request failed! Check internet connection.", "error": "Error message"}');
+      return json.decode('{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
     } on Exception catch (_) {
-      return json.decode('{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
+      return json.decode('{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
     }
   }
 
@@ -97,9 +94,9 @@ class Server {
       debugPrint("RESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
     } on SocketException catch (_) {
-      return json.decode('{"message": "Request failed! Check internet connection.", "error": "Error message"}');
+      return json.decode('{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
     } on Exception catch (_) {
-      return json.decode('{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
+      return json.decode('{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
     }
   }
 
@@ -153,9 +150,9 @@ class Server {
           "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
     } on SocketException catch (_) {
-      return json.decode('{"message": "Request failed! Check internet connection.", "error": "Error message"}');
+      return json.decode('{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
     } on Exception catch (_) {
-      return json.decode('{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
+      return json.decode('{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
     }
   }
 
@@ -191,9 +188,9 @@ class Server {
           "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
     } on SocketException catch (_) {
-      return json.decode('{"message": "Request failed! Check internet connection.", "error": "Error message"}');
+      return json.decode('{"Message": "Request failed! Check internet connection.", "Error": "Error message"}');
     } on Exception catch (_) {
-      return json.decode('{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
+      return json.decode('{"Message": "Request failed! Unknown error occurred.", "Error": "Error message"}');
     }
   }
 
