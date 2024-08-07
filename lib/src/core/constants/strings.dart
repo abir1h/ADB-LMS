@@ -15,6 +15,7 @@ class StringData {
 
   static const String fontFamilyPoppins = 'Poppins';
   static const String fontFamilyRoboto = 'Roboto';
+  static const String fontFamilyOpenSans = 'OpenSans';
   static const String fontFamilyInter = 'Inter';
 
 
@@ -27,5 +28,21 @@ class StringData {
   static const   String loginText2 = "লগইন করুন";
   static const   String regText2 = "রেজিস্ট্রেশন করুন";
   static const   String enterText = "প্রবেশ করুন";
+  static const   String firstNameText = "নামের প্রথম অংশ (First Name)";
+  static const   String firstNameTextHint = "নামের প্রথম অংশ ";
+  static const   String lastNameText = "নামের শেষ অংশ (Last Name)";
+  static const   String lastNameTextHint = "নামের শেষ অংশ";
+  static const   String phoneNumText = "ফোন (Phone)";
+  static const   String phoneNumTexttHint = "ফোন";
+  static const   String emailText = "ইমেইল (Email)";
+  static const   String emailTextHint = "ইমেইল";
+  static const   String addressText = "ঠিকানা (Address)";
+  static const   String addressTextHint = "ঠিকানা";
+  static const   String districtText = "জেলা (District)";
+  static const   String districtTextHint = "জেলা নির্বাচন করুন";
+  static const   String passwordText = "পাসওয়ার্ড (Password)";
+  static const   String passwordTextHint = "পাসওয়ার্ড";
+  static const   String genderText = "লিঙ্গ (Gender)";
+  static const   String genderTextHint = "লিঙ্গ";
 
 }

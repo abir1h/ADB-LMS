@@ -115,7 +115,7 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme, Language,L
               height: size.h20,
             ),
             CustomButton(
-              onTap: navigateToLoginScreen,
+              onTap: navigateToSignUpScreen,
               title: StringData.regText2,
               bgColor: clr.appSecondaryColorPink,
               boxShadow: [
@@ -135,12 +135,12 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme, Language,L
   @override
   void navigateToLoginScreen() {
     Navigator.of(context)
-        .pushNamedAndRemoveUntil(AppRoute.loginScreen, (x) => false);
+        .pushNamed(AppRoute.loginScreen,);
   }
 
   @override
   void navigateToSignUpScreen() {
     Navigator.of(context)
-        .pushNamedAndRemoveUntil(AppRoute.loginScreen, (x) => false);
+        .pushNamed(AppRoute.regScreen,);
   }
 }

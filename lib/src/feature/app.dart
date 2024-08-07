@@ -36,7 +36,7 @@ class Application extends StatelessWidget with AppTheme {
                     .copyWith(primary: clr.appPrimaryColorBlue),
                 scaffoldBackgroundColor: clr.scaffoldBackgroundColor,
                 dividerColor: Colors.transparent,
-                fontFamily: StringData.fontFamilyRoboto,
+                fontFamily: StringData.fontFamilyOpenSans,
                 canvasColor: Colors.transparent),
             // initialRoute: AppRoutes.splash,
             // getPages: AppPages.pages,

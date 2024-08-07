@@ -1,4 +1,5 @@
 import 'package:adb_mobile/src/feature/authentication/presentation/screens/login_screen.dart';
+import 'package:adb_mobile/src/feature/authentication/presentation/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../feature/landing/presentation/screens/landing_screen.dart';
@@ -10,6 +11,7 @@ class AppRoute {
   static const String splashScreen = "splashScreen";
   static const String loginScreen = "loginScreen";
   static const String landingScreen = "landingScreen";
+  static const String regScreen = "regScreen";
 }
 
 mixin RouteGenerator {
@@ -24,6 +26,9 @@ mixin RouteGenerator {
             return const LandingScreen();
           case AppRoute.loginScreen:
             return const LoginScreen();
+
+          case AppRoute.regScreen:
+            return const RegistrationScreen();
 
           default:
             return const SplashScreen();
