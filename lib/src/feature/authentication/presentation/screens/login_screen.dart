@@ -1,12 +1,10 @@
-import 'package:adb_mobile/src/core/common_widgets/custom_button.dart';
-import 'package:adb_mobile/src/core/constants/common_imports.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/common_widgets/text_field_widget.dart';
-import '../../../../core/constants/app_theme.dart';
-import '../../../../core/constants/image_assets.dart';
-import '../../../../core/routes/app_route.dart';
-import '../../../../core/constants/language.dart';
+import '../../../../core/common_widgets/custom_button.dart';
+import '../../../../core/constants/common_imports.dart';
+import '../services/login_screen_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,17 +13,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with AppTheme, Language {
-  @override
-  void initState() {
-    super.initState();
-    // _callMethod();
-  }
-
-  _callMethod() async {
-    // ResponseEntity responseEntity = await getAuthors();
-    // print(responseEntity.message);
-  }
+class _LoginScreenState extends State<LoginScreen> with AppTheme, Language, LoginScreenService {
 
   @override
   Widget build(BuildContext context) {
@@ -97,5 +85,16 @@ class _LoginScreenState extends State<LoginScreen> with AppTheme, Language {
         ),
       ),
     );
+  }
+
+
+  @override
+  void showWarning(String message) {
+    CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void showSuccess(String message) {
+    CustomToasty.of(context).showSuccess(message);
   }
 }
