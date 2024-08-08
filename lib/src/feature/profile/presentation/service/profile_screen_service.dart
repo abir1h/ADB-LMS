@@ -1,10 +1,7 @@
+import 'package:flutter/material.dart';
 import 'dart:io';
 
-import 'package:adb_mobile/src/feature/authentication/domain/entities/auth_data_entity.dart';
-import 'package:flutter/material.dart';
-
 import '../../../../core/common_widgets/app_stream.dart';
-import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/config/local_storage_services.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/network/api_service.dart';

@@ -1,24 +1,17 @@
 import 'dart:io';
-
-import 'package:adb_mobile/src/core/common_widgets/app_dropdown_widget.dart';
-import 'package:adb_mobile/src/feature/profile/domain/entities/user_data_entity.dart';
-import 'package:adb_mobile/src/feature/profile/presentation/widgets/profile_shimmer_loader.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../domain/entities/user_data_entity.dart';
+import '../widgets/profile_shimmer_loader.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/common_widgets/drawer_widget.dart';
-import '../../../../core/common_widgets/empty_widget.dart';
-import '../../../../core/common_widgets/shimmer_loader.dart';
 import '../../../../core/constants/common_imports.dart';
-import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route.dart';
-import '../../../../core/constants/language.dart';
 import '../service/profile_screen_service.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -33,6 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen>
     with AppTheme, Language, ProfileScreenService {
   @override
   void initState() {
+    super.initState();
     super.initState();
   }
 
@@ -90,10 +84,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                 ),
                 Center(
                   child: badges.Badge(
-                    badgeStyle:  badges.BadgeStyle(
+                    badgeStyle: badges.BadgeStyle(
                       elevation: 1,
                       badgeColor: clr.appPrimaryColorBlue,
-                      borderSide: BorderSide(color: Colors.white, width: 2),
+                      borderSide:
+                          const BorderSide(color: Colors.white, width: 2),
                     ),
                     badgeContent: GestureDetector(
                         onTap: () {
@@ -305,18 +300,20 @@ class _ProfileScreenState extends State<ProfileScreen>
       context: context,
       builder: (BuildContext c) {
         return Container(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                leading: Icon(Icons.image),
-                title: Text('Choose from gallery'),
+                leading: const Icon(Icons.image),
+                title: const Text('Choose from gallery'),
                 onTap: () async {
                   Navigator.of(c).pop();
                   final pickedImage = await pickImage(ImageSource.gallery);
                   if (pickedImage != null && mounted) {
-                    print(pickedImage.path);
+                    if (kDebugMode) {
+                      print(pickedImage.path);
+                    }
                     uploadProfile(pickedImage, context);
                   }
                 },

@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:adb_mobile/src/feature/dashboard/data/models/trainee_count_data_model.dart';
-
+import '../../models/trainee_count_data_model.dart';
 import '../../../../../core/constants/urls.dart';
 import '../../../../../core/network/api_service.dart';
 import '../../../../shared/data/models/response_model.dart';

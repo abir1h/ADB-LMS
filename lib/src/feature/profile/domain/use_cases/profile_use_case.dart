@@ -1,4 +1,4 @@
-import 'package:adb_mobile/src/feature/profile/domain/repositories/profile_repository.dart';
+import '../repositories/profile_repository.dart';
 
 import '../../../shared/domain/entities/response_entity.dart';
 
