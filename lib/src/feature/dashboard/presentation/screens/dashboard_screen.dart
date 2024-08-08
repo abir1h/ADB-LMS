@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../core/common_widgets/course_card.dart';
 import '../../../../core/common_widgets/dashboard_card_widget.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/image_assets.dart';
@@ -51,7 +52,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         automaticallyImplyLeading: false,
         leadingWidth: size.w40,
         title: Text(
-          "Dashboard",
+          " ড্যাশবোর্ড ",
           style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: size.textSmall,
@@ -125,6 +126,21 @@ class _DashboardScreenState extends State<DashboardScreen>
                 )),
               ],
             ),
+            SizedBox(
+              height: size.h20,
+            ),
+            Text(
+              "আমার প্রশিক্ষণ",
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: size.h24 + size.h2,
+                  fontFamily: StringData.fontFamilyOpenSans,
+                  color: clr.appPrimaryColorBlue),
+            ),
+            SizedBox(height: size.h20,),
+            CourseCard(),
+            SizedBox(height: size.h64+size.h32,),
+
           ],
         ),
       ),

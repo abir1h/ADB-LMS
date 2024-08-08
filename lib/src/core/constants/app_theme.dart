@@ -26,6 +26,8 @@ class ThemeColor {
   Color get cardColorBorder2 => HexColor("5CBDAA");
   Color get cardColor3 => HexColor("B16376");
   Color get cardColorBorder3 => HexColor("C8919E");
+  Color get ratingBgColor => HexColor("CDD4F8");
+  Color get enterTrainingButtonColor => HexColor("16C995");
 
   Color get whiteColor => HexColor("FFFFFF");
   Color get shadeWhiteColor => HexColor("FDFDFD");

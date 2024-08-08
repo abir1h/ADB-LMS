@@ -1,4 +1,5 @@
 import 'package:adb_mobile/src/feature/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:adb_mobile/src/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +48,7 @@ class _BaseScreenState extends State<BaseScreen>
                     key: ObjectKey(DateTime.now()),
                   );
                 } else if (index == 2) {
-                  return Container(
+                  return ProfileScreen(
                     key: ObjectKey(DateTime.now()),
                   );
                 }
