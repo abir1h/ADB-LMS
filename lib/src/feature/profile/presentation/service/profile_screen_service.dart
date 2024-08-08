@@ -4,6 +4,7 @@ import 'package:adb_mobile/src/feature/authentication/domain/entities/auth_data_
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
+import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/config/local_storage_services.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/network/api_service.dart';
@@ -62,14 +63,17 @@ mixin ProfileScreenService implements _ViewModel {
   }
 
   ///UploadProfile
-  uploadProfile(List<File> files) async {
+  uploadProfile(File files,BuildContext context) async {
+
     LocalStorageService localStorageService =
         await LocalStorageService.getInstance();
     String? userId = localStorageService.getStringValue(StringData.userId);
 
-    final responseJson = await Server.instance.uploadFile(
+     Server.instance.uploadProfilePicture(
         url: "${ApiCredential.uploadPhoto}?userId=$userId",
-        files: files);
-    print(responseJson);
+        file: files).then((v){
+       _loadProfileData();
+
+     });
   }
 }

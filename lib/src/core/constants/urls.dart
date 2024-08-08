@@ -7,6 +7,7 @@ class ApiCredential {
   static String login = "/account/trainee/login";
   static String getProfile = "/trainee/get-profile";
   static String uploadPhoto = "/account/update-photo";
+  static String getTraineeCount = "/dashboard/get-count-for-trainee";
 
 
 }

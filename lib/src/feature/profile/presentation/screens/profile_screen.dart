@@ -90,14 +90,14 @@ class _ProfileScreenState extends State<ProfileScreen>
                 ),
                 Center(
                   child: badges.Badge(
-                    badgeStyle: const badges.BadgeStyle(
+                    badgeStyle:  badges.BadgeStyle(
                       elevation: 1,
-                      badgeColor: Colors.blue,
+                      badgeColor: clr.appPrimaryColorBlue,
                       borderSide: BorderSide(color: Colors.white, width: 2),
                     ),
                     badgeContent: GestureDetector(
                         onTap: () {
-                          showImagePickerBottomSheet();
+                          showImagePickerBottomSheet(context);
                         },
                         child: Icon(Icons.edit,
                             color: Colors.white, size: size.r24)),
@@ -105,6 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         badges.BadgePosition.bottomEnd(bottom: 10, end: 2),
                     child: CircleAvatar(
                       radius: 68.r,
+                      backgroundColor: Colors.grey.withOpacity(.2),
                       child: CircleAvatar(
                         radius: 66.r,
                         backgroundColor: Colors.white,
@@ -299,34 +300,25 @@ class _ProfileScreenState extends State<ProfileScreen>
     return null;
   }
 
-  void showImagePickerBottomSheet() {
+  void showImagePickerBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext c) {
         return Container(
           padding: EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                leading: Icon(Icons.camera),
-                title: Text('Take a photo'),
-                onTap: () async {
-                  Navigator.of(context).pop();
-                  final image = await pickImage(ImageSource.camera);
-                  print(image!.path);
-
-                  uploadProfile([image]);
-                },
-              ),
-              ListTile(
                 leading: Icon(Icons.image),
                 title: Text('Choose from gallery'),
                 onTap: () async {
-                  Navigator.of(context).pop();
-                  final image = await pickImage(ImageSource.gallery);
-                  print(image!.path);
-                  uploadProfile([image]);
+                  Navigator.of(c).pop();
+                  final pickedImage = await pickImage(ImageSource.gallery);
+                  if (pickedImage != null && mounted) {
+                    print(pickedImage.path);
+                    uploadProfile(pickedImage, context);
+                  }
                 },
               ),
             ],

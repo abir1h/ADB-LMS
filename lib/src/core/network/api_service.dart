@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:adb_mobile/src/core/network/server_response.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
+import 'package:http_parser/http_parser.dart';
 
 import '../constants/urls.dart';
 import '../service/auth_cache_manager.dart';
@@ -138,9 +140,9 @@ class Server {
           '{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
     }
   }
+
   Future<dynamic> uploadFile(
-      {required String url,
-      required List<File> files}) async {
+      {required String url, required List<File> files}) async {
     try {
       String token = await AuthCacheManager.getUserToken();
 
@@ -153,7 +155,7 @@ class Server {
       request.headers.addAll(headers);
       for (File file in files) {
         request.files.add(await http.MultipartFile.fromPath(
-          'photo[]',
+          'photo',
           file.path,
         ));
       }
@@ -167,6 +169,53 @@ class Server {
     } on Exception catch (_) {
       return json.decode(
           '{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
+    }
+  }
+
+  Future uploadProfilePicture({
+    required String url,
+    required File file,
+  }) async {
+    try {
+      String token = await AuthCacheManager.getUserToken();
+      Uri uri = Uri.parse(host + url);
+
+      var request = http.MultipartRequest("POST", uri);
+      request.headers.addAll({
+        "Accept": "application/json",
+        "Content-Type": "multipart/form-data",
+        "Authorization": "Bearer $token",
+      });
+
+      // Determine the MIME type based on the file extension
+      String mimeType = 'application/octet-stream';
+      if (file.path.endsWith('.jpg') || file.path.endsWith('.jpeg')) {
+        mimeType = 'image/jpeg';
+      } else if (file.path.endsWith('.png')) {
+        mimeType = 'image/png';
+      }
+
+      var attachedFile = await http.MultipartFile.fromPath(
+        'photo',
+        file.path,
+        contentType: MediaType.parse(mimeType), // Set the correct content type
+      );
+
+      request.files.add(attachedFile);
+
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        response.stream.transform(utf8.decoder).listen((value) {
+          var jsonData = jsonDecode(value);
+          // Handle successful upload and response here
+        });
+      } else if (response.statusCode != 401) {
+        // Handle non-401 errors
+      } else {
+        // Handle 401 error
+      }
+    } catch (e) {
+      // Handle exceptions
     }
   }
 
