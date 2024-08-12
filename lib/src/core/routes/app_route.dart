@@ -1,6 +1,8 @@
 import 'package:adb_mobile/src/feature/authentication/presentation/screens/login_screen.dart';
 import 'package:adb_mobile/src/feature/authentication/presentation/screens/registration_screen.dart';
 import 'package:adb_mobile/src/feature/base/presentation/screens/base_screen.dart';
+import 'package:adb_mobile/src/feature/course/presentation/screens/course_list_screen.dart';
+import 'package:adb_mobile/src/feature/course/presentation/screens/course_overview_screen.dart';
 import 'package:adb_mobile/src/feature/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:adb_mobile/src/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,8 @@ class AppRoute {
   static const String baseScreen = "baseScreen";
   static const String dashboardScreen = "dashboardScreen";
   static const String profileScreen = "profileScreen";
+  static const String courseOverViewScreen = "courseOverViewScreen";
+  static const String courseListScreen = "courseListScreen";
 }
 
 mixin RouteGenerator {
@@ -41,6 +45,10 @@ mixin RouteGenerator {
             return const DashboardScreen();
           case AppRoute.profileScreen:
             return const ProfileScreen();
+          case AppRoute.courseListScreen:
+            return const CourseListScreen();
+          case AppRoute.courseOverViewScreen:
+            return CourseOverViewScreen(arguments: setting.arguments);
 
           default:
             return const SplashScreen();

@@ -28,6 +28,10 @@ class ThemeColor {
   Color get cardColorBorder3 => HexColor("C8919E");
   Color get ratingBgColor => HexColor("CDD4F8");
   Color get enterTrainingButtonColor => HexColor("16C995");
+  Color get progressBgColor => HexColor("F2F5FA");
+  Color get progressBgColor2 => HexColor("D4EDDA");
+  Color get textGrey => HexColor("4a4b65");
+  Color get playButtonBG => HexColor("D8D8ED");
 
   Color get whiteColor => HexColor("FFFFFF");
   Color get shadeWhiteColor => HexColor("FDFDFD");

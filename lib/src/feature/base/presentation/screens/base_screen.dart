@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/feature/course/presentation/screens/course_list_screen.dart';
 import 'package:adb_mobile/src/feature/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:adb_mobile/src/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,7 +45,7 @@ class _BaseScreenState extends State<BaseScreen>
                     key: ObjectKey(DateTime.now()),
                   );
                 } else if (index == 1) {
-                  return Container(
+                  return CourseListScreen(
                     key: ObjectKey(DateTime.now()),
                   );
                 } else if (index == 2) {

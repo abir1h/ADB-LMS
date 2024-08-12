@@ -1,3 +1,5 @@
+import 'package:adb_mobile/src/feature/dashboard/domain/entities/course_info_data_entity.dart';
+
 import '../../data/data_sources/remote/trainee_count_data_source.dart';
 import '../../data/repositories/trainee_count_repository_imp.dart';
 import '../../domain/entities/trainee_count_data_entity.dart';
@@ -22,16 +24,23 @@ mixin DashboardScreenService implements _ViewModel {
     return _traineeCountUseCase.traineeCountInformationUseCase(userId);
   }
 
+  Future<ResponseEntity> getCourseList(String userId) async {
+    return _traineeCountUseCase.traineeCourseInformationUseCase(userId);
+  }
+
   ///Service configurations
   @override
   void initState() {
     _view = this;
     _loadTraineeCountData();
+    _loadCourses();
   }
 
   ///Stream controllers
   final AppStreamController<TraineeCountDataEntity>
       traineeCountStreamController = AppStreamController();
+  final AppStreamController<List<CourseInfoDataEntity>> courseStreamController =
+      AppStreamController();
 
   ///Load Category list
   void _loadTraineeCountData() async {
@@ -46,6 +55,22 @@ mixin DashboardScreenService implements _ViewModel {
             .add(DataLoadedState<TraineeCountDataEntity>(value.data));
       } else if (value.data.isEmpty) {
         traineeCountStreamController.add(EmptyState(message: 'No Data Found'));
+      } else {
+        _view.showWarning(value.message!);
+      }
+    });
+  }
+
+  void _loadCourses() async {
+    LocalStorageService localStorageService =
+        await LocalStorageService.getInstance();
+    String? userId = localStorageService.getStringValue(StringData.userId);
+    courseStreamController.add(LoadingState());
+    getCourseList(userId!).then((value) {
+      print(value);
+      if (value.data != null) {
+        courseStreamController
+            .add(DataLoadedState<List<CourseInfoDataEntity>>(value.data.data));
       } else {
         _view.showWarning(value.message!);
       }

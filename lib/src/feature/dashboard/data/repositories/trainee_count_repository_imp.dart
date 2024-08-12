@@ -1,3 +1,7 @@
+import 'package:adb_mobile/src/feature/dashboard/data/mapper/dashboard_course_list_data_mapper.dart';
+import 'package:adb_mobile/src/feature/dashboard/data/models/dashboard_course_list_data_model.dart';
+import 'package:adb_mobile/src/feature/dashboard/domain/entities/dashbaord_course_list_data_entity.dart';
+
 import '../mapper/trainee_count_data_mapper.dart';
 import '../models/trainee_count_data_model.dart';
 import '../../domain/entities/trainee_count_data_entity.dart';
@@ -19,5 +23,17 @@ class TraineeCountRepositoryImp extends TraineeCountRepository {
             TraineeCountDataModel>()
         .toEntityFromModel(responseModel,
             (TraineeCountDataModel model) => model.toTraineeCountDataEntity);
+  }
+
+  @override
+  Future<ResponseEntity> traineeCourseInformation(String userId) async {
+    ResponseModel responseModel =
+        (await traineeCountRemoteDataSource.getTraineeCourseAction(userId));
+    return ResponseModelToEntityMapper<DashboardCourseListDataEntity,
+            DashboardCourseListDataModel>()
+        .toEntityFromModel(
+            responseModel,
+            (DashboardCourseListDataModel model) =>
+                model.toDashboardCourseListDataEntity);
   }
 }

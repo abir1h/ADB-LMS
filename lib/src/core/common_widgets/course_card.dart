@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/feature/dashboard/domain/entities/course_info_data_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,12 +7,15 @@ import 'package:hive/hive.dart';
 import '../constants/common_imports.dart'; // Adjust the import paths based on your project structure
 
 class CourseCard extends StatelessWidget with AppTheme {
-  const CourseCard({super.key});
+  final CourseInfoDataEntity data;
+  final VoidCallback onTap;
+
+  const CourseCard({super.key, required this.data, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap:onTap,
       child: Container(
         padding: EdgeInsets.all(8.w), // Responsive padding
         decoration: BoxDecoration(
@@ -31,7 +35,7 @@ class CourseCard extends StatelessWidget with AppTheme {
             Stack(
               children: [
                 AspectRatio(
-                  aspectRatio: 16 / 9,
+                  aspectRatio: 16 / 7,
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -45,7 +49,7 @@ class CourseCard extends StatelessWidget with AppTheme {
                       ),
                       child: CachedNetworkImage(
                         imageUrl:
-                            "https://bbadb.bacbonltd.net/core/Files/Images/Course/C0001PHA.png",
+                            ApiCredential.mediaBaseUrl+data.imagePath,
                         placeholder: (context, url) => const Center(
                           child: CircularProgressIndicator(),
                         ),
@@ -91,7 +95,7 @@ class CourseCard extends StatelessWidget with AppTheme {
             ),
             SizedBox(height: 8.h),
             Text(
-              " আর্থিক সাক্ষরতা ও উদ্যোক্তা উন্নয়ন প্রশিক্ষণ  ",
+              data.title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -116,7 +120,7 @@ class CourseCard extends StatelessWidget with AppTheme {
                   child: Row(
                     children: [
                       Text(
-                        "0",
+                        data.rating.toString(),
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: clr.blackColor,

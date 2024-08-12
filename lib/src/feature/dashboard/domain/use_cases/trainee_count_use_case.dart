@@ -11,4 +11,9 @@ class TraineeCountUseCase {
     final response = _traineeCountRepository.traineeCountInformation(userId);
     return response;
   }
+
+  Future<ResponseEntity> traineeCourseInformationUseCase(String userId) async {
+    final response = _traineeCountRepository.traineeCourseInformation(userId);
+    return response;
+  }
 }
