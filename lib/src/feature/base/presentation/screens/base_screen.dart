@@ -25,44 +25,50 @@ class _BaseScreenState extends State<BaseScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _scaffoldKey,
-        backgroundColor: clr.scaffoldBackgroundColor,
-        resizeToAvoidBottomInset: false,
-        drawer: const DrawerWidget(),
-        body: Stack(
-          fit: StackFit.expand,
-          children: [
-            ///Page body
-            PageView.builder(
-              controller: pageController,
-              itemCount: 4,
-              physics: const NeverScrollableScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return DashboardScreen(
-                    key: ObjectKey(DateTime.now()),
-                  );
-                } else if (index == 1) {
-                  return CourseListScreen(
-                    key: ObjectKey(DateTime.now()),
-                  );
-                } else if (index == 2) {
-                  return ProfileScreen(
-                    key: ObjectKey(DateTime.now()),
-                  );
-                }
-                return const Center(child: Text("Unauthorized to access!"));
-              },
-            ),
+    return WillPopScope(
+      onWillPop: ()async{
 
-            ///Bottom navigation bar
-            BottomNavigationBar(
-              onSelect: onTabSelected,
-            ),
-          ],
-        ));
+        return true;
+      },
+      child: Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: clr.scaffoldBackgroundColor,
+          resizeToAvoidBottomInset: false,
+          drawer: const DrawerWidget(),
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              ///Page body
+              PageView.builder(
+                controller: pageController,
+                itemCount: 4,
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return DashboardScreen(
+                      key: ObjectKey(DateTime.now()),
+                    );
+                  } else if (index == 1) {
+                    return CourseListScreen(
+                      key: ObjectKey(DateTime.now()),
+                    );
+                  } else if (index == 2) {
+                    return ProfileScreen(
+                      key: ObjectKey(DateTime.now()),
+                    );
+                  }
+                  return const Center(child: Text("Unauthorized to access!"));
+                },
+              ),
+
+              ///Bottom navigation bar
+              BottomNavigationBar(
+                onSelect: onTabSelected,
+              ),
+            ],
+          )),
+    );
   }
 
   @override

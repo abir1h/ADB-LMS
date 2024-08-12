@@ -67,6 +67,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void navigateToBaseScreen() {
-    Navigator.pushNamed(context, AppRoute.baseScreen);
+    Navigator.pushNamedAndRemoveUntil(context, AppRoute.baseScreen, (x) => false);
   }
 }

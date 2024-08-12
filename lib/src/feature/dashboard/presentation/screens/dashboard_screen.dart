@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../core/common_widgets/drawer_widget.dart';
 import '../../../../core/constants/common_imports.dart';
+import '../../../../core/routes/app_route_args.dart';
 import '../../domain/entities/trainee_count_data_entity.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/course_card.dart';
@@ -177,7 +178,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                             buildItem: (BuildContext context, int index, item) {
                               return CourseCard(
                                 data: item,
-                                onTap: () {},
+                                onTap: ()=>Navigator.of(context).pushNamed(
+                                    AppRoute.courseOverViewScreen,
+                                    arguments: CourseDetailsScreenArgs(data: item)),
                               );
                             }),
                         SizedBox(
