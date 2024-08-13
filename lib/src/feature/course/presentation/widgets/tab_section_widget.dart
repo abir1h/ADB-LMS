@@ -1,9 +1,11 @@
 import 'package:adb_mobile/src/feature/course/domain/entities/course_overview_data_entity.dart';
 import 'package:adb_mobile/src/feature/course/presentation/screens/course_subject_screen.dart';
+import 'package:adb_mobile/src/feature/faq/presentation/screens/faq_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/utility/app_label.dart';
+import '../../../discussion/presentation/screens/discussion_screen.dart';
 import '../screens/details_screen.dart';
 
 class TabSectionWidget extends StatefulWidget {
@@ -82,8 +84,9 @@ class _TabSectionWidgetState extends State<TabSectionWidget>
               children: [
                 CourseSubjectScreen(data: widget.courseOverViewDataEntity!),
                 DetailsScreen(data: widget.courseOverViewDataEntity!,),
-                Container(),
-                Container(),
+                DiscussionScreen(data: widget.courseOverViewDataEntity!,),
+                FaqScreen(data: widget.courseOverViewDataEntity!,),
+
               ],
             ),
           ),

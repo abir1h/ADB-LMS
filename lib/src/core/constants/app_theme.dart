@@ -32,6 +32,8 @@ class ThemeColor {
   Color get progressBgColor2 => HexColor("D4EDDA");
   Color get textGrey => HexColor("4a4b65");
   Color get playButtonBG => HexColor("D8D8ED");
+  Color get headerColor => HexColor("7A6FF4");
+  Color get addCommentButtonColor => HexColor("4075C5");
 
   Color get whiteColor => HexColor("FFFFFF");
   Color get shadeWhiteColor => HexColor("FDFDFD");
