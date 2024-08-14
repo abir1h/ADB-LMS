@@ -17,4 +17,7 @@ class ApiCredential {
   static String getDiscussion = "/course/get-course-discussions/";
   static String getVideoDropdown = "/course/topic-contents/dropdown-list";
   static String postComment = "/course/discussion-save";
+  static String getCertificates = "/exam/get-trainee-certificates";
+  static String downloadCertificate = "/course/download-training-certificate/";
+  static String updateProfile = "/trainee/update-trainee-profile";
 }

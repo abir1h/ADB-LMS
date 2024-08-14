@@ -160,7 +160,7 @@ mixin DiscussionScreenService implements _ViewModel {
             url: "${ApiCredential.postComment}?userId=$userId",
             postData: data)
         .then((v) {
-      if(v['Message']=="Successfully Saved"){
+      if(v['Status']==1){
         loadDiscussion(courseId);
 
       Navigator.pop(context);

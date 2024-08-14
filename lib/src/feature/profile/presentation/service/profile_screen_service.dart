@@ -36,23 +36,23 @@ mixin ProfileScreenService implements _ViewModel {
   }
 
   ///Stream controllers
-  final AppStreamController<UserDataEntity> categoryDataStreamController =
+  final AppStreamController<UserDataEntity> profileDataStreamController =
       AppStreamController();
 
-  ///Load Category list
+  ///Load Profile data
   void _loadProfileData() async {
     LocalStorageService localStorageService =
         await LocalStorageService.getInstance();
     String? userId = localStorageService.getStringValue(StringData.userId);
     print(userId);
-    categoryDataStreamController.add(LoadingState());
+    profileDataStreamController.add(LoadingState());
     getProfileInformation(userId!).then((value) {
       print(value);
       if (value.data != null) {
-        categoryDataStreamController
+        profileDataStreamController
             .add(DataLoadedState<UserDataEntity>(value.data));
       } else if (value.data.isEmpty) {
-        categoryDataStreamController.add(EmptyState(message: 'No Data Found'));
+        profileDataStreamController.add(EmptyState(message: 'No Data Found'));
       } else {
         _view.showWarning(value.message!);
       }

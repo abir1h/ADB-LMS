@@ -70,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen>
         padding: EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h12),
         physics: const BouncingScrollPhysics(),
         child: AppStreamBuilder<UserDataEntity>(
-          stream: categoryDataStreamController.stream,
+          stream: profileDataStreamController.stream,
           loadingBuilder: (context) {
             return const ProfileShimmerLoader();
           },

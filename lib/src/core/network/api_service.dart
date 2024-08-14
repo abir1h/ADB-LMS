@@ -140,8 +140,44 @@ class Server {
           '{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
     }
   }
+  Future<dynamic> postRequestFormData({
+    required String url,
+    required Map<String, String> fields, // Custom fields passed as a Map
+  }) async {
+    try {
+      String token = await AuthCacheManager.getUserToken();
+
+      Uri uri = Uri.parse(host + url);
+      http.MultipartRequest request = http.MultipartRequest('POST', uri);
+
+      // Setting the headers
+      Map<String, String> headers = {
+        "Accept": "application/json",
+        "Authorization": "Bearer $token"
+      };
+      request.headers.addAll(headers);
+
+      // Adding the custom fields to the request
+      request.fields.addAll(fields);
+
+      // Sending the request and receiving the response
+      final response = await http.Response.fromStream(await request.send());
+      debugPrint("REQUEST => ${response.request.toString()}");
+      debugPrint("REQUEST DATA => $fields");
+      debugPrint("RESPONSE DATA => ${response.body.toString()}");
+
+      return _returnResponse(response);
+    } on SocketException catch (_) {
+      return json.decode(
+          '{"message": "Request failed! Check internet connection.", "error": "Error message"}');
+    } on Exception catch (_) {
+      return json.decode(
+          '{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
+    }
+  }
 
   Future<dynamic> uploadFile(
+
       {required String url, required List<File> files}) async {
     try {
       String token = await AuthCacheManager.getUserToken();

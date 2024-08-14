@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../config/local_storage_services.dart';
 import '../routes/app_route.dart';
@@ -23,6 +24,22 @@ class _DrawerWidgetState extends State<DrawerWidget>
     with AppTheme, Language, AppEventsNotifier {
   // final AccessibilityController accessibilityController =
   //     Get.put(AccessibilityController());
+  String? userName, email;
+  getUserInfo() async {
+    LocalStorageService localStorageService =
+        await LocalStorageService.getInstance();
+    setState(() {
+      userName = localStorageService.getStringValue(StringData.userName);
+      email = localStorageService.getStringValue(StringData.email);
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +54,70 @@ class _DrawerWidgetState extends State<DrawerWidget>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
+              Padding(
+                padding: EdgeInsets.only(
+                    left: size.w16, top: size.h32, right: size.w16),
+                child: Image.asset(ImageAssets.icLogo),
+              ),
+              SizedBox(height: size.h24),
+              DrawerLinkWidget(
+                text: "ড্যাশবোর্ড",
+                onTap: () {},
+                icon: Icons.home_outlined,
+                iconColor: clr.blackColor,
+              ),
+              DrawerLinkWidget(
+                text: "প্রোফাইল",
+                onTap: () {},
+                icon: Icons.person_2_outlined,
+                iconColor: clr.blackColor,
+              ),
+              DrawerLinkWidget(
+                text: "ব্যবহারকারীর নির্দেশনাবলী",
+                onTap: () {},
+                icon: CupertinoIcons.book,
+                iconColor: clr.blackColor,
+              ),
+              DrawerLinkWidget(
+                text: "প্রজেক্ট সম্পর্কে",
+                onTap: ()=>Navigator.pushNamed(context,AppRoute.projectDetails),
+                icon: CupertinoIcons.book,
+                iconColor: clr.blackColor,
+              ),
+              DrawerLinkWidget(
+                text: "নোটিফিকেশন ",
+                onTap: () {},
+                icon: CupertinoIcons.bell,
+                iconColor: clr.blackColor,
+              ),
+              DrawerLinkWidget(
+                text: "আমার প্রশিক্ষণ",
+                onTap: () {},
+                icon: CupertinoIcons.book,
+                iconColor: clr.blackColor,
+              ),
+              DrawerLinkWidget(
+                  text: "সার্টিফিকেশন ",
+                  onTap: ()=>Navigator.pushNamed(context,AppRoute.certificateList),
+                  faIcon: FaIcon(
+                    FontAwesomeIcons.award,
+                    size: size.r24,
+                  )),
+              DrawerLinkWidget(
+                  text: "পাসওয়ার্ড পরিবর্তন করুন  ",
+                  onTap: ()=>Navigator.pushNamed(context,AppRoute.changePassword),
+                  faIcon: FaIcon(
+                    FontAwesomeIcons.key,
+                    size: size.r24,
+                  )),
+              DrawerLinkWidget(
+                text: " প্রস্থান ",
+                onTap: () async {
+                  showLogoutPromptDialog();
+                },
+                icon: Icons.logout,
+                iconColor: clr.blackColor,
+              ),
               SizedBox(height: size.h64)
             ],
           ),
@@ -46,7 +126,21 @@ class _DrawerWidgetState extends State<DrawerWidget>
     );
   }
 
-
+  void showLogoutPromptDialog() {
+    CustomDialogWidget.show(
+      context: context,
+      title: "আপনি কি নিশ্চিত?",
+      infoText: "আপনি কি লগ আউট করতে চান?",
+      leftButtonText: "বাতিল করুন",
+      rightButtonText: "প্রস্থান করুন",
+    ).then((value) {
+      if (value) {
+        AuthCacheManager.userLogout();
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(AppRoute.loginScreen, (x) => false);
+      }
+    });
+  }
   // void showLogoutPromptDialog() {
   //   CustomDialogWidget.show(
   //     context: context,
@@ -79,7 +173,7 @@ class DrawerLinkWidget extends StatelessWidget with AppTheme {
   final Color cardColor;
   final IconData? icon;
   final Color? iconColor;
-  final String? svgIcon;
+  final FaIcon? faIcon;
   final String text;
   final Widget? widget;
   final VoidCallback onTap;
@@ -88,7 +182,7 @@ class DrawerLinkWidget extends StatelessWidget with AppTheme {
     this.cardColor = Colors.transparent,
     this.icon,
     this.iconColor,
-    this.svgIcon,
+    this.faIcon,
     required this.text,
     this.widget,
     required this.onTap,
@@ -116,17 +210,8 @@ class DrawerLinkWidget extends StatelessWidget with AppTheme {
                   color: iconColor ?? clr.iconColorHint,
                 ),
               ),
-            if (svgIcon != null)
-              Padding(
-                padding: EdgeInsets.only(right: size.w10),
-                child: SvgPicture.asset(
-                  svgIcon!,
-                  height: size.h24,
-                  colorFilter: ColorFilter.mode(
-                      iconColor ?? clr.iconColorHint, BlendMode.srcIn),
-                  // color: clr.hintIconColor,
-                ),
-              ),
+            if (faIcon != null)
+              Padding(padding: EdgeInsets.only(right: size.w10), child: faIcon),
             Expanded(
               child: Text(text,
                   style: TextStyle(
