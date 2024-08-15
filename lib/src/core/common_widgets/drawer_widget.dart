@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/core/routes/app_route_args.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
@@ -68,13 +69,13 @@ class _DrawerWidgetState extends State<DrawerWidget>
               ),
               DrawerLinkWidget(
                 text: "প্রোফাইল",
-                onTap: () {},
+                onTap: ()=>Navigator.pushNamed(context,AppRoute.baseScreen,arguments: BaseScreenArgs(index: 2)),
                 icon: Icons.person_2_outlined,
                 iconColor: clr.blackColor,
               ),
               DrawerLinkWidget(
                 text: "ব্যবহারকারীর নির্দেশনাবলী",
-                onTap: () {},
+                onTap: ()=>Navigator.pushNamed(context,AppRoute.userMannual),
                 icon: CupertinoIcons.book,
                 iconColor: clr.blackColor,
               ),
@@ -92,7 +93,7 @@ class _DrawerWidgetState extends State<DrawerWidget>
               ),
               DrawerLinkWidget(
                 text: "আমার প্রশিক্ষণ",
-                onTap: () {},
+                onTap: ()=>Navigator.pushNamed(context,AppRoute.baseScreen,arguments: BaseScreenArgs(index: 1)),
                 icon: CupertinoIcons.book,
                 iconColor: clr.blackColor,
               ),

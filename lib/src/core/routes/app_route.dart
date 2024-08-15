@@ -8,6 +8,7 @@ import 'package:adb_mobile/src/feature/dashboard/presentation/screens/dashboard_
 import 'package:adb_mobile/src/feature/password_change/presentation/screens/change_password_screen.dart';
 import 'package:adb_mobile/src/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:adb_mobile/src/feature/project_details/presentation/screens/project_details_screen.dart';
+import 'package:adb_mobile/src/feature/user_mannual/presentation/screens/user_mannual_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../feature/landing/presentation/screens/landing_screen.dart';
@@ -28,6 +29,7 @@ class AppRoute {
   static const String changePassword = "changePassword";
   static const String projectDetails = "projectDetails";
   static const String certificateList = "certificateList";
+  static const String userMannual = "userMannual";
 }
 
 mixin RouteGenerator {
@@ -46,7 +48,7 @@ mixin RouteGenerator {
           case AppRoute.regScreen:
             return const RegistrationScreen();
           case AppRoute.baseScreen:
-            return const BaseScreen();
+            return BaseScreen(arguments: setting.arguments);
           case AppRoute.dashboardScreen:
             return const DashboardScreen();
           case AppRoute.profileScreen:
@@ -61,6 +63,8 @@ mixin RouteGenerator {
             return ProjectDetails();
           case AppRoute.certificateList:
             return const CertificateListScreen();
+            case AppRoute.userMannual:
+            return  UserMannualScreen();
           default:
             return const SplashScreen();
         }

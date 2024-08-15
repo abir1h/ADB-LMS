@@ -20,6 +20,7 @@ mixin BaseScreenService<T extends StatefulWidget> on State<T>
     super.initState();
   }
 
+
   @override
   void dispose() {
     pageController.dispose();

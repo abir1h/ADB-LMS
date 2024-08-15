@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/image_assets.dart';
 import '../../../../core/routes/app_route.dart';
+import '../../../../core/routes/app_route_args.dart';
 import '../services/splash_service.dart';
 import '../../../../core/constants/language.dart';
 
@@ -67,6 +68,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void navigateToBaseScreen() {
-    Navigator.pushNamedAndRemoveUntil(context, AppRoute.baseScreen, (x) => false);
+    Navigator.pushNamedAndRemoveUntil(context, AppRoute.baseScreen, (x) => false,arguments: BaseScreenArgs(index: 0));
   }
 }

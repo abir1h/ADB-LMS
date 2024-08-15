@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/core/routes/app_route_args.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/custom_toasty.dart';
@@ -105,6 +106,6 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   void onNavigateToBaseScreen() {
-    Navigator.pushNamed(context, AppRoute.baseScreen);
+    Navigator.pushNamed(context, AppRoute.baseScreen,arguments: BaseScreenArgs(index: 0));
   }
 }

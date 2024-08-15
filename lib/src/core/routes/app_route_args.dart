@@ -12,3 +12,8 @@ class CourseDetailsScreenArgs {
   final CourseInfoDataEntity? data;
   CourseDetailsScreenArgs({this.data});
 }
+
+class BaseScreenArgs {
+  final int index;
+  BaseScreenArgs({required this.index});
+}
