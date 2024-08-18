@@ -24,7 +24,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
         elevation: 2,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-
           child: Icon(
             Icons.arrow_back,
             color: clr.appPrimaryColorBlue,
@@ -139,7 +138,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
               height: size.h12,
             ),
             TextField(
-              controller: newPassword,
+              controller: confirmPassword,
               keyboardType: TextInputType.multiline,
               minLines: 1,
               maxLines: 1,
@@ -170,20 +169,23 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
             SizedBox(
               height: size.h24,
             ),
-            Container(
-              width: 1.sw,
-              padding: EdgeInsets.symmetric(vertical: size.h6),
-              decoration: BoxDecoration(
-                color: clr.appPrimaryColorBlue,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Text(
-                  'Submit',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: size.textSmall,
-                      color: clr.whiteColor),
+            GestureDetector(
+              onTap: () => changeName(context),
+              child: Container(
+                width: 1.sw,
+                padding: EdgeInsets.symmetric(vertical: size.h6),
+                decoration: BoxDecoration(
+                  color: clr.appPrimaryColorBlue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: size.textSmall,
+                        color: clr.whiteColor),
+                  ),
                 ),
               ),
             )
@@ -204,4 +206,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
   void showWarning(String message) {
     CustomToasty.of(context).showWarning(message);
   }
+
+  @override
+  void showSuccess(String message) {
+    CustomToasty.of(context).showSuccess(message);
+  }
+
+
 }

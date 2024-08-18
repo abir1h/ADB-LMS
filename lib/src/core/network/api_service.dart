@@ -140,6 +140,7 @@ class Server {
           '{"message": "Request failed! Unknown error occurred.", "error": "Error message"}');
     }
   }
+
   Future<dynamic> postRequestFormData({
     required String url,
     required Map<String, String> fields, // Custom fields passed as a Map

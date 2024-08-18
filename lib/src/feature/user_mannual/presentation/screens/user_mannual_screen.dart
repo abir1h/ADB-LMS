@@ -28,7 +28,7 @@ class _UserMannualScreenState extends State<UserMannualScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      loadFile("https://bbadb.bacbonltd.net/#/user-manual");
+      loadFile("https://bbadb.bacbonltd.net/assets/TraineeManual.pdf");
     });
   }
 

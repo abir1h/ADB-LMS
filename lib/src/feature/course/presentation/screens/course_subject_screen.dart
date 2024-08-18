@@ -87,6 +87,7 @@ class SubjectItemWidget<T> extends StatelessWidget with AppTheme, Language {
 
   @override
   Widget build(BuildContext context) {
+      data.materials.sort((a, b) => a.dependencies.compareTo(b.dependencies));
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -199,6 +200,8 @@ class TopicSectionWidget<T> extends StatelessWidget with AppTheme {
       itemCount: items.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
+
+
       itemBuilder: (context, index) {
         return buildItem(context, index, items[index]);
       },

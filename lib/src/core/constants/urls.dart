@@ -20,4 +20,5 @@ class ApiCredential {
   static String getCertificates = "/exam/get-trainee-certificates";
   static String downloadCertificate = "/course/download-training-certificate/";
   static String updateProfile = "/trainee/update-trainee-profile";
+  static String changePassword = "/account/change-password";
 }
