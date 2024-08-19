@@ -75,12 +75,7 @@ mixin DiscussionScreenService implements _ViewModel {
     });
   }
 
-  ///Dropdowns Items
-  List<DropDownItem> firstDropdownItems = [];
-  String? selectedFirstItem;
-  String? selectedSecondItem = "Video";
-  List<DropDownItem> thirdDropdownItems = [];
-  String? selectedThirdItem;
+
 
   Future<List<DropDownItem>> fetchFirstDropdownItemsFromApi(
       String courseId) async {
@@ -174,4 +169,8 @@ class DropDownItem {
   final String? id;
   final String? value;
   DropDownItem({required this.id, required this.value});
+  @override
+  String toString() {
+    return value ?? '';
+  }
 }

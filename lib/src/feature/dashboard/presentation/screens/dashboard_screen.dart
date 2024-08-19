@@ -54,10 +54,10 @@ class _DashboardScreenState extends State<DashboardScreen>
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Icon(
+              child: IconButton(onPressed: ()=>Navigator.pushNamed(context,AppRoute.notificationScreen), icon: Icon(
                 Icons.notifications_sharp,
                 color: clr.appPrimaryColorBlue,
-              ),
+              ),)
             )
           ],
         ),
