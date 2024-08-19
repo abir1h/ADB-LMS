@@ -50,7 +50,7 @@ class _UserMannualScreenState extends State<UserMannualScreen>
               Icons.arrow_back,
               color: clr.appPrimaryColorBlue,
             )),
-        title: Text("প্রজেক্ট সম্পর্কে বিস্তারিত",style: TextStyle(fontWeight: FontWeight.w600,fontSize: size.textSmall,color: clr.appPrimaryColorBlue),),
+        title: Text("ব্যবহারকারীর নির্দেশনাবলী",style: TextStyle(fontWeight: FontWeight.w600,fontSize: size.textSmall,color: clr.appPrimaryColorBlue),),
         actions: [
           PageNumberShowWidget(
             currentPageStream: _currentPage.stream,

@@ -1,9 +1,18 @@
+import 'package:adb_mobile/src/feature/authentication/data/models/district_dropdown_data_model.dart';
+import 'package:adb_mobile/src/feature/authentication/data/models/institute_data_model.dart';
+import 'package:adb_mobile/src/feature/authentication/data/models/institute_list_data_model.dart';
+
 import '../../../../../core/constants/urls.dart';
 import '../../../../../core/network/api_service.dart';
+import '../../../../discussion/data/models/video_dropdown_data_model.dart';
+import '../../../../shared/data/models/response_model.dart';
 import '../../models/auth_data_model.dart';
+import '../../models/district_info_data_model.dart';
 
 abstract class AuthRemoteDataSource {
   Future<AuthDataModel> userLoginAction(String username, String password);
+  Future<ResponseModel> getDistrictDropdownAction();
+  Future<ResponseModel> getInstituteDropdownAction();
 }
 
 class AuthRemoteDataSourceImp extends AuthRemoteDataSource {
@@ -22,4 +31,23 @@ class AuthRemoteDataSourceImp extends AuthRemoteDataSource {
     AuthDataModel authDataModel = AuthDataModel.fromJson(responseJson);
     return authDataModel;
   }
+
+  @override
+  Future<ResponseModel> getDistrictDropdownAction() async {
+    final responseJson = await Server.instance
+        .getRequest(url: "${ApiCredential.getDistrict}?userId=");
+    ResponseModel responseModel = ResponseModel.fromJson(responseJson,
+            (dynamic json) => DistrictInfoDataModel.listFromJson(json));
+    return responseModel;
+  }
+  @override
+  Future<ResponseModel> getInstituteDropdownAction() async {
+    final responseJson = await Server.instance
+        .getRequest(url: "${ApiCredential.getFinancialInstitute}?userId=");
+    ResponseModel responseModel = ResponseModel.fromJson(responseJson,
+        (dynamic json) => InstituteDataModel.listFromJson(json));
+    return responseModel;
+  }
+
+
 }

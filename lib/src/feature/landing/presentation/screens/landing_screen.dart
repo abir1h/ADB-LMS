@@ -1,12 +1,9 @@
-import 'package:adb_mobile/src/core/common_widgets/custom_button.dart';
-import 'package:adb_mobile/src/core/constants/common_imports.dart';
-import 'package:adb_mobile/src/feature/landing/presentation/services/landing_screen_service.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/app_theme.dart';
-import '../../../../core/constants/image_assets.dart';
+import '../../../../core/common_widgets/custom_button.dart';
+import '../../../../core/constants/common_imports.dart';
+import '../services/landing_screen_service.dart';
 import '../../../../core/routes/app_route.dart';
-import '../../../../core/constants/language.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -71,13 +68,16 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme, Language,L
             SizedBox(
               height: size.h20,
             ),
-            Text(
-              StringData.landingDescriptionText,
-              style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  fontSize: size.textSmall,
-                  fontWeight: FontWeight.w400,
-                  color: clr.appPrimaryColorBlue),
+            GestureDetector(
+              onTap: ()=>Navigator.pushNamed(context, AppRoute.projectDetails,),
+              child: Text(
+                StringData.landingDescriptionText,
+                style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    fontSize: size.textSmall,
+                    fontWeight: FontWeight.w400,
+                    color: clr.appPrimaryColorBlue),
+              ),
             ),
             SizedBox(
               height: size.h20,

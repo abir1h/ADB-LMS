@@ -183,7 +183,7 @@ class CertificateItemWidget extends StatelessWidget with AppTheme {
               mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   FaIcon(data.date.isEmpty?FontAwesomeIcons.award:FontAwesomeIcons.download,color: clr.whiteColor,size: size.r24,),SizedBox(width: size.w6,),
-                  Text(data.date.isEmpty?" সার্টিফিকেট প্রস্তুত করুন ":" সার্টিফিকেট পডাউনলোড করুন ",style: TextStyle(fontWeight: FontWeight.w600,color: clr.whiteColor,fontSize: size.textSmall),),
+                  Text(data.date.isEmpty?" সার্টিফিকেট প্রস্তুত করুন ":" সার্টিফিকেট ডাউনলোড করুন ",style: TextStyle(fontWeight: FontWeight.w600,color: clr.whiteColor,fontSize: size.textSmall),),
                 ],
               ),
             )

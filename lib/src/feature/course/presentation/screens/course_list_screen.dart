@@ -50,11 +50,11 @@ class _CourseListScreenState extends State<CourseListScreen>
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.notifications_sharp,
-              color: clr.appPrimaryColorBlue,
-            ),
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(onPressed: ()=>Navigator.pushNamed(context,AppRoute.notificationScreen), icon: Icon(
+                Icons.notifications_sharp,
+                color: clr.appPrimaryColorBlue,
+              ),)
           )
         ],
       ),

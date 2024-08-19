@@ -4,16 +4,18 @@ import '../../feature/authentication/presentation/screens/login_screen.dart';
 import '../../feature/authentication/presentation/screens/registration_screen.dart';
 import '../../feature/base/presentation/screens/base_screen.dart';
 import '../../feature/certificate/presentation/screens/certificate_screen.dart';
+import '../../feature/certificate/presentation/screens/certificate_view_screen.dart';
+import '../../feature/course/presentation/screens/course_conduct_screen.dart';
 import '../../feature/course/presentation/screens/course_list_screen.dart';
 import '../../feature/course/presentation/screens/course_overview_screen.dart';
 import '../../feature/dashboard/presentation/screens/dashboard_screen.dart';
+import '../../feature/landing/presentation/screens/landing_screen.dart';
+import '../../feature/notification/presentation/screens/notification_screen.dart';
 import '../../feature/password_change/presentation/screens/change_password_screen.dart';
 import '../../feature/profile/presentation/screens/profile_screen.dart';
 import '../../feature/project_details/presentation/screens/project_details_screen.dart';
-import '../../feature/user_mannual/presentation/screens/user_mannual_screen.dart';
-import '../../feature/course/presentation/screens/course_conduct_screen.dart';
-import '../../feature/landing/presentation/screens/landing_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
+import '../../feature/user_mannual/presentation/screens/user_mannual_screen.dart';
 
 class AppRoute {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -32,6 +34,8 @@ class AppRoute {
   static const String projectDetails = "projectDetails";
   static const String certificateList = "certificateList";
   static const String userMannual = "userMannual";
+  static const String notificationScreen = "notificationScreen";
+  static const String certificateViewScreen = "certificateViewScreen";
 }
 
 mixin RouteGenerator {
@@ -69,6 +73,10 @@ mixin RouteGenerator {
             return const CertificateListScreen();
           case AppRoute.userMannual:
             return UserMannualScreen();
+          case AppRoute.notificationScreen:
+            return const NotificationScreen();
+          case AppRoute.certificateViewScreen:
+            return CertificateViewScreen(arguments:setting.arguments);
           default:
             return const SplashScreen();
         }
@@ -80,6 +88,7 @@ mixin RouteGenerator {
 ///This defines the animation of routing one page to another
 class FadeInOutRouteBuilder extends PageRouteBuilder {
   final WidgetBuilder builder;
+
   FadeInOutRouteBuilder({required this.builder})
       : super(pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
