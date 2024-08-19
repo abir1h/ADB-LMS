@@ -14,13 +14,13 @@ class MaterialEntity {
   final int sequence;
   final bool studied;
   final bool restricted;
-  final String lastStudyTimeSec;
+  final int lastStudyTimeSec;
   final int requiredStudyTimeSec;
   final bool canDownload;
   final List<ResourceDataEntity> resources;
   final List<PopupQuizDataEntity> popupQuizzes;
   final bool isCompleted;
-  final int progress;
+  final double progress;
 
   const MaterialEntity({
     required this.id,

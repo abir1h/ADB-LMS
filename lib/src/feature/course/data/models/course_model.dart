@@ -6,11 +6,11 @@ class CourseModel {
   final String title;
   final String description;
   final String imagePath;
-  final int rating;
+  final double rating;
   final int noOfRating;
   final bool published;
   final bool bookmarked;
-  final int progress;
+  final double progress;
 
   const CourseModel({
     required this.id,
@@ -29,11 +29,11 @@ class CourseModel {
     title: json["Title"]??"",
     description: json["Description"]??"",
     imagePath: json["ImagePath"]??"",
-    rating: json["Rating"]??-1,
+    rating: json["Rating"]??0.00.toDouble(),
     noOfRating: json["NoOfRating"]??-1,
     published: json["Published"]??false,
     bookmarked: json["Bookmarked"]??false,
-    progress: json["Progress"]??-1,
+    progress: json["Progress"]??0.00.toDouble(),
   );
 
   Map<String, dynamic> toJson() => {

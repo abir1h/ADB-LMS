@@ -3,11 +3,11 @@ class CourseEntity {
   final String title;
   final String description;
   final String imagePath;
-  final int rating;
+  final double rating;
   final int noOfRating;
   final bool published;
   final bool bookmarked;
-  final int progress;
+  final double progress;
 
   const CourseEntity({
     required this.id,

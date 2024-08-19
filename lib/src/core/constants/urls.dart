@@ -13,6 +13,7 @@ class ApiCredential {
   static String getDashboardCourses = "/course/get-my-courses/";
   static String getCourse = "/course/get-my-courses";
   static String getCourseOverview = "/course/get-course-overview";
+  static String getCourseTopicDetails = "/course/get-course-topic-details";
   static String getFaq = "/course/get-faqs";
   static String getDiscussion = "/course/get-course-discussions/";
   static String getVideoDropdown = "/course/topic-contents/dropdown-list";

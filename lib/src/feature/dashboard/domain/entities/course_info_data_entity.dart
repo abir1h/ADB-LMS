@@ -11,7 +11,7 @@ class CourseInfoDataEntity {
   final int noOfContentsStudied;
   final double rating;
   final int noOfRating;
-  final int progress;
+  final double progress;
 
   CourseInfoDataEntity({
     required this.id,

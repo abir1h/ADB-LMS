@@ -1,5 +1,5 @@
-import 'package:adb_mobile/src/feature/course/data/models/course_over_view_data_model.dart';
-
+import '../../models/course_conduct_data_model.dart';
+import '../../models/course_over_view_data_model.dart';
 import '../../../../../core/constants/urls.dart';
 import '../../../../../core/network/api_service.dart';
 import '../../../../shared/data/models/response_model.dart';
@@ -8,6 +8,7 @@ import '../../models/course_list_data_model.dart';
 abstract class CourseRemoteDataSource {
   Future<ResponseModel> getCourseAction(String userId);
   Future<ResponseModel> getCourseOverViewAction(String userId, String courseId);
+  Future<ResponseModel> getCourseTopicDetailsAction(String userId, String courseId, String topicId);
 }
 
 class CourseRemoteDataSourceImp extends CourseRemoteDataSource {
@@ -27,6 +28,15 @@ class CourseRemoteDataSourceImp extends CourseRemoteDataSource {
         url: "${ApiCredential.getCourseOverview}?userId=$userId&id=$courseId");
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => CourseOverViewDataModel.fromJson(json));
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> getCourseTopicDetailsAction(String userId, String courseId, String topicId) async{
+    final responseJson = await Server.instance.getRequest(
+        url: "${ApiCredential.getCourseTopicDetails}?userId=$userId&courseId=$courseId&topicId=$topicId");
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => CourseConductDataModel.fromJson(json));
     return responseModel;
   }
 }

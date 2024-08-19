@@ -1,6 +1,6 @@
-import 'package:adb_mobile/src/feature/course/data/models/course_model.dart';
-import 'package:adb_mobile/src/feature/course/data/models/material_model.dart';
-import 'package:adb_mobile/src/feature/course/data/models/topic_model.dart';
+import 'course_model.dart';
+import 'material_model.dart';
+import 'topic_model.dart';
 import 'package:flutter/cupertino.dart';
 
 @immutable

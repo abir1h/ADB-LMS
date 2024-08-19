@@ -12,7 +12,7 @@ class CourseInfoDataModel {
   final int noOfContentsStudied;
   final double rating;
   final int noOfRating;
-  final int progress;
+  final double progress;
 
   const CourseInfoDataModel({
     required this.id,
@@ -42,7 +42,7 @@ class CourseInfoDataModel {
         noOfContentsStudied: json["NoOfContentsStudied"] ?? -1,
         rating: json["Rating"] ?? 0.00.toDouble(),
         noOfRating: json["NoOfRating"] ?? -1,
-        progress: json["Progress"] ?? -1,
+        progress: json["Progress"] ??  0.00.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
