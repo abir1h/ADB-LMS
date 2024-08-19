@@ -13,16 +13,17 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route.dart';
+import '../../domain/entities/course_conduct_data_entity.dart';
 
-class CourseSubjectScreen extends StatefulWidget {
-  final CourseOverViewDataEntity data;
-  const CourseSubjectScreen({super.key, required this.data});
+class CourseTopicScreen extends StatefulWidget {
+  final CourseConductDataEntity data;
+  const CourseTopicScreen({super.key, required this.data});
 
   @override
-  State<CourseSubjectScreen> createState() => _CourseSubjectScreenState();
+  State<CourseTopicScreen> createState() => _CourseTopicScreenState();
 }
 
-class _CourseSubjectScreenState extends State<CourseSubjectScreen>
+class _CourseTopicScreenState extends State<CourseTopicScreen>
     with AppTheme {
   @override
   Widget build(BuildContext context) {
@@ -38,15 +39,19 @@ class _CourseSubjectScreenState extends State<CourseSubjectScreen>
                 fontSize: size.textLarge,
                 color: clr.appPrimaryColorBlue),
           ),
-          SubjectSectionWidget(
-              items: widget.data.topics,
-              buildItem: (BuildContext context, int index, item) {
-                return SubjectItemWidget(
-                    data: item,
-                    onTap: () => Navigator.of(context).pushNamed(
-                        AppRoute.courseConductScreen,
-                        arguments: CourseConductScreenArgs(courseId: widget.data.id, topicId: item.id)));
-              })
+          // SubjectItemWidget(
+          //     data: widget.data.topic,
+          //     onTap: (){})
+
+          // SubjectSectionWidget(
+          //     items: widget.data.topics,
+          //     buildItem: (BuildContext context, int index, item) {
+          //       return SubjectItemWidget(
+          //           data: item,
+          //           onTap: () => Navigator.of(context).pushNamed(
+          //               AppRoute.courseConductScreen,
+          //               arguments: CourseConductScreenArgs(courseId: widget.data.id, topicId: item.id)));
+          //     })
         ],
       ),
     );

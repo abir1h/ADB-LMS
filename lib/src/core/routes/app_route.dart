@@ -1,16 +1,17 @@
-import 'package:adb_mobile/src/feature/authentication/presentation/screens/login_screen.dart';
-import 'package:adb_mobile/src/feature/authentication/presentation/screens/registration_screen.dart';
-import 'package:adb_mobile/src/feature/base/presentation/screens/base_screen.dart';
-import 'package:adb_mobile/src/feature/certificate/presentation/screens/certificate_screen.dart';
-import 'package:adb_mobile/src/feature/course/presentation/screens/course_list_screen.dart';
-import 'package:adb_mobile/src/feature/course/presentation/screens/course_overview_screen.dart';
-import 'package:adb_mobile/src/feature/dashboard/presentation/screens/dashboard_screen.dart';
-import 'package:adb_mobile/src/feature/password_change/presentation/screens/change_password_screen.dart';
-import 'package:adb_mobile/src/feature/profile/presentation/screens/profile_screen.dart';
-import 'package:adb_mobile/src/feature/project_details/presentation/screens/project_details_screen.dart';
-import 'package:adb_mobile/src/feature/user_mannual/presentation/screens/user_mannual_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../feature/authentication/presentation/screens/login_screen.dart';
+import '../../feature/authentication/presentation/screens/registration_screen.dart';
+import '../../feature/base/presentation/screens/base_screen.dart';
+import '../../feature/certificate/presentation/screens/certificate_screen.dart';
+import '../../feature/course/presentation/screens/course_list_screen.dart';
+import '../../feature/course/presentation/screens/course_overview_screen.dart';
+import '../../feature/dashboard/presentation/screens/dashboard_screen.dart';
+import '../../feature/password_change/presentation/screens/change_password_screen.dart';
+import '../../feature/profile/presentation/screens/profile_screen.dart';
+import '../../feature/project_details/presentation/screens/project_details_screen.dart';
+import '../../feature/user_mannual/presentation/screens/user_mannual_screen.dart';
+import '../../feature/course/presentation/screens/course_conduct_screen.dart';
 import '../../feature/landing/presentation/screens/landing_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
 
@@ -25,6 +26,7 @@ class AppRoute {
   static const String dashboardScreen = "dashboardScreen";
   static const String profileScreen = "profileScreen";
   static const String courseOverViewScreen = "courseOverViewScreen";
+  static const String courseConductScreen = "courseConductScreen";
   static const String courseListScreen = "courseListScreen";
   static const String changePassword = "changePassword";
   static const String projectDetails = "projectDetails";
@@ -57,14 +59,16 @@ mixin RouteGenerator {
             return const CourseListScreen();
           case AppRoute.courseOverViewScreen:
             return CourseOverViewScreen(arguments: setting.arguments);
+          case AppRoute.courseConductScreen:
+            return CourseConductScreen(arguments: setting.arguments);
           case AppRoute.changePassword:
             return const ChangePasswordScreen();
           case AppRoute.projectDetails:
             return ProjectDetails();
           case AppRoute.certificateList:
             return const CertificateListScreen();
-            case AppRoute.userMannual:
-            return  UserMannualScreen();
+          case AppRoute.userMannual:
+            return UserMannualScreen();
           default:
             return const SplashScreen();
         }

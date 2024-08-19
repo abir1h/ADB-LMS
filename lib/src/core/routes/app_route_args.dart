@@ -1,16 +1,15 @@
-import 'dart:ui';
+import '../../feature/course/domain/entities/course_overview_data_entity.dart';
+import '../../feature/dashboard/domain/entities/course_info_data_entity.dart';
 
-import 'package:adb_mobile/src/feature/dashboard/domain/entities/course_info_data_entity.dart';
-
-//
-//
-// class DocumentViewScreenArgs {
-//   final String url;
-//   DocumentViewScreenArgs({required this.url});
-// }
 class CourseDetailsScreenArgs {
   final CourseInfoDataEntity? data;
   CourseDetailsScreenArgs({this.data});
+}
+
+class CourseConductScreenArgs {
+  final String? courseId;
+  final String? topicId;
+  CourseConductScreenArgs({this.courseId, this.topicId});
 }
 
 class BaseScreenArgs {

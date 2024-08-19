@@ -16,13 +16,13 @@ class MaterialModel {
   final int sequence;
   final bool studied;
   final bool restricted;
-  final String lastStudyTimeSec;
+  final int lastStudyTimeSec;
   final int requiredStudyTimeSec;
   final bool canDownload;
   final List<ResourceDataModel> resources;
   final List<PopupQuizDataModel> popupQuizzes;
   final bool isCompleted;
-  final int progress;
+  final double progress;
 
   const MaterialModel({
     required this.id,
@@ -59,7 +59,7 @@ class MaterialModel {
         sequence: json["Sequence"] ?? -1,
         studied: json["Studied"] ?? false,
         restricted: json["Restricted"] ?? false,
-        lastStudyTimeSec: json["LastStudyTimeSec"] ?? "",
+        lastStudyTimeSec: json["LastStudyTimeSec"] ?? -1,
         requiredStudyTimeSec: json["RequiredStudyTimeSec"] ?? -1,
         canDownload: json["CanDownload"] ?? false,
         resources: json["Resources"] != null
@@ -71,7 +71,7 @@ class MaterialModel {
                 .map((x) => PopupQuizDataModel.fromJson(x)))
             : [],
         isCompleted: json["IsCompleted"] ?? false,
-        progress: json["Progress"] ?? -1,
+        progress: json['Progress']?.toDouble() ?? 0.0,
       );
 
   Map<String, dynamic> toJson() => {

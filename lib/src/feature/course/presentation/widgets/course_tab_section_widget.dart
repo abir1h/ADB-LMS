@@ -3,28 +3,29 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../../discussion/presentation/screens/discussion_screen.dart';
+import '../../domain/entities/course_conduct_data_entity.dart';
 import '../screens/details_screen.dart';
 import '../../domain/entities/course_overview_data_entity.dart';
 import '../screens/course_subject_screen.dart';
 import '../../../faq/presentation/screens/faq_screen.dart';
 
-class TabSectionWidget extends StatefulWidget {
+class CourseTabSectionWidget extends StatefulWidget {
   final String? tabTitle1, tabTitle2, tabTitle3, tabTitle4;
-  final CourseOverViewDataEntity? courseOverViewDataEntity;
-  const TabSectionWidget({
+  final CourseConductDataEntity? courseConductDataEntity;
+  const CourseTabSectionWidget({
     super.key,
     this.tabTitle1,
     this.tabTitle2,
     this.tabTitle3,
     this.tabTitle4,
-    this.courseOverViewDataEntity,
+    this.courseConductDataEntity
   });
 
   @override
-  State<TabSectionWidget> createState() => _TabSectionWidgetState();
+  State<CourseTabSectionWidget> createState() => _CourseTabSectionWidgetState();
 }
 
-class _TabSectionWidgetState extends State<TabSectionWidget>
+class _CourseTabSectionWidgetState extends State<CourseTabSectionWidget>
     with AppTheme, Language, TickerProviderStateMixin {
   late final TabController _tabController;
 
@@ -47,7 +48,8 @@ class _TabSectionWidgetState extends State<TabSectionWidget>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TabBar.secondary(
-            controller: _tabController,isScrollable: true,
+            controller: _tabController,
+            isScrollable: true,
             padding: EdgeInsets.zero, // Minimize horizontal padding
             indicatorPadding: EdgeInsets.zero, // Remove or reduce indicator padding
             tabAlignment: TabAlignment.start, // Remove or reduce indicator padding
@@ -83,10 +85,10 @@ class _TabSectionWidgetState extends State<TabSectionWidget>
               controller: _tabController,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                CourseSubjectScreen(data: widget.courseOverViewDataEntity!),
-                DetailsScreen(data: widget.courseOverViewDataEntity!,),
-                DiscussionScreen(data: widget.courseOverViewDataEntity!,),
-                FaqScreen(data: widget.courseOverViewDataEntity!,),
+                // CourseSubjectScreen(data: widget.courseOverViewDataEntity!),
+                // DetailsScreen(data: widget.courseOverViewDataEntity!,),
+                // DiscussionScreen(data: widget.courseOverViewDataEntity!,),
+                // FaqScreen(data: widget.courseOverViewDataEntity!,),
 
               ],
             ),
