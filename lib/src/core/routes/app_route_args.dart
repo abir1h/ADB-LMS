@@ -16,3 +16,7 @@ class BaseScreenArgs {
   final int index;
   BaseScreenArgs({required this.index});
 }
+class CertificateViewScreenArgs {
+  final String data;
+  CertificateViewScreenArgs({required this.data});
+}

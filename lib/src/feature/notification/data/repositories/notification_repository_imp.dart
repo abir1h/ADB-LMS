@@ -17,13 +17,9 @@ class NotificationRepositoryImp extends NotificationRepository {
   Future<ResponseEntity> notificationInformation(String userId) async {
     ResponseModel responseModel =
         (await notificationRemoteDataSource.getNotification(userId));
-    return ResponseModelToEntityMapper<List<NotificationDataEntity>,
-            List<NotificationDataModel>>()
-        .toEntityFromModel(
-            responseModel,
-            (List<NotificationDataModel> models) =>
-                List<NotificationDataModel>.from(models)
-                    .map((e) => e.toNotificationDataEntity)
-                    .toList());
+    return ResponseModelToEntityMapper<NotificationDataEntity,
+            NotificationDataModel>()
+        .toEntityFromModel(responseModel,
+            (NotificationDataModel model) => model.toNotificationDataEntity);
   }
 }

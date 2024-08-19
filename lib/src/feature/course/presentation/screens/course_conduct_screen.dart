@@ -7,6 +7,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/constants/common_imports.dart';
+import '../../../../core/routes/app_route.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../widgets/tab_section_widget.dart';
 
@@ -45,11 +46,11 @@ class _CourseConductScreenState extends State<CourseConductScreen>
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.notifications_sharp,
-              color: clr.appPrimaryColorBlue,
-            ),
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(onPressed: ()=>Navigator.pushNamed(context,AppRoute.notificationScreen), icon: Icon(
+                Icons.notifications_sharp,
+                color: clr.appPrimaryColorBlue,
+              ),)
           )
         ],
       ),

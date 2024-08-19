@@ -138,7 +138,7 @@ class _DrawerWidgetState extends State<DrawerWidget>
       if (value) {
         AuthCacheManager.userLogout();
         Navigator.of(context)
-            .pushNamedAndRemoveUntil(AppRoute.loginScreen, (x) => false);
+            .pushNamedAndRemoveUntil(AppRoute.landingScreen, (x) => false);
       }
     });
   }

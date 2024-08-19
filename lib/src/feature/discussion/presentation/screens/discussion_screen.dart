@@ -185,82 +185,87 @@ class DiscussionItemWidget<T> extends StatelessWidget with AppTheme {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                    child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: size.r24,
-                      backgroundImage: NetworkImage(
-                          ApiCredential.mediaBaseUrl + data.imagePath),
-                      backgroundColor: clr.greyColor.withOpacity(.2),
-                    ),
-                    SizedBox(
-                      width: size.w10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          data.commenterName,
-                          style: TextStyle(
-                            color: clr.blackColor,
-                            fontWeight: FontWeight.w700,
-                            fontSize: size.textMedium,
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: size.r24,
+                            backgroundImage: NetworkImage(
+                                ApiCredential.mediaBaseUrl + data.imagePath),
+                            backgroundColor: clr.greyColor.withOpacity(.2),
                           ),
-                        ),
-                        Text(
-                          " ● ${data.material}",
-                          style: TextStyle(
-                            color: clr.greyColor,
-                            fontWeight: FontWeight.w700,
-                            fontSize: size.textXXXSmall,
+                          SizedBox(
+                            width: size.w10,
                           ),
-                        ),
-                        Text(
-                          " ● ${data.phoneNumber}",
-                          style: TextStyle(
-                            color: clr.greyColor,
-                            fontWeight: FontWeight.w700,
-                            fontSize: size.textXXXSmall,
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.h10,
-                        ),
-                        Text(
-                          data.comment,
-                          style: TextStyle(
-                            color: clr.blackColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: size.textSmall,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                )),
-                Text(
-                  timeago.format(
-                    DateTime.parse(data.commentTime),
-                  ),
-                  style: TextStyle(
-                      fontSize: size.textXXSmall,
-                      color: clr.textGrey,
-                      fontWeight: FontWeight.w400),
-                )
-              ],
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                data.commenterName,
+                                style: TextStyle(
+                                  color: clr.blackColor,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: size.textMedium,
+                                ),
+                              ),
+                              Text(
+                                " ● ${data.material}",
+                                style: TextStyle(
+                                  color: clr.greyColor,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: size.textXXXSmall,
+                                ),
+                              ),
+                              Text(
+                                " ● ${data.phoneNumber}",
+                                style: TextStyle(
+                                  color: clr.greyColor,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: size.textXXXSmall,
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.h10,
+                              ),
+                              Text(
+                                data.comment,
+                                style: TextStyle(
+                                  color: clr.blackColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: size.textSmall,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      )),
+
+                ],
+              ),
+            ],
+          ),
+          Positioned(
+              top: size.h2,right: size.w4,
+              child:   Text(
+            timeago.format(
+              DateTime.parse(data.commentTime),
             ),
-          ],
-        ),
-      ),
+            style: TextStyle(
+                fontSize: size.textXXSmall,
+                color: clr.textGrey,
+                fontWeight: FontWeight.w400),
+          ))
+        ],
+      )
     );
   }
 }

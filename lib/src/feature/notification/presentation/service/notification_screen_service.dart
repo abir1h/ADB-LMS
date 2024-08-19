@@ -1,11 +1,7 @@
-import 'package:adb_mobile/src/feature/faq/data/data_sources/remote/faq_remote_data_source.dart';
-import 'package:adb_mobile/src/feature/faq/data/repositories/faq_repository_imp.dart';
-import 'package:adb_mobile/src/feature/faq/domain/entities/faq_data_entity.dart';
-import 'package:adb_mobile/src/feature/faq/domain/use_cases/faq_use_case.dart';
-import 'package:adb_mobile/src/feature/notification/data/data_sources/remote/notification_remote_data_source.dart';
-import 'package:adb_mobile/src/feature/notification/data/repositories/notification_repository_imp.dart';
-import 'package:adb_mobile/src/feature/notification/domain/entities/notification_item_data_entity.dart';
-import 'package:adb_mobile/src/feature/notification/domain/use_cases/faq_use_case.dart';
+import '../../data/data_sources/remote/notification_remote_data_source.dart';
+import '../../data/repositories/notification_repository_imp.dart';
+import '../../domain/entities/notification_data_entity.dart';
+import '../../domain/use_cases/faq_use_case.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/config/local_storage_services.dart';
 import '../../../../core/constants/common_imports.dart';
@@ -31,7 +27,7 @@ mixin NotificationScreenService implements _ViewModel {
 
   ///Stream controllers
 
-  final AppStreamController<List<NotificationItemDataEntity>> notificationStreamController =
+  final AppStreamController<NotificationDataEntity> notificationStreamController =
       AppStreamController();
 
   void loadNotification() async {
@@ -43,7 +39,7 @@ mixin NotificationScreenService implements _ViewModel {
       print(value);
       if (value.data != null) {
         notificationStreamController
-            .add(DataLoadedState<List<NotificationItemDataEntity>>(value.data));
+            .add(DataLoadedState<NotificationDataEntity>(value.data));
       } else {
         _view.showWarning(value.message!);
       }

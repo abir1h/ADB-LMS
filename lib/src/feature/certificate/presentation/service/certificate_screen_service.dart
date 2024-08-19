@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:adb_mobile/src/core/routes/app_route.dart';
+import 'package:adb_mobile/src/core/routes/app_route_args.dart';
 import 'package:adb_mobile/src/feature/certificate/data/data_sources/remote/certificate_remote_data_source.dart';
 import 'package:adb_mobile/src/feature/certificate/data/repositories/certificate_repository_imp.dart';
 import 'package:adb_mobile/src/feature/certificate/domain/use_cases/certificate_use_case.dart';
@@ -109,12 +111,11 @@ mixin CertificateListScreenService implements _ViewModel {
     String? userId = localStorageService.getStringValue(StringData.userId);
     final responseJson = await Server.instance.getRequest(
         url: "${ApiCredential.downloadCertificate}$courseId?userId=$userId");
-    if (responseJson['Data'] == null) {
-      Future.delayed(const Duration(seconds: 2)).whenComplete(() {
-        CustomToasty.of(context).releaseUI();
-
-        _view.showWarning(responseJson['Message']);
-      });
+    print(responseJson['Data']);
+    if (responseJson['Data'] != null) {
+      CustomToasty.of(context).releaseUI();
+      Navigator.pushNamed(context, AppRoute.certificateViewScreen,
+          arguments: CertificateViewScreenArgs(data: responseJson['Data']));
     } else {}
   }
 
