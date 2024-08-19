@@ -1,7 +1,10 @@
 import 'package:adb_mobile/src/core/constants/app_theme.dart';
 import 'package:adb_mobile/src/feature/course/domain/entities/course_conduct_data_entity.dart';
 import 'package:adb_mobile/src/feature/course/presentation/service/course_conduct_screen_service.dart';
+import 'package:adb_mobile/src/feature/course/presentation/widgets/course_tab_section_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -66,71 +69,41 @@ class _CourseConductScreenState extends State<CourseConductScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: size.h16),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.h16),
-                  child: Text(
-                    "data.title",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: clr.blackColor,
-                        fontSize: size.textLarge),
+                AspectRatio(
+                  aspectRatio: 16 / 8,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(8.r),
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(8.r),
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                        ApiCredential.mediaBaseUrl+data.course!.imagePath,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.error,
+                          color: Colors.red,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(height: size.h16),
-                // Padding(
-                //   padding: EdgeInsets.symmetric(horizontal: size.h16),
-                //   child: Container(
-                //     padding: EdgeInsets.all(size.h16),
-                //     decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(size.r10),
-                //         color: clr.progressBgColor),
-                //     child: Column(
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         Text(
-                //           "প্রশিক্ষণের অগ্রগতি",
-                //           style: TextStyle(
-                //               fontWeight: FontWeight.w600,
-                //               color: clr.appPrimaryColorBlue,
-                //               fontSize: size.textMedium),
-                //         ),
-                //         SizedBox(
-                //           height: size.h8,
-                //         ),
-                //         LinearPercentIndicator(
-                //           animation: true,
-                //           lineHeight: 20.0,
-                //           animationDuration: 2500,
-                //           barRadius: Radius.circular(size.r10),
-                //           percent: data.progress / 100,
-                //           center: Text(
-                //             "${data.progress}%",
-                //             style: TextStyle(
-                //                 color: clr.blackColor,
-                //                 fontWeight: FontWeight.w500),
-                //           ),
-                //           linearStrokeCap: LinearStrokeCap.roundAll,
-                //           progressColor: clr.enterTrainingButtonColor,
-                //           backgroundColor: clr.progressBgColor2,
-                //         ),
-                //         /*LinearProgressIndicator(
-                //           minHeight: 20.h,
-                //           value: data.progress / 100,
-                //           color: clr.enterTrainingButtonColor,
-                //           backgroundColor: clr.progressBgColor2,
-                //           borderRadius: BorderRadius.circular(size.r4),
-                //         )*/
-                //       ],
-                //     ),
-                //   ),
-                // ),
-                SizedBox(height: size.h16),
-                TabSectionWidget(
-                  tabTitle1: "বিষয় সমূহ",
+                CourseTabSectionWidget(
+                  tabTitle1: "বিষয়বস্তু",
                   tabTitle2: "বিস্তারিত",
                   tabTitle3: 'আলোচনা',
                   tabTitle4: "FAQ",
-                  // courseOverViewDataEntity: data,
+                  courseConductDataEntity: data,
                 ),
               ],
             );

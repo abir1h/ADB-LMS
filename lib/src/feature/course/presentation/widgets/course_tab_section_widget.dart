@@ -4,6 +4,7 @@ import '../../../../core/constants/common_imports.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../../discussion/presentation/screens/discussion_screen.dart';
 import '../../domain/entities/course_conduct_data_entity.dart';
+import '../screens/course_topic_screen.dart';
 import '../screens/details_screen.dart';
 import '../../domain/entities/course_overview_data_entity.dart';
 import '../screens/course_subject_screen.dart';
@@ -49,10 +50,10 @@ class _CourseTabSectionWidgetState extends State<CourseTabSectionWidget>
         children: [
           TabBar.secondary(
             controller: _tabController,
-            isScrollable: true,
+            isScrollable: false,
             padding: EdgeInsets.zero, // Minimize horizontal padding
             indicatorPadding: EdgeInsets.zero, // Remove or reduce indicator padding
-            tabAlignment: TabAlignment.start, // Remove or reduce indicator padding
+            // tabAlignment: TabAlignment.start, // Remove or reduce indicator padding
 
             labelStyle: TextStyle(
                 color: clr.blackColor,
@@ -85,11 +86,10 @@ class _CourseTabSectionWidgetState extends State<CourseTabSectionWidget>
               controller: _tabController,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                // CourseSubjectScreen(data: widget.courseOverViewDataEntity!),
-                // DetailsScreen(data: widget.courseOverViewDataEntity!,),
-                // DiscussionScreen(data: widget.courseOverViewDataEntity!,),
-                // FaqScreen(data: widget.courseOverViewDataEntity!,),
-
+                CourseTopicScreen(data: widget.courseConductDataEntity!),
+                CourseTopicScreen(data: widget.courseConductDataEntity!),
+                CourseTopicScreen(data: widget.courseConductDataEntity!),
+                CourseTopicScreen(data: widget.courseConductDataEntity!),
               ],
             ),
           ),

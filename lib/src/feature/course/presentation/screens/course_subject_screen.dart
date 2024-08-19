@@ -45,7 +45,12 @@ class _CourseSubjectScreenState extends State<CourseSubjectScreen>
                     data: item,
                     onTap: () => Navigator.of(context).pushNamed(
                         AppRoute.courseConductScreen,
-                        arguments: CourseConductScreenArgs(courseId: widget.data.id, topicId: item.id)));
+                        arguments: CourseConductScreenArgs(
+                            courseId: widget.data.id, topicId: item.id)),
+                    onTapTopic: () => Navigator.of(context).pushNamed(
+                        AppRoute.courseConductScreen,
+                        arguments: CourseConductScreenArgs(
+                            courseId: widget.data.id, topicId: item.id)));
               })
         ],
       ),
@@ -85,43 +90,48 @@ class SubjectSectionWidget<T> extends StatelessWidget with AppTheme {
 class SubjectItemWidget<T> extends StatelessWidget with AppTheme, Language {
   final TopicDataEntity data;
   final VoidCallback onTap;
-  const SubjectItemWidget({Key? key, required this.data, required this.onTap})
+  final VoidCallback onTapTopic;
+  const SubjectItemWidget(
+      {Key? key,
+      required this.data,
+      required this.onTap,
+      required this.onTapTopic})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     data.materials.sort((a, b) => a.dependencies.compareTo(b.dependencies));
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(size.r4),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      data.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: clr.blackColor,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.start,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.r4),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(
+                    data.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: clr.blackColor,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
                     ),
+                    textAlign: TextAlign.start,
                   ),
-                  SizedBox(
-                    width: size.w10,
-                  ),
-                  Container(
+                ),
+                SizedBox(
+                  width: size.w10,
+                ),
+                GestureDetector(
+                  onTap: onTap,
+                  child: Container(
                     padding: EdgeInsets.symmetric(
                         vertical: size.h6, horizontal: size.h6),
                     decoration: BoxDecoration(
@@ -137,54 +147,51 @@ class SubjectItemWidget<T> extends StatelessWidget with AppTheme, Language {
                             color: clr.whiteColor),
                       ),
                     ),
-                  )
-                ],
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: size.h12,
+            ),
+            Text(
+              "বিষয় অধ্যয়নের অগ্রগতি",
+              style: TextStyle(
+                color: clr.textGrey,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
               ),
-              SizedBox(
-                height: size.h12,
-              ),
-              Text(
-                "বিষয় অধ্যয়নের অগ্রগতি",
+              textAlign: TextAlign.start,
+            ),
+            SizedBox(
+              height: size.h4,
+            ),
+            LinearPercentIndicator(
+              animation: true,
+              lineHeight: 25.0,
+              animationDuration: 2500,
+              barRadius: Radius.circular(size.r10),
+              percent: data.progress / 100,
+              center: Text(
+                "${data.progress}%",
                 style: TextStyle(
-                  color: clr.textGrey,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-                textAlign: TextAlign.start,
+                    color: clr.blackColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500),
               ),
-              SizedBox(
-                height: size.h4,
-              ),
-              LinearPercentIndicator(
-                animation: true,
-                lineHeight: 25.0,
-                animationDuration: 2500,
-                barRadius: Radius.circular(size.r10),
-                percent: data.progress / 100,
-                center: Text(
-                  "${data.progress}%",
-                  style: TextStyle(
-                      color: clr.blackColor,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500),
-                ),
-                linearStrokeCap: LinearStrokeCap.roundAll,
-                progressColor: clr.enterTrainingButtonColor,
-                backgroundColor: clr.progressBgColor2,
-              ),
-              SizedBox(
-                height: size.h10,
-              ),
-              TopicSectionWidget(
-                  items: data.materials,
-                  buildItem: (BuildContext context, int index, item) {
-                    return TopicItemWidget(
-                      data: item,
-                      onTap: () {},
-                    );
-                  })
-            ],
-          ),
+              linearStrokeCap: LinearStrokeCap.roundAll,
+              progressColor: clr.enterTrainingButtonColor,
+              backgroundColor: clr.progressBgColor2,
+            ),
+            SizedBox(
+              height: size.h10,
+            ),
+            TopicSectionWidget(
+                items: data.materials,
+                buildItem: (BuildContext context, int index, item) {
+                  return TopicItemWidget(data: item, onTap: onTapTopic);
+                })
+          ],
         ),
       ),
     );
