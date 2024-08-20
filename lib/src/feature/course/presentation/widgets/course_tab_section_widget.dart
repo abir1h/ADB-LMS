@@ -53,10 +53,10 @@ class _CourseTabSectionWidgetState extends State<CourseTabSectionWidget>
         children: [
           TabBar.secondary(
             controller: _tabController,
-            isScrollable: false,
+            isScrollable: true,
             padding: EdgeInsets.zero, // Minimize horizontal padding
             indicatorPadding: EdgeInsets.zero, // Remove or reduce indicator padding
-            // tabAlignment: TabAlignment.start, // Remove or reduce indicator padding
+            tabAlignment: TabAlignment.center, // Remove or reduce indicator padding
 
             labelStyle: TextStyle(
                 color: clr.blackColor,

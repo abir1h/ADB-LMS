@@ -1,86 +1,65 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
+import 'dart:math';
 
-import 'package:adb_mobile/src/core/routes/app_route_args.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../../core/common_widgets/custom_toasty.dart';
+import '../../../../core/routes/app_route_args.dart';
+import '../service/certificate_view_screen_service.dart';
 
 class CertificateViewScreen extends StatefulWidget {
   final Object? arguments;
   const CertificateViewScreen({super.key, this.arguments});
 
-
   @override
   _CertificateViewScreenState createState() => _CertificateViewScreenState();
 }
 
-class _CertificateViewScreenState extends State<CertificateViewScreen> {
-  String? localPath;
-  CertificateViewScreenArgs? certificateViewScreenArgs;
+class _CertificateViewScreenState extends State<CertificateViewScreen>  with CertificateViewScreenService{
 
   @override
   void initState() {
     super.initState();
-
-    _loadPdfFromBytes();
+    certificateViewScreenArgs = widget.arguments as CertificateViewScreenArgs;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      loadPdfFromBytes(certificateViewScreenArgs!.data);
+    });
   }
-
-  Future<void> _loadPdfFromBytes() async {
-    try {
-      certificateViewScreenArgs=widget.arguments as CertificateViewScreenArgs;
-      Uint8List bytes = base64Decode(certificateViewScreenArgs!.data);
-      Directory tempDir = await getTemporaryDirectory();
-      String tempPath = '${tempDir.path}/temp_pdf.pdf';
-      File tempFile = File(tempPath);
-      await tempFile.writeAsBytes(bytes, flush: true);
-      setState(() {
-        localPath = tempPath;
-      });
-    } catch (e) {
-      print('Error loading PDF: $e');
-    }
-  }
-
-/*  Future<void> _downloadPdf() async {
-    if (await Permission.storage.request().isGranted) {
-      Uint8List bytes = base64Decode(widget.pdfBytes);
-
-      Directory? directory = await getExternalStorageDirectory();
-      String downloadsPath = '${directory?.path}/downloaded_pdf.pdf';
-      File downloadFile = File(downloadsPath);
-      await downloadFile.writeAsBytes(bytes, flush: true);
-
-      await FlutterFileSaver.saveFile('downloaded_pdf.pdf', bytes, 'application/pdf');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('PDF downloaded to $downloadsPath')),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Storage permission not granted')),
-      );
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PDF Viewer'),
+        title: const Text('সার্টিফিকেশন'),
         actions: [
-        /*  IconButton(
-            icon: Icon(Icons.download),
-            onPressed: _downloadPdf,
-          ),*/
+          IconButton(
+            icon: FaIcon(FontAwesomeIcons.download, size: 22.r),
+            onPressed: () => downloadFile(
+                filename: "certificate${Random().nextInt(100)}.pdf",
+                // filename: "certificate.pdf",
+                bytes: base64Decode(certificateViewScreenArgs!.data),
+                context: context),
+          ),
         ],
       ),
       body: localPath != null
           ? PDFView(
-        filePath: localPath,
-      )
-          : Center(child: CircularProgressIndicator()),
+              filePath: localPath,
+            )
+          : const Center(child: CircularProgressIndicator()),
     );
+  }
+
+  @override
+  void showSuccess(String msg) {
+    CustomToasty.of(context).showSuccess(msg);
+  }
+
+  @override
+  void showWarning(String msg) {
+    CustomToasty.of(context).showWarning(msg);
   }
 }

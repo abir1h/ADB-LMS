@@ -116,7 +116,12 @@ mixin CertificateListScreenService implements _ViewModel {
       CustomToasty.of(context).releaseUI();
       Navigator.pushNamed(context, AppRoute.certificateViewScreen,
           arguments: CertificateViewScreenArgs(data: responseJson['Data']));
-    } else {}
+    } else {
+      CustomToasty.of(context).releaseUI();
+      _view.showWarning(responseJson["Message"]);
+
+    }
+
   }
 
   ///Name change

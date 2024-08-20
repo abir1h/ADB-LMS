@@ -1,9 +1,11 @@
 import 'package:adb_mobile/src/core/utility/helper.dart';
+import 'package:adb_mobile/src/feature/video/presentation/service/video_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/common_imports.dart';
@@ -31,17 +33,22 @@ class _CourseTopicScreenState extends State<CourseTopicScreen> with AppTheme {
   }
 }
 
-class SubjectItemWidget<T> extends StatelessWidget with AppTheme, Language {
+class SubjectItemWidget<T> extends StatefulWidget{
   final CourseConductDataEntity data;
   final VoidCallback onTap;
   const SubjectItemWidget({Key? key, required this.data, required this.onTap})
       : super(key: key);
 
   @override
+  State<SubjectItemWidget<T>> createState() => _SubjectItemWidgetState<T>();
+}
+
+class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>> with AppTheme, Language, VideoService{
+  @override
   Widget build(BuildContext context) {
-    data.materials!.sort((a, b) => a.sequence.compareTo(b.sequence));
+    widget.data.materials!.sort((a, b) => a.sequence.compareTo(b.sequence));
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Container(
@@ -56,7 +63,7 @@ class SubjectItemWidget<T> extends StatelessWidget with AppTheme, Language {
                 children: [
                   Expanded(
                     child: Text(
-                      data.topic!.title,
+                      widget.data.topic!.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -109,9 +116,9 @@ class SubjectItemWidget<T> extends StatelessWidget with AppTheme, Language {
                 lineHeight: 25.0,
                 animationDuration: 2500,
                 barRadius: Radius.circular(size.r10),
-                percent: data.progress / 100,
+                percent: widget.data.progress / 100,
                 center: Text(
-                  "${data.progress}%",
+                  "${widget.data.progress}%",
                   style: TextStyle(
                       color: clr.blackColor,
                       fontSize: 16.sp,
@@ -135,11 +142,13 @@ class SubjectItemWidget<T> extends StatelessWidget with AppTheme, Language {
                 height: size.h10,
               ),
               TopicSectionWidget(
-                  items: data.materials!,
+                  items: widget.data.materials!,
                   buildItem: (BuildContext context, int index, item) {
                     return TopicItemWidget(
                       data: item,
-                      onTap: () {},
+                      onTap: (){
+                        loadVideoData(item);
+                      },
                     );
                   })
             ],
@@ -147,6 +156,46 @@ class SubjectItemWidget<T> extends StatelessWidget with AppTheme, Language {
         ),
       ),
     );
+  }
+
+  @override
+  void changeOrientationToPortrait() {
+    // TODO: implement changeOrientationToPortrait
+  }
+
+  @override
+  bool isPlayerFullscreen() {
+    // TODO: implement isPlayerFullscreen
+    throw UnimplementedError();
+  }
+
+  @override
+  void navigateToBack() {
+    // TODO: implement navigateToBack
+  }
+
+  @override
+  void setYoutubeVideo(String url) {
+    youtubeController = YoutubePlayerController(
+      initialVideoId: url,
+      flags: const YoutubePlayerFlags(
+          mute: false,
+          autoPlay: false,
+          disableDragSeek: false,
+          loop: false,
+          isLive: false,
+          forceHD: false,
+          enableCaption: true,
+          showLiveFullscreenButton: true),
+    );
+    setState(() {
+      isYoutube = !isYoutube;
+    });
+  }
+
+  @override
+  void showWarning(String message) {
+    // TODO: implement showWarning
   }
 }
 
