@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/core/common_widgets/custom_toasty.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -61,6 +62,7 @@ mixin ProfileScreenService implements _ViewModel {
 
   ///UploadProfile
   uploadProfile(File files,BuildContext context) async {
+    CustomToasty.of(context).lockUI();
 
     LocalStorageService localStorageService =
         await LocalStorageService.getInstance();
@@ -70,6 +72,8 @@ mixin ProfileScreenService implements _ViewModel {
         url: "${ApiCredential.uploadPhoto}?userId=$userId",
         file: files).then((v){
        _loadProfileData();
+       CustomToasty.of(context).releaseUI();
+
 
      });
   }

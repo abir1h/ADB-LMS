@@ -31,6 +31,8 @@ class StringData {
   static const   String enterText = "প্রবেশ করুন";
   static const   String firstNameText = "নামের প্রথম অংশ (First Name)";
   static const   String firstNameTextHint = "নামের প্রথম অংশ ";
+  static const String usernameText = "ব্যবহারকারীর নাম (Username)";
+  static const String userNameHint = "ব্যবহারকারীর নাম ";
   static const   String lastNameText = "নামের শেষ অংশ (Last Name)";
   static const   String lastNameTextHint = "নামের শেষ অংশ";
   static const   String phoneNumText = "ফোন (Phone)";

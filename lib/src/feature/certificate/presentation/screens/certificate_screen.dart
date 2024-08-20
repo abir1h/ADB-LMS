@@ -109,12 +109,12 @@ class _CertificateListScreenState extends State<CertificateListScreen>with AppTh
 
   @override
   void showWarning(String message ) {
-    CustomToasty.of(context).showSuccess(message);
+    CustomToasty.of(context).showWarning(message);
   }
 
   @override
   void showSuccess(String message) {
-    // TODO: implement showSuccess
+    CustomToasty.of(context).showSuccess(message);
   }
 }
 class CertificateSectionWidget<T> extends StatelessWidget with AppTheme {

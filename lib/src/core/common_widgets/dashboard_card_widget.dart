@@ -9,6 +9,7 @@ class DashboardCardWidget extends StatelessWidget with AppTheme {
   final Icon? icon;
   final FaIcon? faIcon;
   final String title, subTitle;
+  final VoidCallback onTap;
   const DashboardCardWidget(
       {super.key,
       this.primary,
@@ -16,32 +17,35 @@ class DashboardCardWidget extends StatelessWidget with AppTheme {
       required this.borderColor,
        this.icon,
       required this.title,
-      required this.subTitle,  this.faIcon});
+      required this.subTitle,  this.faIcon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 45),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(size.r10),
-            color: bgColor,
-          ),
-          child: Center(
-            child: Column(
-              children: [
-                Text(
-                 title,
-                  style:
-                      TextStyle(fontWeight: FontWeight.w500, color: clr.whiteColor,fontSize: size.textSmall),
-                ),SizedBox(height: size.h16,), Text(
-                  subTitle,
-                  style:
-                      TextStyle(fontWeight: FontWeight.w900, color: clr.whiteColor,fontSize: size.textXLarge),
-                ),
-              ],
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 45),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(size.r10),
+              color: bgColor,
+            ),
+            child: Center(
+              child: Column(
+                children: [
+                  Text(
+                   title,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w500, color: clr.whiteColor,fontSize: size.textSmall),
+                  ),SizedBox(height: size.h16,), Text(
+                    subTitle,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w900, color: clr.whiteColor,fontSize: size.textXLarge),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

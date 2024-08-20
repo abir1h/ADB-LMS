@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/core/utility/validator.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/strings.dart';
@@ -13,9 +14,10 @@ class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
   final TextInputType keyboardType;
   final bool autoMaxLine;
   final Widget? prefixIcon;
+  final FormFieldValidator<String>? validator;
 
   AppTextFieldWithTitle({
-    Key? key,
+    super.key,
     this.readOnly = false,
     this.title = '',
     required this.hintText,
@@ -24,8 +26,9 @@ class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.autoMaxLine = false,
-    this.prefixIcon ,
-  }) : super(key: key);
+    this.prefixIcon,
+    this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
       children: [
         if (title != '')
           Padding(
-            padding: EdgeInsets.only(bottom: size.h10),
+            padding: EdgeInsets.only(bottom: size.h4),
             child: Text(
               title,
               style: TextStyle(
@@ -53,14 +56,13 @@ class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
           obscureText: obscureText,
           keyboardType: keyboardType,
           focusNode: focusNode,
+          validator: validator,
           prefixIcon: null,
         ),
       ],
     );
   }
 }
-
-
 
 class AppTextField extends StatefulWidget {
   final bool readOnly;
@@ -100,7 +102,7 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
   @override
   void initState() {
     super.initState();
-    _obscureText = widget.obscureText??false;
+    _obscureText = widget.obscureText ?? false;
   }
 
   void _toggleObscureText() {
@@ -113,67 +115,49 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
   Widget build(BuildContext context) {
     final focusNode = widget.focusNode ?? FocusNode();
 
-    return Container(
-      height: size.h56,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: clr.fromBoxFillColor,
-        borderRadius: BorderRadius.circular(size.r8),
+    return TextFormField(
+      onTap: widget.onTaped,
+      readOnly: widget.readOnly,
+      controller: widget.controller,
+      cursorRadius: const Radius.circular(100),
+      cursorColor: clr.appPrimaryColorBlue,
+      cursorWidth: size.w2,
+      autocorrect: false,
+      maxLines: widget.autoMaxLine ? null : 1,
+      keyboardType: widget.keyboardType,
+      obscureText: _obscureText,
+      validator: widget.validator,
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        floatingLabelAlignment: FloatingLabelAlignment.center,
+          filled: true, // Enable filling the background
+          fillColor: Colors.white,
 
-      ),
-      child: Center(
-        child: TextFormField(
-          onTap: widget.onTaped,
-          readOnly: widget.readOnly,
-          controller: widget.controller,
-          cursorRadius: const Radius.circular(100),
-          cursorColor: clr.appPrimaryColorBlue,
-          cursorWidth: size.w2,
-          autocorrect: false,
-          maxLines: widget.autoMaxLine ? null : 1,
-          keyboardType: widget.keyboardType,
-          obscureText: _obscureText,
-          validator: widget.validator,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: clr.appPrimaryColorBlue,
-                width: size.w1,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(size.w8)),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: clr.boxStrokeColor,
-                width: size.w1,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(size.w8)),
-            ),
-            hintText: widget.hintText,
-            contentPadding: EdgeInsets.symmetric(horizontal: size.w12),
-            hintStyle: TextStyle(
-              color: clr.placeHolderTextColorGray,
-              fontSize: size.textSmall,
-              fontWeight: FontWeight.w400,
-              fontFamily: StringData.fontFamilyRoboto,
-            ),
-            suffixIcon: widget.obscureText==true?IconButton(
-              icon: Icon(
-                _obscureText ? Icons.visibility : Icons.visibility_off,
-                color: clr.placeHolderTextColorGray,
-              ),
-              onPressed: _toggleObscureText,
-            ):const SizedBox(),
-            prefixIcon: widget.prefixIcon??null,
-          ),
-          style: TextStyle(
-            color: clr.textColorBlack,
-            fontSize: size.textSmall,
-            fontWeight: FontWeight.w400,
-            fontFamily: StringData.fontFamilyRoboto,
-          ),
+        hintText: widget.hintText,
+
+        contentPadding: EdgeInsets.symmetric(horizontal: size.w12),
+        hintStyle: TextStyle(
+          color: clr.placeHolderTextColorGray,
+          fontSize: size.textSmall,
+          fontWeight: FontWeight.w400,
+          fontFamily: StringData.fontFamilyRoboto,
         ),
+        suffixIcon: widget.obscureText == true
+            ? IconButton(
+                icon: Icon(
+                  _obscureText ? Icons.visibility : Icons.visibility_off,
+                  color: clr.placeHolderTextColorGray,
+                ),
+                onPressed: _toggleObscureText,
+              )
+            : const SizedBox(),
+        prefixIcon: widget.prefixIcon ?? null,
+      ),
+      style: TextStyle(
+        color: clr.textColorBlack,
+        fontSize: size.textSmall,
+        fontWeight: FontWeight.w400,
+        fontFamily: StringData.fontFamilyRoboto,
       ),
     );
   }

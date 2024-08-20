@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../core/common_widgets/drawer_widget.dart';
-import '../../../../core/constants/common_imports.dart';
-import '../../../../core/routes/app_route_args.dart';
-import '../../domain/entities/trainee_count_data_entity.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/course_card.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/common_widgets/dashboard_card_widget.dart';
+import '../../../../core/common_widgets/drawer_widget.dart';
+import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route.dart';
+import '../../../../core/routes/app_route_args.dart';
+import '../../domain/entities/trainee_count_data_entity.dart';
 import '../services/dashboard_screen_service.dart';
 import '../widgets/course_loader.dart';
-import '../widgets/dashboard_ card_loader.dart';
 import '../widgets/loader_dashbaord.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -53,12 +52,15 @@ class _DashboardScreenState extends State<DashboardScreen>
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(onPressed: ()=>Navigator.pushNamed(context,AppRoute.notificationScreen), icon: Icon(
-                Icons.notifications_sharp,
-                color: clr.appPrimaryColorBlue,
-              ),)
-            )
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, AppRoute.notificationScreen),
+                  icon: Icon(
+                    Icons.notifications_sharp,
+                    color: clr.appPrimaryColorBlue,
+                  ),
+                ))
           ],
         ),
         body: SingleChildScrollView(
@@ -93,6 +95,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 FontAwesomeIcons.book,
                                 size: size.h40,
                               ),
+                              onTap: () => Navigator.pushNamed(
+                                  context, AppRoute.baseScreen,
+                                  arguments: BaseScreenArgs(index: 1)),
                             )),
                           ],
                         ),
@@ -111,6 +116,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 FontAwesomeIcons.graduationCap,
                                 size: size.h40,
                               ),
+                              onTap: () {},
                             )),
                             SizedBox(
                               width: size.w20,
@@ -125,6 +131,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 FontAwesomeIcons.award,
                                 size: size.h40,
                               ),
+                              onTap: () {},
                             )),
                           ],
                         ),
@@ -137,7 +144,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                   emptyBuilder: (context, message, icon) => Padding(
                       padding: EdgeInsets.all(size.h24),
                       child: Center(
-                        child: Column(mainAxisSize: MainAxisSize.min, children: [
+                        child:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
                           Lottie.asset(ImageAssets.animEmpty,
                               height: size.h64 * 3),
                           SizedBox(height: size.h8),
@@ -178,9 +186,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                             buildItem: (BuildContext context, int index, item) {
                               return CourseCard(
                                 data: item,
-                                onTap: ()=>Navigator.of(context).pushNamed(
+                                onTap: () => Navigator.of(context).pushNamed(
                                     AppRoute.courseOverViewScreen,
-                                    arguments: CourseDetailsScreenArgs(data: item)),
+                                    arguments:
+                                        CourseDetailsScreenArgs(data: item)),
                               );
                             }),
                         SizedBox(
@@ -192,7 +201,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                   emptyBuilder: (context, message, icon) => Padding(
                       padding: EdgeInsets.all(size.h24),
                       child: Center(
-                        child: Column(mainAxisSize: MainAxisSize.min, children: [
+                        child:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
                           Lottie.asset(ImageAssets.animEmpty,
                               height: size.h64 * 3),
                           SizedBox(height: size.h8),
@@ -236,6 +246,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 class CourseSectionWidget<T> extends StatelessWidget with AppTheme {
   final List<T> items;
   final Widget Function(BuildContext context, int index, T item) buildItem;
+
   const CourseSectionWidget(
       {Key? key, required this.items, required this.buildItem})
       : super(key: key);
