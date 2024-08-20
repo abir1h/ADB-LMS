@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/core/utility/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,20 +18,14 @@ class CourseTopicScreen extends StatefulWidget {
   State<CourseTopicScreen> createState() => _CourseTopicScreenState();
 }
 
-class _CourseTopicScreenState extends State<CourseTopicScreen>
-    with AppTheme {
+class _CourseTopicScreenState extends State<CourseTopicScreen> with AppTheme {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(vertical: size.h12, horizontal: size.w12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SubjectItemWidget(
-              data: widget.data,
-              onTap: (){})
-
-        ],
+        children: [SubjectItemWidget(data: widget.data, onTap: () {})],
       ),
     );
   }
@@ -202,31 +197,102 @@ class TopicItemWidget<T> extends StatelessWidget with AppTheme, Language {
                   offset: Offset(0.0, 2.w),
                 ),
               ],
-              borderRadius: BorderRadius.circular(size.r4),
+              borderRadius: BorderRadius.circular(size.r8),
             ),
             child: Row(
               children: [
-                const Expanded(
-                    flex: 0, child: FaIcon(FontAwesomeIcons.solidCirclePlay)),
+                data.type != "Video"
+                    ? Expanded(
+                        flex: 0,
+                        child: FaIcon(FontAwesomeIcons.clock,
+                            color: clr.appPrimaryColorBlue))
+                    : Expanded(
+                        flex: 0,
+                        child: FaIcon(FontAwesomeIcons.solidCirclePlay,
+                            color: clr.appPrimaryColorBlue)),
                 SizedBox(
-                  width: size.w8,
+                  width: size.w16,
                 ),
-                Expanded(
-                    flex: 2,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            data.title,
-                            maxLines: 2,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: size.textXSmall,
-                                color: clr.textGrey),
+                data.type == "Video"
+                    ? Expanded(
+                        flex: 3,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              data.title,
+                              maxLines: 2,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: size.textXSmall,
+                                  color: clr.textGrey),
+                            ),
+                            Text(
+                              Helper.secondToMin(data.videoDurationSecond),
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: size.textXSmall,
+                                  color: clr.appPrimaryColorBlue),
+                            ),
+                          ],
+                        ),
+                      )
+                    : GestureDetector(
+                        onTap: onTap,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: size.h10, horizontal: size.h10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(size.r10),
+                            color: clr.enterTrainingButtonColor,
+                          ),
+                          child: Center(
+                            child: Text(
+                              data.type,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.textXSmall,
+                                  color: clr.whiteColor),
+                            ),
                           ),
                         ),
-                      ],
-                    )),
+                      ),
+                data.type == "Video" ? const SizedBox() : const Spacer(),
+                // Expanded(
+                //     flex: 2,
+                //     child: Row(
+                //       children: [
+                //         Expanded(
+                //           child: Text(
+                //             data.title,
+                //             maxLines: 2,
+                //             style: TextStyle(
+                //                 fontWeight: FontWeight.w600,
+                //                 fontSize: size.textXSmall,
+                //                 color: clr.textGrey),
+                //           ),
+                //         ),
+                //       ],
+                //     )),
+                SizedBox(
+                  width: size.w6,
+                ),
+                data.restricted
+                    ? Expanded(
+                        flex: 0,
+                        child: Icon(FontAwesomeIcons.lock,
+                            color: clr.appPrimaryColorBlue))
+                    : const SizedBox(),
+                SizedBox(
+                  width: size.w6,
+                ),
+                data.studied
+                    ? Expanded(
+                        flex: 0,
+                        child: FaIcon(FontAwesomeIcons.check,
+                            color: clr.appPrimaryColorBlue))
+                    : const SizedBox(),
                 SizedBox(
                   width: size.w6,
                 ),
