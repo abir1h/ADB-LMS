@@ -23,5 +23,16 @@ class FaqRepositoryImp extends FaqRepository {
             (List<FaqDataModel> models) => List<FaqDataModel>.from(models)
             .map((e) => e.toFaqDataEntity)
             .toList());
+  } @override
+  Future<ResponseEntity> faqCourseInformation(String userId, String courseId,String topicId) async {
+    ResponseModel responseModel =
+        (await faqRemoteDataSource.getCourseFaq(userId, courseId,topicId));
+    return ResponseModelToEntityMapper<List<FaqDataEntity>,
+        List<FaqDataModel>>()
+        .toEntityFromModel(
+        responseModel,
+            (List<FaqDataModel> models) => List<FaqDataModel>.from(models)
+            .map((e) => e.toFaqDataEntity)
+            .toList());
   }
 }

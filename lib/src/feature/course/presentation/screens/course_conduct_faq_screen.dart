@@ -1,26 +1,26 @@
-import 'package:adb_mobile/src/core/constants/app_theme.dart';
-import 'package:adb_mobile/src/feature/course/domain/entities/course_overview_data_entity.dart';
-import 'package:adb_mobile/src/feature/faq/domain/entities/faq_data_entity.dart';
-import 'package:adb_mobile/src/feature/faq/presentation/service/faq_screen_service.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../domain/entities/course_conduct_data_entity.dart';
+import '../../../faq/domain/entities/faq_data_entity.dart';
+import '../../../faq/presentation/service/faq_screen_service.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/constants/common_imports.dart';
+import '../service/course_conduct_faq_service.dart';
 
-class FaqScreen extends StatefulWidget {
-  final CourseOverViewDataEntity data;
-  const FaqScreen({super.key, required this.data});
+class CourseConductFaqScreen extends StatefulWidget {
+  final CourseConductDataEntity data;
+  const CourseConductFaqScreen({super.key, required this.data});
 
   @override
-  State<FaqScreen> createState() => _FaqScreenState();
+  State<CourseConductFaqScreen> createState() => _CourseConductFaqScreenState();
 }
 
-class _FaqScreenState extends State<FaqScreen> with AppTheme, FaqScreenService {
+class _CourseConductFaqScreenState extends State<CourseConductFaqScreen>
+    with AppTheme, CourseConductFaqScreenService {
   @override
   void initState() {
-    print('dsf');
-    loadFaq(widget.data.id);
+    loadFaq(widget.data.course!.id, widget.data.topic!.id);
     super.initState();
   }
 
@@ -29,7 +29,7 @@ class _FaqScreenState extends State<FaqScreen> with AppTheme, FaqScreenService {
     return LayoutBuilder(builder: (context, constraints) {
       return SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        child: Column(
+        child : Column(
           children: [
             AppStreamBuilder<List<FaqDataEntity>>(
               stream: faqStreamController.stream,
@@ -103,7 +103,8 @@ class FaqSectionWidget<T> extends StatelessWidget with AppTheme {
 class FaqItemWidget<T> extends StatelessWidget with AppTheme {
   final FaqDataEntity data;
   final VoidCallback onTap;
-  const FaqItemWidget({super.key, required this.data, required this.onTap});
+  const FaqItemWidget({Key? key, required this.data, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +112,13 @@ class FaqItemWidget<T> extends StatelessWidget with AppTheme {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         child: ExpansionTile(
-          title: Text(data.question,style: TextStyle(fontWeight: FontWeight.w500,fontSize: size.textSmall,color: clr.headerColor),),
+          title: Text(
+            data.question,
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: size.textSmall,
+                color: clr.headerColor),
+          ),
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(size.w12),
@@ -120,7 +127,10 @@ class FaqItemWidget<T> extends StatelessWidget with AppTheme {
                 children: <Widget>[
                   Text(
                     data.answer,
-                    style: TextStyle(fontSize: size.textXSmall,color: clr.textGrey,fontWeight: FontWeight.w400),
+                    style: TextStyle(
+                        fontSize: size.textXSmall,
+                        color: clr.textGrey,
+                        fontWeight: FontWeight.w400),
                   ),
                 ],
               ),

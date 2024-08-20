@@ -150,9 +150,7 @@ class NotificationSectionWidget<T> extends StatelessWidget with AppTheme {
         return buildItem(context, index, items[index]);
       },
       separatorBuilder: (context, index) {
-        return Divider(
-          color: clr.greyColor,
-        );
+        return SizedBox(height: size.h10,);
       },
     );
   }

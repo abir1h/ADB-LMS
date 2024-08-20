@@ -66,10 +66,13 @@ mixin DiscussionScreenService implements _ViewModel {
     discussionStreamController.add(LoadingState());
     getDiscussionList(userId!, courseId).then((value) {
       print(value);
-      if (value.data != null) {
+      if (value.data != null && value.data.isNotEmpty) {
         discussionStreamController
             .add(DataLoadedState<List<DiscussionDataEntity>>(value.data));
-      } else {
+      } else if(value.data != null && value.data.isEmpty){
+        discussionStreamController.add(EmptyState(message: "No Discussions Found"));
+      }else {
+
         _view.showWarning(value.message!);
       }
     });

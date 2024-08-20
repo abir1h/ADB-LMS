@@ -5,6 +5,7 @@ import 'package:adb_mobile/src/feature/discussion/presentation/service/discussio
 import 'package:adb_mobile/src/feature/discussion/presentation/widgets/discussion_bottom_Sheet.dart';
 import 'package:adb_mobile/src/feature/faq/domain/entities/faq_data_entity.dart';
 import 'package:adb_mobile/src/feature/faq/presentation/service/faq_screen_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
@@ -125,7 +126,7 @@ class _DiscussionScreenState extends State<DiscussionScreen>
                     padding: EdgeInsets.all(size.h24),
                     child: Center(
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
-                        Lottie.asset(ImageAssets.animEmpty, height: size.h64 * 3),
+                        Lottie.asset(ImageAssets.emptyAnimation, height: size.h64 * 3),
                         SizedBox(height: size.h8),
                         Text(
                           message,
@@ -197,12 +198,29 @@ class DiscussionItemWidget<T> extends StatelessWidget with AppTheme {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+/*
                           CircleAvatar(
                             radius: size.r24,
                             backgroundImage: NetworkImage(
                                 ApiCredential.mediaBaseUrl + data.imagePath),
                             backgroundColor: clr.greyColor.withOpacity(.2),
                           ),
+*/
+                          CircleAvatar(
+                            radius: size.r24,
+                            backgroundColor: clr.greyColor.withOpacity(.2),
+                            child: CachedNetworkImage(
+                              imageUrl: ApiCredential.mediaBaseUrl + data.imagePath,
+                              imageBuilder: (context, imageProvider) => CircleAvatar(
+                                radius: size.r24,
+                                backgroundImage: imageProvider,
+                              ),
+                              placeholder: (context, url) => CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => Icon(Icons.person,),
+                            ),
+                          ),
+
+
                           SizedBox(
                             width: size.w10,
                           ),
