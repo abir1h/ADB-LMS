@@ -14,39 +14,38 @@ abstract class _ViewModel {
   void showWarning(String message);
 }
 
-mixin FaqScreenService implements _ViewModel {
+mixin CourseConductFaqScreenService implements _ViewModel {
   late _ViewModel _view;
   final FaqUseCase _faqUseCase = FaqUseCase(
     FaqRepository:
         FaqRepositoryImp(faqRemoteDataSource: FaqRemoteDataSourceImp()),
   );
 
-  Future<ResponseEntity> getFaqList(String userId, String courseId) async {
-    return _faqUseCase.faqUseCase(userId, courseId);
+  Future<ResponseEntity> getFaqList(
+      String userId, String courseId, String topicId) async {
+    return _faqUseCase.faqCourseUseCase(userId, courseId, topicId);
   }
 
   ///Service configurations
-
 
   ///Stream controllers
 
   final AppStreamController<List<FaqDataEntity>> faqStreamController =
       AppStreamController();
 
-  void loadFaq(String courseId) async {
+  void loadFaq(String courseId, String topicId) async {
     LocalStorageService localStorageService =
         await LocalStorageService.getInstance();
     String? userId = localStorageService.getStringValue(StringData.userId);
     faqStreamController.add(LoadingState());
-    getFaqList(userId!, courseId).then((value) {
+    getFaqList(userId!, courseId, topicId).then((value) {
       print(value);
       if (value.data != null) {
         faqStreamController
             .add(DataLoadedState<List<FaqDataEntity>>(value.data));
-      }else if(value.data != null && value.data.isEmpty){
-        faqStreamController.add(EmptyState(message: "No FAQ Found"));
+      } else if (value.data != null && value.data.isEmpty) {
+        faqStreamController.add(EmptyState(message: "No FAQ Found!!"));
       } else {
-
         _view.showWarning(value.message!);
       }
     });

@@ -1,9 +1,12 @@
+import 'package:adb_mobile/src/feature/course/presentation/screens/course_conduct_discussion_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../../discussion/presentation/screens/discussion_screen.dart';
 import '../../domain/entities/course_conduct_data_entity.dart';
+import '../screens/course_conduct_details_screen.dart';
+import '../screens/course_conduct_faq_screen.dart';
 import '../screens/course_topic_screen.dart';
 import '../screens/details_screen.dart';
 import '../../domain/entities/course_overview_data_entity.dart';
@@ -87,9 +90,9 @@ class _CourseTabSectionWidgetState extends State<CourseTabSectionWidget>
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 CourseTopicScreen(data: widget.courseConductDataEntity!),
-                CourseTopicScreen(data: widget.courseConductDataEntity!),
-                CourseTopicScreen(data: widget.courseConductDataEntity!),
-                CourseTopicScreen(data: widget.courseConductDataEntity!),
+                CourseConductDetailsScreen(data: widget.courseConductDataEntity!),
+                CourseConductDiscussionScreen(data: widget.courseConductDataEntity!),
+                CourseConductFaqScreen(data: widget.courseConductDataEntity!),
               ],
             ),
           ),
