@@ -20,12 +20,27 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen>
     with AppTheme, Language, RegistrationScreenService {
   final FocusNode _focusNode = FocusNode();
-
+  bool showDistrictError = false;
+  bool showGenderError = false;
+  bool showLoanError = false;
+  bool showInstitutionError = false;
+  bool formValidate = false;
   @override
   void initState() {
     super.initState();
     fetchDistrict();
     fetchInstitution();
+  }
+
+  void _validateDropdowns() {
+    setState(() {
+      showDistrictError = selectedDistrictItem == null;
+      showGenderError = selectedGenderItem == null;
+      showLoanError =
+          selectedLoanItem == null && selectedGenderItem?.id == "Female";
+      showInstitutionError =
+          selectedInstitutionItem == null && selectedLoanItem?.id == 'true';
+    });
   }
 
   void fetchDistrict() async {
@@ -206,6 +221,13 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                           ),
                         ),
                       ),
+                      if (showDistrictError)
+                        Text(
+                          "Field Required",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: clr.iconColorRed),
+                        ),
                       SizedBox(
                         height: size.h20,
                       ),
@@ -250,22 +272,20 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                           ),
                         ),
                       ),
-                      gender != null
-                          ? gender == false
-                              ? Text(
-                                  "Field Required",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      color: clr.iconColorRed),
-                                )
-                              : SizedBox()
-                          : SizedBox(),
+                      if (showGenderError)
+                        Text(
+                          "Field Required",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: clr.iconColorRed),
+                        ),
                       SizedBox(
                         height: size.h20,
                       ),
                       selectedGenderItem != null
                           ? selectedGenderItem?.id == "Female"
                               ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
                                       padding:
@@ -284,36 +304,41 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                     ),
                                     Container(
                                       color: clr.whiteColor,
-                                      child:
-                                          DropdownButtonFormField<DropDownItem>(
-                                        isExpanded: true,
-                                        // underline: SizedBox(),
-                                        dropdownColor: clr.whiteColor,
-                                        elevation: 2,
-                                        validator: (value) => value == null
-                                            ? 'field required'
-                                            : null,
-
-                                        hint: const Text('নির্বাচন করুন'),
-                                        value: selectedLoanItem,
-                                        items:
-                                            loanItems.map((DropDownItem item) {
-                                          return DropdownMenuItem<DropDownItem>(
-                                            value: item,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(item.value!),
-                                            ),
-                                          );
-                                        }).toList(),
-                                        onChanged: (DropDownItem? newValue) {
-                                          setState(() {
-                                            selectedLoanItem = newValue;
-                                          });
-                                        },
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton<DropDownItem>(
+                                          isExpanded: true,
+                                          // underline: SizedBox(),
+                                          dropdownColor: clr.whiteColor,
+                                          elevation: 2,
+                                          hint: const Text('নির্বাচন করুন'),
+                                          value: selectedLoanItem,
+                                          items: loanItems
+                                              .map((DropDownItem item) {
+                                            return DropdownMenuItem<
+                                                DropDownItem>(
+                                              value: item,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(item.value!),
+                                              ),
+                                            );
+                                          }).toList(),
+                                          onChanged: (DropDownItem? newValue) {
+                                            setState(() {
+                                              selectedLoanItem = newValue;
+                                            });
+                                          },
+                                        ),
                                       ),
                                     ),
+                                    if (showLoanError)
+                                      Text(
+                                        "Field Required",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            color: clr.iconColorRed),
+                                      ),
                                     selectedLoanItem != null
                                         ? selectedLoanItem?.id == 'true'
                                             ? Column(
@@ -395,6 +420,15 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                       ),
                                                     ),
                                                   ),
+                                                  if (showInstitutionError)
+                                                    Text(
+                                                      "Field Required",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color:
+                                                              clr.iconColorRed),
+                                                    ),
                                                 ],
                                               )
                                             : Text(
@@ -419,7 +453,15 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       CustomButton(
                         onTap: () {
                           if (formkey.currentState!.validate()) {
-                            print('validate');
+                            _validateDropdowns();
+                            if (!showDistrictError &&
+                                !showGenderError &&
+                                !showLoanError &&
+                                !showInstitutionError) {
+                              signUP(context);
+                              print('Form is valid');
+                              // Proceed with submission
+                            }
                           }
                         },
                         title: StringData.regText,

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:adb_mobile/src/core/common_widgets/custom_toasty.dart';
+import 'package:adb_mobile/src/core/routes/app_route.dart';
 import 'package:adb_mobile/src/feature/authentication/data/models/institute_data_model.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -98,7 +100,8 @@ mixin RegistrationScreenService implements _ViewModel {
   }
 
   ///userRegistration
-  changeName(BuildContext context) async {
+  signUP(BuildContext context) async {
+    CustomToasty.of(context).lockUI();
     Map<String, String> fields = {
       "Model": jsonEncode({
         "UserName": userName.text.trim(),
@@ -111,7 +114,7 @@ mixin RegistrationScreenService implements _ViewModel {
         "Password": password.text.trim(),
         "Gender": selectedGenderItem!.id!,
         "LoanReceived": true,
-        "FinancialInstituteId": "d61451a2-2bc2-44e2-14ee-08dc9f33978b"
+        "FinancialInstituteId": selectedInstitutionItem!.id!
       })
     };
 
@@ -121,8 +124,12 @@ mixin RegistrationScreenService implements _ViewModel {
         .then((v) {
       if (v['data'] == null && v['Status'] == 1) {
         _view.showSuccess(v['Message']);
+        CustomToasty.of(context).releaseUI();
+        Navigator.pushNamed(context, AppRoute.landingScreen);
+
       } else {
-        _view.showWarning(v['Message']);
+        _view.showWarning(v['Message']);    CustomToasty.of(context).releaseUI();
+
       }
     });
   }
