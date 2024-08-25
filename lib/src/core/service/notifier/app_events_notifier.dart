@@ -47,4 +47,6 @@ enum EventAction {
   assignmentSubmitScreen,
   assignmentScreen,
   videoWidget,
+  showYoutube,
+  updateUrl,
 }

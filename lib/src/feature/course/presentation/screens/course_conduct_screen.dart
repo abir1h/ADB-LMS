@@ -31,7 +31,6 @@ class CourseConductScreen extends StatefulWidget {
 
 class _CourseConductScreenState extends State<CourseConductScreen>
     with AppTheme, CourseConductScreenService, VideoService, AppEventsNotifier {
-
   // YoutubePlayerController? _youtubeController;
   VideoPlayerController? _controller;
   // ChewieController? _chewieController;
@@ -39,7 +38,6 @@ class _CourseConductScreenState extends State<CourseConductScreen>
 
   bool _onTouch = true;
   Timer? _timer;
-
 
   @override
   void initState() {
@@ -66,18 +64,21 @@ class _CourseConductScreenState extends State<CourseConductScreen>
         actions: [
           Padding(
               padding: const EdgeInsets.all(8.0),
-              child: IconButton(onPressed: ()=>Navigator.pushNamed(context,AppRoute.notificationScreen), icon: Icon(
-                Icons.notifications_sharp,
-                color: clr.appPrimaryColorBlue,
-              ),)
-          )
+              child: IconButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, AppRoute.notificationScreen),
+                icon: Icon(
+                  Icons.notifications_sharp,
+                  color: clr.appPrimaryColorBlue,
+                ),
+              ))
         ],
       ),
       body: LayoutBuilder(builder: (context, constraints) {
         return AppStreamBuilder<CourseConductDataEntity>(
           stream: courseConductStreamController.stream,
           loadingBuilder: (context) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           },
@@ -86,49 +87,47 @@ class _CourseConductScreenState extends State<CourseConductScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: size.h16),
-                !showVideo ? AspectRatio(
-                  aspectRatio: 16 / 8,
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(8.r),
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(8.r),
-                      ),
-                      child: CachedNetworkImage(
-                        imageUrl:
-                        ApiCredential.mediaBaseUrl+data.course!.imagePath,
-                        placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(),
+                !showVideo && !isYoutube
+                    ? AspectRatio(
+                        aspectRatio: 16 / 8,
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(8.r),
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(8.r),
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl: ApiCredential.mediaBaseUrl +
+                                  data.course!.imagePath,
+                              placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              errorWidget: (context, url, error) => const Icon(
+                                Icons.error,
+                                color: Colors.red,
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
-                        errorWidget: (context, url, error) => const Icon(
-                          Icons.error,
-                          color: Colors.red,
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ) : const SizedBox(),
-
-
-                if (showVideo) ...[
+                      )
+                    : const SizedBox(),
+                if (showVideo && !isYoutube) ...[
                   ///Activate solid video player
                   Stack(
                     fit: StackFit.loose,
                     children: [
                       ContentPlayerWidget(
-                        playerStream:
-                        videoDetailsDataStreamController.stream,
+                        playerStream: videoDetailsDataStreamController.stream,
                         playbackStream:
-                        playbackPausePlayStreamController.stream,
+                            playbackPausePlayStreamController.stream,
                         // onProgressChanged: onPlaybackProgressChanged,
                         // interceptSeekTo: onInterceptPlaybackSeekToPosition,
-
                       ),
                       Positioned(
                           top: size.h16,
@@ -141,234 +140,50 @@ class _CourseConductScreenState extends State<CourseConductScreen>
                               size: size.r20,
                             ),
                           )),
-                      ////TODO: Change later
-                      // AppStreamBuilder(
-                      //     stream:
-                      //     videoQuestionDataStreamController.stream,
-                      //     loadingBuilder: (context) {
-                      //       return Container();
-                      //     },
-                      //     dataBuilder: (context, data) {
-                      //       return showOverlay
-                      //           ? AspectRatio(
-                      //         aspectRatio: MediaQuery.of(context)
-                      //             .orientation ==
-                      //             Orientation.portrait
-                      //             ? 16 / 9
-                      //             : 19 / 9,
-                      //         child: OverlayMCQWidget(
-                      //           items: data.choices,
-                      //           data: data,
-                      //           onTapSkip: onSkipInteractiveAction,
-                      //           onTapSubmit: () {
-                      //             VideoChoiceDataEntity choice =
-                      //             data.choices.firstWhere(
-                      //                     (element) =>
-                      //                 element.isSelected ==
-                      //                     true);
-                      //             if (choice.isCorrect) {
-                      //               CustomToasty.of(context)
-                      //                   .showSuccess(label(
-                      //                   e: "Your answer is correct",
-                      //                   b: "আপনার উত্তর সঠিক"));
-                      //             } else {
-                      //               CustomToasty.of(context)
-                      //                   .showWarning(label(
-                      //                   e: "Your answer is wrong",
-                      //                   b: "আপনার উত্তর ভুল"));
-                      //             }
-                      //             onSkipInteractiveAction();
-                      //             data.seen=!data.seen;
-                      //           },
-                      //           builder: (BuildContext context,
-                      //               int index, item) {
-                      //             return OverlayMCQAnswerOptionWidget(
-                      //               value: item.choiceText,
-                      //               isSelected: item.isSelected,
-                      //               onTap: () => setState(() {
-                      //                 for (VideoChoiceDataEntity videoChoiceDataEntity
-                      //                 in data.choices) {
-                      //                   if (data.choices.indexOf(
-                      //                       videoChoiceDataEntity) !=
-                      //                       index) {
-                      //                     videoChoiceDataEntity
-                      //                         .isSelected = false;
-                      //                   } else {
-                      //                     videoChoiceDataEntity
-                      //                         .isSelected =
-                      //                     !videoChoiceDataEntity
-                      //                         .isSelected;
-                      //                   }
-                      //                 }
-                      //               }),
-                      //             );
-                      //           },
-                      //         ),
-                      //       )
-                      //           : Container();
-                      //     },
-                      //     emptyBuilder: (context, message, icon) =>
-                      //         Container()),
-                      // Positioned(
-                      //   top: 80,
-                      //   left: .45.sw,
-                      //   child: Visibility(
-                      //     visible: _onTouch,
-                      //     child:  GestureDetector(
-                      //       onTap: (){
-                      //         _timer?.cancel();
-                      //
-                      //         // pause while video is playing, play while video is pausing
-                      //         setState(() {
-                      //           _controller!.value.isPlaying ?
-                      //           _controller!.pause() :
-                      //           _controller!.play();
-                      //         });
-                      //
-                      //         // Auto dismiss overlay after 1 second
-                      //         _timer = Timer.periodic(Duration(milliseconds: 2000), (_) {
-                      //           setState(() {
-                      //             _onTouch = false;
-                      //           });
-                      //         });
-                      //       },
-                      //       child: CircleAvatar(
-                      //           backgroundColor: Colors.grey.withOpacity(0.5),
-                      //           radius: 25,
-                      //           child: Icon(_controller!.value.isPlaying ? Icons.pause : Icons.play_arrow, color: Colors.white,)),
-                      //     ),
-                      //
-                      //
-                      //   ),
-                      // )
                     ],
                   )
-                  // _controller!.value.isInitialized
-                  //     ? Stack(
-                  //   fit: StackFit.loose,
-                  //   children: [
-                  //     GestureDetector(
-                  //       onTap: () {
-                  //         setState(() {
-                  //           _onTouch == true
-                  //               ? _onTouch = false
-                  //               : _onTouch = true;
-                  //         });
-                  //
-                  //         /*  playVideo == true
-                  //                 ? _controller!.pause()
-                  //                 : _controller!.play();*/
-                  //       },
-                  //       child: AspectRatio(
-                  //         aspectRatio: 16 / 9,
-                  //         // child: VideoPlayer(_controller!),
-                  //         //   child: Chewie(
-                  //         //     controller: _chewieController!,
-                  //         //   ),
-                  //           child: ContentPlayerWidget(
-                  //             playerStream: videoDetailsDataStreamController.stream,
-                  //             playbackStream: playbackPausePlayStreamController.stream,
-                  //             // onProgressChanged: onPlaybackProgressChanged,
-                  //             // interceptSeekTo: onInterceptPlaybackSeekToPosition,
-                  //             overlay: GestureDetector(
-                  //               onTap: (){},
-                  //               child: const Icon(Icons.arrow_back)
-                  //             ),
-                  //           ),
-                  //       ),
-                  //     ),
-                  //     Positioned(
-                  //         top: size.h16,
-                  //         left: size.w16,
-                  //         child: InkWell(
-                  //           onTap: () {
-                  //             Navigator.pop(context);
-                  //           },
-                  //           child: Icon(
-                  //             Icons.arrow_back,
-                  //             color: clr.shadeWhiteColor2,
-                  //             size: size.r20,
-                  //           ),
-                  //         )),
-                  //     // Positioned(
-                  //     //   top: 80,
-                  //     //   left: .45.sw,
-                  //     //   child: Visibility(
-                  //     //     visible: _onTouch,
-                  //     //     child:  GestureDetector(
-                  //     //       onTap: (){
-                  //     //         _timer?.cancel();
-                  //     //
-                  //     //         // pause while video is playing, play while video is pausing
-                  //     //         setState(() {
-                  //     //           _controller!.value.isPlaying ?
-                  //     //           _controller!.pause() :
-                  //     //           _controller!.play();
-                  //     //         });
-                  //     //
-                  //     //         // Auto dismiss overlay after 1 second
-                  //     //         _timer = Timer.periodic(Duration(milliseconds: 2000), (_) {
-                  //     //           setState(() {
-                  //     //             _onTouch = false;
-                  //     //           });
-                  //     //         });
-                  //     //       },
-                  //     //       child: CircleAvatar(
-                  //     //           backgroundColor: Colors.grey.withOpacity(0.5),
-                  //     //           radius: 25,
-                  //     //           child: Icon(_controller!.value.isPlaying ? Icons.pause : Icons.play_arrow, color: Colors.white,)),
-                  //     //     ),
-                  //     //
-                  //     //
-                  //     //   ),
-                  //     // )
-                  //   ],
-                  // )
-                  //     : const Center(child: CircularProgressIndicator()),
-                ] else if(isYoutube)...[
+                ]
+                else if (!showVideo && isYoutube) ...[
                   ///Activate Youtube video player
-                  YoutubePlayerBuilder(
-                    player: YoutubePlayer(
-                      controller: youtubeController!,
-                      aspectRatio: 16 / 9,
-                      showVideoProgressIndicator: true,
-                      progressColors: ProgressBarColors(
-                          backgroundColor: clr.progressBGColor,
-                          playedColor: clr.iconColorRed,
-                          handleColor: clr.iconColorRed),
-                    ),
-                    builder: (context, player) {
-                      return Column(
-                        children: [
-                          Stack(
-                            fit: StackFit.loose,
-                            children: [
-                              player,
-                              Positioned(
-                                  top: size.h16,
-                                  left: size.w16,
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Icon(
-                                      Icons.arrow_back,
-                                      color: clr.shadeWhiteColor2,
-                                      size: size.r20,
-                                    ),
-                                  ))
-                            ],
+                  youtubeController != null
+                      ? YoutubePlayerBuilder(
+                          player: YoutubePlayer(
+                            controller: youtubeController!,
+                            aspectRatio: 16 / 9,
+                            showVideoProgressIndicator: true,
+                            progressColors: ProgressBarColors(
+                                backgroundColor: clr.progressBGColor,
+                                playedColor: clr.iconColorRed,
+                                handleColor: clr.iconColorRed),
                           ),
-                        ],
-                      );
-                    },
-                  )
+                          builder: (context, player) {
+                            return Column(
+                              children: [
+                                Stack(
+                                  fit: StackFit.loose,
+                                  children: [
+                                    player,
+                                    Positioned(
+                                        top: size.h16,
+                                        left: size.w16,
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Icon(
+                                            Icons.arrow_back,
+                                            color: clr.shadeWhiteColor2,
+                                            size: size.r20,
+                                          ),
+                                        ))
+                                  ],
+                                ),
+                              ],
+                            );
+                          },
+                        )
+                      : const CircularProgressIndicator()
                 ],
-
-
-
-
-
                 SizedBox(height: size.h16),
                 CourseTabSectionWidget(
                   tabTitle1: "বিষয়বস্তু",
@@ -424,9 +239,27 @@ class _CourseConductScreenState extends State<CourseConductScreen>
   }
 
   @override
-  void setYoutubeVideo(String url) {
+  void onEventReceived(EventAction action) {
+    if (mounted) {
+      if (action == EventAction.videoWidget) {
+        setState(() {
+          showVideo = true;
+          isYoutube = false;
+        });
+      }
+      if (action == EventAction.showYoutube) {
+        showYoutubePlayer().then((v) {
+          setState(() {
+            showVideo = false;
+            isYoutube = true;
+          });
+        });
+      }
+    }
+  }
+  Future showYoutubePlayer() async {
     youtubeController = YoutubePlayerController(
-      initialVideoId: url,
+      initialVideoId: data!.url!,
       flags: const YoutubePlayerFlags(
           mute: false,
           autoPlay: false,
@@ -437,19 +270,20 @@ class _CourseConductScreenState extends State<CourseConductScreen>
           enableCaption: true,
           showLiveFullscreenButton: true),
     );
-    setState(() {
-      isYoutube = !isYoutube;
-    });
   }
 
-  @override
-  void onEventReceived(EventAction action) {
-    if (mounted) {
-      if (action == EventAction.videoWidget) {
-        setState(() {
-          showVideo = !showVideo;
-        });
-      }
-    }
-  }
+  // Future showYoutubePlayer() async {
+  //   youtubeController = YoutubePlayerController(
+  //     initialVideoId: materialData!.youtubeId.toString(),
+  //     flags: const YoutubePlayerFlags(
+  //         mute: false,
+  //         autoPlay: false,
+  //         disableDragSeek: false,
+  //         loop: false,
+  //         isLive: false,
+  //         forceHD: false,
+  //         enableCaption: true,
+  //         showLiveFullscreenButton: true),
+  //   );
+  // }
 }

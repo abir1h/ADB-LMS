@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/core/service/notifier/app_events_notifier.dart';
 import 'package:adb_mobile/src/core/utility/helper.dart';
 import 'package:adb_mobile/src/feature/video/presentation/service/video_service.dart';
 import 'package:flutter/material.dart';
@@ -147,7 +148,9 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>> with AppThe
                     return TopicItemWidget(
                       data: item,
                       onTap: (){
+
                         loadVideoData(item);
+
                       },
                     );
                   })
@@ -174,29 +177,13 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>> with AppThe
     // TODO: implement navigateToBack
   }
 
-  @override
-  void setYoutubeVideo(String url) {
-    youtubeController = YoutubePlayerController(
-      initialVideoId: url,
-      flags: const YoutubePlayerFlags(
-          mute: false,
-          autoPlay: false,
-          disableDragSeek: false,
-          loop: false,
-          isLive: false,
-          forceHD: false,
-          enableCaption: true,
-          showLiveFullscreenButton: true),
-    );
-    setState(() {
-      isYoutube = !isYoutube;
-    });
-  }
 
   @override
   void showWarning(String message) {
     // TODO: implement showWarning
   }
+
+
 }
 
 class TopicSectionWidget<T> extends StatelessWidget with AppTheme {

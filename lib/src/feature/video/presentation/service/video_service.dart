@@ -6,24 +6,23 @@ import '../../../course/domain/entities/material_entity.dart';
 import '../../../../core/service/notifier/app_events_notifier.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 
-
 abstract class _ViewModel {
   void showWarning(String message);
   void navigateToBack();
   bool isPlayerFullscreen();
   void changeOrientationToPortrait();
-  void setYoutubeVideo(String url);
 }
 
-mixin VideoService<T extends StatefulWidget> on State<T>
-    implements _ViewModel {
+mixin VideoService<T extends StatefulWidget> on State<T> implements _ViewModel {
   late _ViewModel _view;
-  // late CourseVideoScreenArgs screenArgs;
+
   int currentPlayedPositionSec = 0;
   bool showOverlay = false;
   String _guid = "";
   bool showVideo = false;
   bool isYoutube = false;
+  VideoData? data = VideoData();
+  String? videoUrl;
   VideoWatchSession _watchSession = VideoWatchSession.empty();
 
   YoutubePlayerController? youtubeController;
@@ -71,8 +70,8 @@ mixin VideoService<T extends StatefulWidget> on State<T>
   }
 
   ///Stream controllers
-  final AppStreamController<MaterialEntity>
-      videoDetailsDataStreamController = AppStreamController();
+  final AppStreamController<MaterialEntity> videoDetailsDataStreamController =
+      AppStreamController();
   final AppStreamController<bool> playbackPausePlayStreamController =
       AppStreamController();
 
@@ -118,15 +117,14 @@ mixin VideoService<T extends StatefulWidget> on State<T>
   //   });
   // }
 
-
   void loadVideoData(MaterialEntity materialEntity) {
     // if (!mounted) return;
     // videoDetailsDataStreamController.add(LoadingState());
 
-    if(materialEntity.youtubeId.isNotEmpty){
+    if (materialEntity.youtubeId.isNotEmpty) {
       //youtube
-      _view.setYoutubeVideo(materialEntity.youtubeId);
-    }else{
+      AppEventsNotifier.notify(EventAction.showYoutube);
+    } else {
       AppEventsNotifier.notify(EventAction.videoWidget);
       videoDetailsDataStreamController
           .add(DataLoadedState<MaterialEntity>(materialEntity));
@@ -141,7 +139,6 @@ mixin VideoService<T extends StatefulWidget> on State<T>
   //       ? seekPosition
   //       : (currentContent.videoActivityData!.lastViewTime * 1000).toDouble();
   // }
-
   ///Change video playback orientation
   Future<bool> onGoBack() async {
     if (_view.isPlayerFullscreen()) {
@@ -223,7 +220,6 @@ mixin VideoService<T extends StatefulWidget> on State<T>
   //   }
   //
   // }
-
   void onSkipInteractiveAction() {
     showOverlay = false;
     AppEventsNotifier.notify(EventAction.videoWidget);
@@ -238,4 +234,12 @@ mixin VideoService<T extends StatefulWidget> on State<T>
       print(_);
     }
   }
+}
+
+class VideoData {
+  String? url;
+
+  VideoData({
+    this.url,
+  });
 }
