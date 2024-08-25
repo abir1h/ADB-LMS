@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/constants/common_imports.dart';
+import '../../../../core/routes/app_route.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../domain/entities/exam_info_data_entity.dart';
 import '../widgets/custom_text_widget.dart';
@@ -8,7 +10,8 @@ import '../widgets/custom_text_widget.dart';
 class ExamInfoDetailsScreen extends StatelessWidget with AppTheme {
   final ExamInfoDataEntity data;
   final String examType;
-  const ExamInfoDetailsScreen({super.key, required this.data, required this.examType});
+  const ExamInfoDetailsScreen(
+      {super.key, required this.data, required this.examType});
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +81,8 @@ class ExamInfoDetailsScreen extends StatelessWidget with AppTheme {
           ),
           SizedBox(height: size.h20),
           GestureDetector(
-            onTap: (){
-              ////TODO: Start Exam
-            },
+            onTap: () => Navigator.pushNamed(context, AppRoute.examViewScreen,
+                arguments: ExamScreenArgs(examInfoDataEntity: data)),
             child: Container(
               padding: EdgeInsets.all(size.w10),
               decoration: BoxDecoration(
@@ -111,8 +113,7 @@ class ExamInfoDetailsScreen extends StatelessWidget with AppTheme {
 class ExamInfoRowWidget extends StatelessWidget with AppTheme {
   final String leftText;
   final String? rightText;
-  const ExamInfoRowWidget(
-      {super.key, required this.leftText, this.rightText});
+  const ExamInfoRowWidget({super.key, required this.leftText, this.rightText});
 
   @override
   Widget build(BuildContext context) {

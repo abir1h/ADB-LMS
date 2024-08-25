@@ -1,3 +1,4 @@
+import '../../feature/assessment/domain/entities/exam_info_data_entity.dart';
 import '../../feature/dashboard/domain/entities/course_info_data_entity.dart';
 
 class CourseDetailsScreenArgs {
@@ -18,8 +19,8 @@ class ExamInfoScreenArgs {
 }
 
 class ExamScreenArgs {
-  final String materialId;
-  ExamScreenArgs({required this.materialId});
+  final ExamInfoDataEntity examInfoDataEntity;
+  ExamScreenArgs({required this.examInfoDataEntity});
 }
 
 class BaseScreenArgs {

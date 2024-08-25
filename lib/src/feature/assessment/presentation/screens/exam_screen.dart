@@ -22,7 +22,7 @@ class _ExamScreenState extends State<ExamScreen>
     super.initState();
     screenArgs = widget.arguments as ExamScreenArgs;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      loadQuestions(screenArgs.materialId);
+      loadQuestions(screenArgs.examInfoDataEntity.id);
     });
   }
 
