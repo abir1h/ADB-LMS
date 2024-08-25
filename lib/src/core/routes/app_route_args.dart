@@ -17,10 +17,16 @@ class ExamInfoScreenArgs {
   ExamInfoScreenArgs({required this.materialId, required this.examType});
 }
 
+class ExamScreenArgs {
+  final String materialId;
+  ExamScreenArgs({required this.materialId});
+}
+
 class BaseScreenArgs {
   final int index;
   BaseScreenArgs({required this.index});
 }
+
 class CertificateViewScreenArgs {
   final String data;
   CertificateViewScreenArgs({required this.data});
