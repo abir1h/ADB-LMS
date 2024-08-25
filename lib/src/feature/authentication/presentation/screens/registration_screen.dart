@@ -1,10 +1,10 @@
-import 'package:adb_mobile/src/core/common_widgets/custom_toasty.dart';
-import 'package:adb_mobile/src/core/constants/common_imports.dart';
-import 'package:adb_mobile/src/feature/authentication/presentation/widgets/select_district_bottomsheet.dart';
-import 'package:adb_mobile/src/feature/authentication/presentation/widgets/select_institution_bottomsheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/common_widgets/custom_toasty.dart';
+import '../../../../core/constants/common_imports.dart';
+import '../widgets/select_district_bottomsheet.dart';
+import '../widgets/select_institution_bottomsheet.dart';
 import '../../../../core/common_widgets/custom_button.dart';
 import '../../../../core/common_widgets/text_field_widget.dart';
 import '../../../discussion/presentation/service/discussion_screen_service.dart';
@@ -62,7 +62,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
     if (_focusNode.hasFocus) {
       Scrollable.ensureVisible(
         context,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
     }
@@ -438,7 +438,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: size.textSmall),
                                               )
-                                        : SizedBox()
+                                        : const SizedBox()
                                   ],
                                 )
                               : Text(
@@ -448,7 +448,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                       fontWeight: FontWeight.w600,
                                       fontSize: size.textSmall),
                                 )
-                          : SizedBox(),
+                          : const SizedBox(),
                       SizedBox(height: size.h24),
                       CustomButton(
                         onTap: () {
