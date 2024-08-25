@@ -16,6 +16,7 @@ import '../../feature/profile/presentation/screens/profile_screen.dart';
 import '../../feature/project_details/presentation/screens/project_details_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
 import '../../feature/user_mannual/presentation/screens/user_mannual_screen.dart';
+import '../../feature/assessment/presentation/screens/exam_info_screen.dart';
 
 class AppRoute {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -36,6 +37,7 @@ class AppRoute {
   static const String userMannual = "userMannual";
   static const String notificationScreen = "notificationScreen";
   static const String certificateViewScreen = "certificateViewScreen";
+  static const String examInfoViewScreen = "examInfoViewScreen";
 }
 
 mixin RouteGenerator {
@@ -76,7 +78,9 @@ mixin RouteGenerator {
           case AppRoute.notificationScreen:
             return const NotificationScreen();
           case AppRoute.certificateViewScreen:
-            return CertificateViewScreen(arguments:setting.arguments);
+            return CertificateViewScreen(arguments: setting.arguments);
+          case AppRoute.examInfoViewScreen:
+            return ExamInfoScreen(arguments: setting.arguments);
           default:
             return const SplashScreen();
         }

@@ -26,4 +26,5 @@ class ApiCredential {
   static String getDistrict = "/district/dropdown-list";
   static String getFinancialInstitute = "/financial-institute/dropdown-list";
   static String getNotification = "/notification/trainee/list";
+  static String getExamInfo = "/exam/pre-post-test/get-exam-info/";
 }

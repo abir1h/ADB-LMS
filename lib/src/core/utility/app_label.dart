@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:open_filex/open_filex.dart';
 import '../constants/common_imports.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -233,36 +234,36 @@ String nightDayConvertor(String timeAgo, String timstamp) {
   return banglaText;
 }
 
-// Widget stringToWidget({required String input,TextStyle? textStyle}) {
-//   // Check if the input string contains HTML tags
-//   bool containsHtmlTags(String text) {
-//     final htmlTagsRegExp = RegExp(r'<[^>]*>');
-//     return htmlTagsRegExp.hasMatch(text);
-//   }
-//
-//   if (containsHtmlTags(input)) {
-//     // Return HtmlWidget if the string contains HTML tags
-//     return HtmlWidget(
-//       input,textStyle: textStyle??TextStyle(
-//       color: HexColor("646464"),
-//       fontSize: 14.sp,
-//       fontWeight: FontWeight.w500,
-//     ),
-//       // Optionally, you can customize the HtmlWidget properties here
-//     );
-//   } else {
-//     // Return Text widget if the string does not contain HTML tags
-//     return Text(
-//       input,
-//       style: textStyle??TextStyle(
-//         color: HexColor("646464"),
-//         fontSize: 14.sp,
-//         fontWeight: FontWeight.w500,
-//       ),
-//       // Optionally, you can customize the Text widget properties here
-//     );
-//   }
-// }
+Widget stringToWidget({required String input,TextStyle? textStyle}) {
+  // Check if the input string contains HTML tags
+  bool containsHtmlTags(String text) {
+    final htmlTagsRegExp = RegExp(r'<[^>]*>');
+    return htmlTagsRegExp.hasMatch(text);
+  }
+
+  if (containsHtmlTags(input)) {
+    // Return HtmlWidget if the string contains HTML tags
+    return HtmlWidget(
+      input,textStyle: textStyle??TextStyle(
+      color: HexColor("646464"),
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w500,
+    ),
+      // Optionally, you can customize the HtmlWidget properties here
+    );
+  } else {
+    // Return Text widget if the string does not contain HTML tags
+    return Text(
+      input,
+      style: textStyle??TextStyle(
+        color: HexColor("646464"),
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+      ),
+      // Optionally, you can customize the Text widget properties here
+    );
+  }
+}
 
 bool areSameDateFast(DateTime a) {
   DateTime now = DateTime.now();
