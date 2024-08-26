@@ -1,6 +1,4 @@
-import '../../domain/entities/exam_info_data_entity.dart';
 import '../../domain/entities/exam_result_data_entity.dart';
-import '../models/exam_info_data_model.dart';
 import '../models/exam_result_data_model.dart';
 
 abstract class ExamResultDataMapper<M, E> {

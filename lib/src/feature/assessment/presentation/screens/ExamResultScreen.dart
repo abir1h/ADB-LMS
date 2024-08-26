@@ -1,5 +1,7 @@
 import 'package:adb_mobile/src/feature/assessment/domain/entities/exam_result_data_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
@@ -151,7 +153,7 @@ class ExamResultSectionWidget<T> extends StatelessWidget with AppTheme {
         return buildItem(context, index, items[index]);
       },
       separatorBuilder: (context, index) {
-        return SizedBox(height: size.h10,);
+        return SizedBox();
       },
     );
   }
@@ -166,32 +168,72 @@ class ExamResultItemWidget<T> extends StatelessWidget with AppTheme {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Card(
-        child: ExpansionTile(
-          title: Text(
-            data.testType.toString(),
-            style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: size.textSmall,
-                color: clr.headerColor),
-          ),
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(size.w12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    data.gainedMarks.toString(),
-                    style: TextStyle(
-                        fontSize: size.textXSmall,
-                        color: clr.textGrey,
-                        fontWeight: FontWeight.w400),
+      child: Card(elevation: 1,
+        child:  Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("পরীক্ষার ধরন",style: TextStyle(fontWeight: FontWeight.w400,fontSize: size.textXXSmall,color: clr.textGrey),),
+                        Text(data.testType==2?"Post Test":'Pre Test',style: TextStyle(fontWeight: FontWeight.w600,fontSize: size.textXXSmall,color: clr.blackColor),),
+                      ],
+                    ),
+                  ),  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("অংশগ্রহণের তারিখ",style: TextStyle(fontWeight: FontWeight.w400,fontSize: size.textXSmall,color: clr.textGrey),),
+                        Text( DateFormat.yMd().add_jm().format(DateTime.parse(data.startDate)),style: TextStyle(fontWeight: FontWeight.w600,fontSize: size.textXXSmall,color: clr.blackColor),),
+                      ],
+                    ),
                   ),
+
                 ],
               ),
-            ),
-          ],
+              SizedBox(height: size.h10,),
+              Row(
+                children: [
+                  Expanded(child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(size.r10),
+                      color: clr.cardColor2
+                    ),child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("মোট মার্কস",style: TextStyle(fontWeight: FontWeight.w400,fontSize: size.textXXSmall,color: clr.whiteColor),),
+                          Text( data.totalMarks.toString(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: size.textSmall,color: clr.whiteColor),),
+                        ],
+                      ),
+                    ),
+
+                  )),  SizedBox(width: size.w20,), Expanded(child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(size.r10),
+                      color: clr.cardColor1
+                    ),child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("মার্কস অর্জন",style: TextStyle(fontWeight: FontWeight.w400,fontSize: size.textXXSmall,color: clr.whiteColor),),
+                          Text( data.gainedMarks.toString(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: size.textSmall,color: clr.whiteColor),),
+                        ],
+                      ),
+                    ),
+
+                  )),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
