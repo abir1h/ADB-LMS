@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/feature/assessment/presentation/screens/ExamResultScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/exam_info_details_screen.dart';
@@ -79,7 +80,7 @@ class _ExamTabSectionWidgetState extends State<ExamTabSectionWidget>
                 //Info Details
                 ExamInfoDetailsScreen(data: widget.examInfoDataEntity!, examType: widget.examType!),
                 //Result list Screen
-                ExamInfoDetailsScreen(data: widget.examInfoDataEntity!, examType: widget.examType!),
+                ExamResultScreen(data: widget.examInfoDataEntity!, examType: widget.examType!),
               ],
             ),
           ),

@@ -15,7 +15,7 @@ abstract class _ViewModel {
   void onTapExamDetailsScreen(List<McqDataEntity> data);
 }
 
-mixin ExamInfoDetailsScreenService<T extends StatefulWidget> on State<T>
+mixin ExamResultScreenService<T extends StatefulWidget> on State<T>
     implements _ViewModel {
   late _ViewModel _view;
 
@@ -23,11 +23,6 @@ mixin ExamInfoDetailsScreenService<T extends StatefulWidget> on State<T>
     assessmentRepository: AssessmentRepositoryImp(
         assessmentDataSource: AssessmentDataSourceImp()),
   );
-
-  Future<List<McqDataEntity>> getQuestions(
-      String materialId, String userId) async {
-    return _assessmentUseCase.getQuestionsUseCase(materialId, userId);
-  }
 
   Future<List<ExamResultDataEntity>> getExamResutls(
       String materialId, String userId) async {
@@ -44,24 +39,7 @@ mixin ExamInfoDetailsScreenService<T extends StatefulWidget> on State<T>
     super.initState();
   }
 
-  void onTapStartExam(String materialId) async {
-    if (!mounted) return;
-    CustomToasty.of(context).lockUI();
-    LocalStorageService localStorageService =
-        await LocalStorageService.getInstance();
-    String? userId = localStorageService.getStringValue(StringData.userId);
-    getQuestions(materialId, userId!).then((value) {
-      CustomToasty.of(context).releaseUI();
-      if (value.isNotEmpty) {
-        _view.onTapExamDetailsScreen(value);
-      } else {
-        _view.showWarning("Something went wrong!");
-      }
-    });
-  }
-
   void loadExamResult(String materialId) async {
-
     LocalStorageService localStorageService =
         await LocalStorageService.getInstance();
     String? userId = localStorageService.getStringValue(StringData.userId);

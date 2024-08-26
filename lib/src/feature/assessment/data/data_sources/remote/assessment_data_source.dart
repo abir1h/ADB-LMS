@@ -1,3 +1,4 @@
+import '../../models/exam_result_data_model.dart';
 import '../../models/mcq_data_model.dart';
 import '../../models/exam_info_data_model.dart';
 import '../../../../../core/constants/urls.dart';
@@ -7,6 +8,8 @@ import '../../../../shared/data/models/response_model.dart';
 abstract class AssessmentDataSource {
   Future<ResponseModel> getExamInfoAction(String materialId, String userId);
   Future<List<McqDataModel>> getQuestionsAction(
+      String materialId, String userId);
+  Future<List<ExamResultDataModel>> getExamResultAction(
       String materialId, String userId);
 }
 
@@ -28,6 +31,16 @@ class AssessmentDataSourceImp extends AssessmentDataSource {
         url: "${ApiCredential.getQuestions}$materialId?userId=$userId");
     List<McqDataModel> responseModelList =
         McqDataModel.listFromJson(responseJson['Data']['MCQs']);
+    return responseModelList;
+  }
+
+  @override
+  Future<List<ExamResultDataModel>> getExamResultAction(
+      String materialId, String userId) async {
+    final responseJson = await Server.instance.getRequest(
+        url: "${ApiCredential.getExamResults}$materialId?userId=$userId");
+    List<ExamResultDataModel> responseModelList =
+        ExamResultDataModel.listFromJson(responseJson['Data']);
     return responseModelList;
   }
 }

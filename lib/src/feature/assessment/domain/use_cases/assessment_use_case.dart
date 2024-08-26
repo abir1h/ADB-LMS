@@ -1,3 +1,4 @@
+import '../entities/exam_result_data_entity.dart';
 import '../entities/mcq_data_entity.dart';
 import '../repositories/assessment_repository.dart';
 import '../../../shared/domain/entities/response_entity.dart';
@@ -16,6 +17,12 @@ class AssessmentUseCase {
   Future<List<McqDataEntity>> getQuestionsUseCase(
       String materialId, String userId) async {
     final response = _assessmentRepository.getQuestions(materialId, userId);
+    return response;
+  }
+
+  Future<List<ExamResultDataEntity>> getExamResultUseCase(
+      String materialId, String userId) async {
+    final response = _assessmentRepository.getExamResults(materialId, userId);
     return response;
   }
 }
