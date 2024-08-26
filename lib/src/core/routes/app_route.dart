@@ -1,4 +1,3 @@
-import 'package:adb_mobile/src/feature/course/presentation/screens/course_video_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../feature/authentication/presentation/screens/login_screen.dart';
@@ -19,6 +18,7 @@ import '../../feature/splash/presentation/screens/splash_screen.dart';
 import '../../feature/user_mannual/presentation/screens/user_mannual_screen.dart';
 import '../../feature/assessment/presentation/screens/exam_info_screen.dart';
 import '../../feature/assessment/presentation/screens/exam_screen.dart';
+import '../../feature/course/presentation/screens/course_video_screen.dart';
 
 class AppRoute {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -87,7 +87,6 @@ mixin RouteGenerator {
             return ExamInfoScreen(arguments: setting.arguments);
           case AppRoute.examViewScreen:
             return ExamScreen(arguments: setting.arguments);
-            return CertificateViewScreen(arguments: setting.arguments);
           case AppRoute.courseVideoScreen:
             return CourseVideoScreen(arguments: setting.arguments);
           default:

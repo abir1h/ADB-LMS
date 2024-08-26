@@ -1,9 +1,6 @@
-import 'package:adb_mobile/src/feature/assessment/domain/entities/mcq_data_entity.dart';
-
+import '../../feature/assessment/domain/entities/mcq_data_entity.dart';
 import '../../feature/assessment/domain/entities/exam_info_data_entity.dart';
-import 'package:adb_mobile/src/feature/course/domain/entities/material_entity.dart';
-
-import '../../feature/course/domain/entities/course_overview_data_entity.dart';
+import '../../feature/course/domain/entities/material_entity.dart';
 import '../../feature/dashboard/domain/entities/course_info_data_entity.dart';
 
 class CourseDetailsScreenArgs {
