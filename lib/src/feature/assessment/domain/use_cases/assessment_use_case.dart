@@ -18,4 +18,17 @@ class AssessmentUseCase {
     final response = _assessmentRepository.getQuestions(materialId, userId);
     return response;
   }
+
+  Future<ResponseEntity> submitExamUseCase(
+      String userId,
+      String examId,
+      String startTime,
+      String endTime,
+      bool autoSubmission,
+      int testType,
+      List<McqDataEntity> mcqData) async {
+    final response = _assessmentRepository.submitExam(
+        userId, examId, startTime, endTime, autoSubmission, testType, mcqData);
+    return response;
+  }
 }

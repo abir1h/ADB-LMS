@@ -32,4 +32,28 @@ class AssessmentRepositoryImp extends AssessmentRepository {
         .map((e) => e.toMcqDataEntity)
         .toList();
   }
+
+  @override
+  Future<ResponseEntity> submitExam(
+      String userId,
+      String examId,
+      String startTime,
+      String endTime,
+      bool autoSubmission,
+      int testType,
+      List<McqDataEntity> mcqData) async {
+    ResponseModel responseModel = (await assessmentDataSource.submitExamAction(
+        userId,
+        examId,
+        startTime,
+        endTime,
+        autoSubmission,
+        testType,
+        List<McqDataEntity>.from(mcqData)
+            .map((entity) => entity.toMcqDataModel)
+            .toList()));
+    return ResponseModelToEntityMapper<ExamInfoDataEntity, ExamInfoDataModel>()
+        .toEntityFromModel(responseModel,
+            (ExamInfoDataModel model) => model.toExamInfoDataEntity);
+  }
 }

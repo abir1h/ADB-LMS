@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../models/mcq_data_model.dart';
 import '../../models/exam_info_data_model.dart';
 import '../../../../../core/constants/urls.dart';
@@ -8,6 +10,14 @@ abstract class AssessmentDataSource {
   Future<ResponseModel> getExamInfoAction(String materialId, String userId);
   Future<List<McqDataModel>> getQuestionsAction(
       String materialId, String userId);
+  Future<ResponseModel> submitExamAction(
+      String userId,
+      String examId,
+      String startTime,
+      String endTime,
+      bool autoSubmission,
+      int testType,
+      List<McqDataModel> mcqData);
 }
 
 class AssessmentDataSourceImp extends AssessmentDataSource {
@@ -29,5 +39,47 @@ class AssessmentDataSourceImp extends AssessmentDataSource {
     List<McqDataModel> responseModelList =
         McqDataModel.listFromJson(responseJson['Data']['MCQs']);
     return responseModelList;
+  }
+
+  @override
+  Future<ResponseModel> submitExamAction(
+      String userId,
+      String examId,
+      String startTime,
+      String endTime,
+      bool autoSubmission,
+      int testType,
+      List<McqDataModel> mcqData) async {
+    final answerList = <Map<String, dynamic>>[];
+    for (var option in mcqData) {
+      final answeredOptions = <int>[];
+      if (option.isOption1Selected) answeredOptions.add(1);
+      if (option.isOption2Selected) answeredOptions.add(2);
+      if (option.isOption3Selected) answeredOptions.add(3);
+      if (option.isOption4Selected) answeredOptions.add(4);
+      if (answeredOptions.isNotEmpty) {
+        final answerItem = {
+          'Answered': answeredOptions.join(','),
+          'QuestionId': option.id,
+        };
+        answerList.add(answerItem);
+      }
+    }
+    Map<String, dynamic> data = {
+      "ExamId": examId,
+      "StartTime": startTime,
+      "EndTime": endTime,
+      "AutoSubmission": autoSubmission,
+      "TestType": testType,
+      "MCQList": answerList,
+      "TFQList": List.empty(),
+      "FIGQList": List.empty()
+    };
+    log(data.toString());
+    final responseJson = await Server.instance.postRequest(
+        url: "${ApiCredential.saveAnswers}?userId=$userId", postData: data);
+    ResponseModel responseModel =
+        ResponseModel.fromJson(responseJson, (dynamic json) => null);
+    return ResponseModel(message: "message");
   }
 }

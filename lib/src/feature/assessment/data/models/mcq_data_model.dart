@@ -7,6 +7,10 @@ class McqDataModel {
   final String option3;
   final String option4;
   final int mark;
+  bool isOption1Selected;
+  bool isOption2Selected;
+  bool isOption3Selected;
+  bool isOption4Selected;
 
   McqDataModel({
     required this.type,
@@ -17,6 +21,10 @@ class McqDataModel {
     required this.option3,
     required this.option4,
     required this.mark,
+    required this.isOption1Selected,
+    required this.isOption2Selected,
+    required this.isOption3Selected,
+    required this.isOption4Selected,
   });
 
   factory McqDataModel.fromJson(Map<String, dynamic> json) => McqDataModel(
@@ -28,6 +36,10 @@ class McqDataModel {
         option3: json["Option3"] ?? "",
         option4: json["Option4"] ?? "",
         mark: json["Mark"] ?? -1,
+        isOption1Selected: json["isOption1Selected"] ?? false,
+        isOption2Selected: json["isOption2Selected"] ?? false,
+        isOption3Selected: json["isOption3Selected"] ?? false,
+        isOption4Selected: json["isOption4Selected"] ?? false,
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,6 +51,10 @@ class McqDataModel {
         "Option3": option3,
         "Option4": option4,
         "Mark": mark,
+        "isOption1Selected": isOption1Selected,
+        "isOption2Selected": isOption2Selected,
+        "isOption3Selected": isOption3Selected,
+        "isOption4Selected": isOption4Selected,
       };
 
   static List<McqDataModel> listFromJson(List<dynamic> json) {
