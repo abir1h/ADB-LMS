@@ -20,6 +20,19 @@ class AssessmentUseCase {
     return response;
   }
 
+  Future<ResponseEntity> submitExamUseCase(
+      String userId,
+      String examId,
+      String startTime,
+      String endTime,
+      bool autoSubmission,
+      int testType,
+      List<McqDataEntity> mcqData) async {
+    final response = _assessmentRepository.submitExam(
+        userId, examId, startTime, endTime, autoSubmission, testType, mcqData);
+    return response;
+  }
+
   Future<List<ExamResultDataEntity>> getExamResultUseCase(
       String materialId, String userId) async {
     final response = _assessmentRepository.getExamResults(materialId, userId);

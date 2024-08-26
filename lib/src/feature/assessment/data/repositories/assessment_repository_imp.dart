@@ -1,6 +1,5 @@
-import 'package:adb_mobile/src/feature/assessment/data/mapper/exam_result_data_mapper.dart';
-import 'package:adb_mobile/src/feature/assessment/domain/entities/exam_result_data_entity.dart';
-
+import '../mapper/exam_result_data_mapper.dart';
+import '../../domain/entities/exam_result_data_entity.dart';
 import '../mapper/mcq_data_mapper.dart';
 import '../models/exam_result_data_model.dart';
 import '../models/mcq_data_model.dart';
@@ -35,6 +34,31 @@ class AssessmentRepositoryImp extends AssessmentRepository {
     return List<McqDataModel>.from(mcqDataModelList)
         .map((e) => e.toMcqDataEntity)
         .toList();
+  }
+
+  @override
+  Future<ResponseEntity> submitExam(
+      String userId,
+      String examId,
+      String startTime,
+      String endTime,
+      bool autoSubmission,
+      int testType,
+      List<McqDataEntity> mcqData) async {
+    ResponseModel responseModel = (await assessmentDataSource.submitExamAction(
+        userId,
+        examId,
+        startTime,
+        endTime,
+        autoSubmission,
+        testType,
+        List<McqDataEntity>.from(mcqData)
+            .map((entity) => entity.toMcqDataModel)
+            .toList()));
+    return ResponseModelToEntityMapper<ExamResultDataEntity,
+            ExamResultDataModel>()
+        .toEntityFromModel(responseModel,
+            (ExamResultDataModel model) => model.toExamResultDataEntity);
   }
 
   @override

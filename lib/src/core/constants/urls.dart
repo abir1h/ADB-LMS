@@ -28,6 +28,7 @@ class ApiCredential {
   static String getNotification = "/notification/trainee/list";
   static String getExamInfo = "/exam/pre-post-test/get-exam-info/";
   static String getQuestions = "/exam/pre-post-test/get-questions/";
+  static String saveAnswers = "/exam/pre-post-test/save-answers";
   static String getExamResults = "/exam/pre-post-test/get-exam-results/";
 
 }

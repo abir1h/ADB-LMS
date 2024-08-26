@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../core/common_widgets/custom_action_button.dart';
+import '../../../../core/common_widgets/custom_dialog_widget.dart';
+import '../../../../core/config/local_storage_services.dart';
+import '../../../../core/constants/common_imports.dart';
 import '../../../../core/utility/app_label.dart';
+import '../../../shared/domain/entities/response_entity.dart';
 import '../../domain/entities/mcq_data_entity.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/common_widgets/app_stream.dart';
@@ -14,6 +18,9 @@ import '../../domain/use_cases/assessment_use_case.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
+  void showSuccess(String message);
+  void showExamSubmitDialog();
+  void forceClose();
 }
 
 mixin ExamScreenService<T extends StatefulWidget> on State<T>
@@ -33,6 +40,18 @@ mixin ExamScreenService<T extends StatefulWidget> on State<T>
   Future<List<McqDataEntity>> getQuestions(
       String materialId, String userId) async {
     return _assessmentUseCase.getQuestionsUseCase(materialId, userId);
+  }
+
+  Future<ResponseEntity> onSubmit(
+      String userId,
+      String examId,
+      String startTime,
+      String endTime,
+      bool autoSubmission,
+      int testType,
+      List<McqDataEntity> mcqData) async {
+    return _assessmentUseCase.submitExamUseCase(
+        userId, examId, startTime, endTime, autoSubmission, testType, mcqData);
   }
 
   ///Service configurations
@@ -123,6 +142,25 @@ mixin ExamScreenService<T extends StatefulWidget> on State<T>
     return Future.value(true);
   }
 
+  Future<ResponseEntity> onSubmitExam(
+      String userId,
+      String examId,
+      String startTime,
+      String endTime,
+      bool autoSubmission,
+      int testType,
+      List<McqDataEntity> mcqData) async {
+    ResponseEntity responseEntity = await onSubmit(
+        userId, examId, startTime, endTime, autoSubmission, testType, mcqData);
+    if (responseEntity.data != null) {
+      _view.showExamSubmitDialog();
+      _view.showSuccess(responseEntity.message!);
+    } else {
+      _view.showWarning(responseEntity.message!);
+    }
+    return responseEntity;
+  }
+
   _scrollValue() {
     if (scrollController.position.pixels == 0.0) {
       pageArrowButtonStream.add({
@@ -168,13 +206,43 @@ mixin ExamScreenService<T extends StatefulWidget> on State<T>
       questionPagerController.nextPage(
           duration: const Duration(milliseconds: 300), curve: Curves.ease);
     } else {
-      // showConfirmationDialog();
+      showConfirmationDialog();
     }
   }
 
   onPreviousButtonTap() {
     questionPagerController.previousPage(
         duration: const Duration(milliseconds: 300), curve: Curves.ease);
+  }
+
+  showConfirmationDialog() {
+    CustomDialogWidget.show(
+            context: context,
+            icon: Icons.quiz_outlined,
+            title: "আপনি কি নিশ্চিত?",
+            infoText:
+                "আপনি উত্তর জমা দিতে চলেছেন৷ জমা দেওয়ার আগে, আপনার উত্তরগুলি দুবার চেক করা উচিত৷\n\nতবে, আপনি কি এখন এটি জমা দিতে চান?",
+            leftButtonText: "বাতিল করুন",
+            rightButtonText: "হ্যাঁ")
+        .then((value) async {
+      if (value) {
+        LocalStorageService localStorageService =
+            await LocalStorageService.getInstance();
+        String? userId = localStorageService.getStringValue(StringData.userId);
+        onSubmitExam(
+                userId!,
+                screenArgs.examInfoDataEntity.id,
+                _examStartTime.toUtc().toIso8601String(),
+                DateTime.now().toUtc().toIso8601String(),
+                false,
+                2,
+                screenArgs.examData)
+            .then((value) {
+          examTimer.cancel();
+          // _view.showExamSubmitDialog();
+        });
+      }
+    });
   }
 }
 
