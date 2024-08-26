@@ -1,3 +1,5 @@
+import 'package:adb_mobile/src/feature/course/domain/entities/material_entity.dart';
+
 import '../../feature/course/domain/entities/course_overview_data_entity.dart';
 import '../../feature/dashboard/domain/entities/course_info_data_entity.dart';
 
@@ -19,4 +21,10 @@ class BaseScreenArgs {
 class CertificateViewScreenArgs {
   final String data;
   CertificateViewScreenArgs({required this.data});
+}
+class CourseVideoScreenArgs {
+  final String? courseId;
+  final String? topicId;
+  final MaterialEntity data;
+  CourseVideoScreenArgs({this.courseId, this.topicId, required this.data});
 }

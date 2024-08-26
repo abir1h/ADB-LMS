@@ -1,3 +1,5 @@
+import 'package:adb_mobile/src/core/routes/app_route.dart';
+import 'package:adb_mobile/src/core/routes/app_route_args.dart';
 import 'package:adb_mobile/src/core/service/notifier/app_events_notifier.dart';
 import 'package:adb_mobile/src/core/utility/helper.dart';
 import 'package:adb_mobile/src/feature/video/presentation/service/video_service.dart';
@@ -8,6 +10,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../domain/entities/course_conduct_data_entity.dart';
@@ -34,7 +37,7 @@ class _CourseTopicScreenState extends State<CourseTopicScreen> with AppTheme {
   }
 }
 
-class SubjectItemWidget<T> extends StatefulWidget{
+class SubjectItemWidget<T> extends StatefulWidget {
   final CourseConductDataEntity data;
   final VoidCallback onTap;
   const SubjectItemWidget({Key? key, required this.data, required this.onTap})
@@ -44,7 +47,8 @@ class SubjectItemWidget<T> extends StatefulWidget{
   State<SubjectItemWidget<T>> createState() => _SubjectItemWidgetState<T>();
 }
 
-class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>> with AppTheme, Language, VideoService{
+class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>>
+    with AppTheme, Language, VideoService {
   @override
   Widget build(BuildContext context) {
     widget.data.materials!.sort((a, b) => a.sequence.compareTo(b.sequence));
@@ -147,10 +151,9 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>> with AppThe
                   buildItem: (BuildContext context, int index, item) {
                     return TopicItemWidget(
                       data: item,
-                      onTap: (){
-
-                        loadVideoData(item);
-
+                      onTap: () {
+                        loadVideoData(
+                            item,widget.data.course!.id,widget.data.topic!.id);
                       },
                     );
                   })
@@ -177,13 +180,10 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>> with AppThe
     // TODO: implement navigateToBack
   }
 
-
   @override
   void showWarning(String message) {
     // TODO: implement showWarning
   }
-
-
 }
 
 class TopicSectionWidget<T> extends StatelessWidget with AppTheme {

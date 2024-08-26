@@ -1,3 +1,5 @@
+import 'package:adb_mobile/src/core/routes/app_route.dart';
+import 'package:adb_mobile/src/core/routes/app_route_args.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -117,17 +119,20 @@ mixin VideoService<T extends StatefulWidget> on State<T> implements _ViewModel {
   //   });
   // }
 
-  void loadVideoData(MaterialEntity materialEntity) {
+  void loadVideoData(MaterialEntity materialEntity, String courseId, String topicId,) {
     // if (!mounted) return;
     // videoDetailsDataStreamController.add(LoadingState());
 
     if (materialEntity.youtubeId.isNotEmpty) {
       //youtube
-      AppEventsNotifier.notify(EventAction.showYoutube);
+      Navigator.pushReplacementNamed(context, AppRoute.courseVideoScreen,
+          arguments: CourseVideoScreenArgs(
+              data: materialEntity, courseId: courseId, topicId: topicId));
     } else {
-      AppEventsNotifier.notify(EventAction.videoWidget);
-      videoDetailsDataStreamController
-          .add(DataLoadedState<MaterialEntity>(materialEntity));
+      //AppEventsNotifier.notify(EventAction.videoWidget);
+      Navigator.pushReplacementNamed(context, AppRoute.courseVideoScreen,
+          arguments: CourseVideoScreenArgs(
+              data: materialEntity, courseId: courseId, topicId: topicId));
     }
   }
 

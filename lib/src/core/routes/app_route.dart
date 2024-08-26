@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/feature/course/presentation/screens/course_video_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../feature/authentication/presentation/screens/login_screen.dart';
@@ -36,6 +37,7 @@ class AppRoute {
   static const String userMannual = "userMannual";
   static const String notificationScreen = "notificationScreen";
   static const String certificateViewScreen = "certificateViewScreen";
+  static const String courseVideoScreen = "courseVideoScreen";
 }
 
 mixin RouteGenerator {
@@ -76,7 +78,9 @@ mixin RouteGenerator {
           case AppRoute.notificationScreen:
             return const NotificationScreen();
           case AppRoute.certificateViewScreen:
-            return CertificateViewScreen(arguments:setting.arguments);
+            return CertificateViewScreen(arguments: setting.arguments);
+          case AppRoute.courseVideoScreen:
+            return CourseVideoScreen(arguments: setting.arguments);
           default:
             return const SplashScreen();
         }
