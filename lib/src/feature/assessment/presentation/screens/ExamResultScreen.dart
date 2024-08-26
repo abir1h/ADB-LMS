@@ -35,12 +35,12 @@ class _ExamResultScreenState extends State<ExamResultScreen>
       loadExamResult(widget.data.id);
     });
     super.initState();
-
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child:             AppStreamBuilder<List<ExamResultDataEntity>>(
+      child: AppStreamBuilder<List<ExamResultDataEntity>>(
         stream: resultListStreamController.stream,
         loadingBuilder: (context) {
           return const Center(
@@ -74,7 +74,6 @@ class _ExamResultScreenState extends State<ExamResultScreen>
               ]),
             )),
       ),
-
     );
   }
 
@@ -82,7 +81,7 @@ class _ExamResultScreenState extends State<ExamResultScreen>
   void onTapExamDetailsScreen(List<McqDataEntity> data) {
     Navigator.pushNamed(context, AppRoute.examViewScreen,
         arguments:
-        ExamScreenArgs(examInfoDataEntity: widget.data, examData: data));
+            ExamScreenArgs(examInfoDataEntity: widget.data, examData: data));
   }
 
   @override
@@ -162,14 +161,16 @@ class ExamResultSectionWidget<T> extends StatelessWidget with AppTheme {
 class ExamResultItemWidget<T> extends StatelessWidget with AppTheme {
   final ExamResultDataEntity data;
   final VoidCallback onTap;
-  const ExamResultItemWidget({super.key, required this.data, required this.onTap});
+  const ExamResultItemWidget(
+      {super.key, required this.data, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Card(elevation: 1,
-        child:  Padding(
+      child: Card(
+        elevation: 1,
+        child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,55 +181,114 @@ class ExamResultItemWidget<T> extends StatelessWidget with AppTheme {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("পরীক্ষার ধরন",style: TextStyle(fontWeight: FontWeight.w400,fontSize: size.textXXSmall,color: clr.textGrey),),
-                        Text(data.testType==2?"Post Test":'Pre Test',style: TextStyle(fontWeight: FontWeight.w600,fontSize: size.textXXSmall,color: clr.blackColor),),
-                      ],
-                    ),
-                  ),  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("অংশগ্রহণের তারিখ",style: TextStyle(fontWeight: FontWeight.w400,fontSize: size.textXSmall,color: clr.textGrey),),
-                        Text( DateFormat.yMd().add_jm().format(DateTime.parse(data.startDate)),style: TextStyle(fontWeight: FontWeight.w600,fontSize: size.textXXSmall,color: clr.blackColor),),
+                        Text(
+                          "পরীক্ষার ধরন",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: size.textXXSmall,
+                              color: clr.textGrey),
+                        ),
+                        Text(
+                          data.testType == 2 ? "Post Test" : 'Pre Test',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: size.textXXSmall,
+                              color: clr.blackColor),
+                        ),
                       ],
                     ),
                   ),
-
+                  SizedBox(
+                    width: size.w20,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "অংশগ্রহণের তারিখ",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: size.textXSmall,
+                              color: clr.textGrey),
+                        ),
+                        Text(
+                          DateFormat.yMd()
+                              .add_jm()
+                              .format(DateTime.parse(data.startDate)),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: size.textXXSmall,
+                              color: clr.blackColor),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              SizedBox(height: size.h10,),
+              SizedBox(
+                height: size.h10,
+              ),
               Row(
                 children: [
-                  Expanded(child: Container(
+                  Expanded(
+                      child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(size.r10),
-                      color: clr.cardColor2
-                    ),child: Padding(
+                        borderRadius: BorderRadius.circular(size.r10),
+                        color: clr.cardColor2),
+                    child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("মোট মার্কস",style: TextStyle(fontWeight: FontWeight.w400,fontSize: size.textXXSmall,color: clr.whiteColor),),
-                          Text( data.totalMarks.toString(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: size.textSmall,color: clr.whiteColor),),
+                          Text(
+                            "মোট মার্কস",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: size.textXXSmall,
+                                color: clr.whiteColor),
+                          ),
+                          Text(
+                            data.totalMarks.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: size.textSmall,
+                                color: clr.whiteColor),
+                          ),
                         ],
                       ),
                     ),
-
-                  )),  SizedBox(width: size.w20,), Expanded(child: Container(
+                  )),
+                  SizedBox(
+                    width: size.w20,
+                  ),
+                  Expanded(
+                      child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(size.r10),
-                      color: clr.cardColor1
-                    ),child: Padding(
+                        borderRadius: BorderRadius.circular(size.r10),
+                        color: clr.cardColor1),
+                    child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("মার্কস অর্জন",style: TextStyle(fontWeight: FontWeight.w400,fontSize: size.textXXSmall,color: clr.whiteColor),),
-                          Text( data.gainedMarks.toString(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: size.textSmall,color: clr.whiteColor),),
+                          Text(
+                            "মার্কস অর্জন",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: size.textXXSmall,
+                                color: clr.whiteColor),
+                          ),
+                          Text(
+                            data.gainedMarks.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: size.textSmall,
+                                color: clr.whiteColor),
+                          ),
                         ],
                       ),
                     ),
-
                   )),
                 ],
               )
