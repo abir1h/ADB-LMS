@@ -17,20 +17,22 @@ import '../../../../core/routes/app_route_args.dart';
 import '../../../video/presentation/widgets/content_player_widget.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../domain/entities/course_conduct_data_entity.dart';
+import '../../domain/entities/material_entity.dart';
 import '../service/course_conduct_screen_service.dart';
+import '../service/course_video_screen_service.dart';
 import '../widgets/course_tab_section_widget.dart';
 import '../../../video/presentation/service/video_service.dart';
 
-class CourseConductScreen extends StatefulWidget {
+class CourseVideoScreen extends StatefulWidget {
   final Object? arguments;
-  const CourseConductScreen({super.key, this.arguments})
-      : assert(arguments != null && arguments is CourseConductScreenArgs);
+  const CourseVideoScreen({super.key, this.arguments})
+      : assert(arguments != null && arguments is CourseVideoScreenArgs);
   @override
-  State<CourseConductScreen> createState() => _CourseConductScreenState();
+  State<CourseVideoScreen> createState() => _CourseVideoScreenState();
 }
 
-class _CourseConductScreenState extends State<CourseConductScreen>
-    with AppTheme, CourseConductScreenService, VideoService, AppEventsNotifier {
+class _CourseVideoScreenState extends State<CourseVideoScreen>
+    with AppTheme, CourseVideoScreenService, VideoService, AppEventsNotifier {
   // YoutubePlayerController? _youtubeController;
   VideoPlayerController? _controller;
   // ChewieController? _chewieController;
@@ -42,9 +44,24 @@ class _CourseConductScreenState extends State<CourseConductScreen>
   @override
   void initState() {
     super.initState();
-    screenArgs = widget.arguments as CourseConductScreenArgs;
+    screenArgs = widget.arguments as CourseVideoScreenArgs;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       loadCourseTopicDetails(screenArgs.courseId!, screenArgs.topicId!);
+      if (screenArgs.data.youtubeId.isNotEmpty) {
+        showYoutubePlayer(screenArgs.data).then((v) {
+          setState(() {
+            showVideo = false;
+            isYoutube = true;
+          });
+        });
+      } else {
+        videoDetailsDataStreamController
+            .add(DataLoadedState<MaterialEntity>(screenArgs.data));
+        setState(() {
+          showVideo = true;
+          isYoutube = false;
+        });
+      }
     });
   }
 
@@ -240,23 +257,43 @@ class _CourseConductScreenState extends State<CourseConductScreen>
   @override
   void onEventReceived(EventAction action) {
     if (mounted) {
-      if (action == EventAction.videoWidget) {}
+      if (action == EventAction.videoWidget) {
+        setState(() {
+          showVideo = true;
+          isYoutube = false;
+        });
+      }
       if (action == EventAction.showYoutube) {}
     }
   }
 
-  // Future showYoutubePlayer() async {
-  //   youtubeController = YoutubePlayerController(
-  //     initialVideoId: materialData!.youtubeId.toString(),
-  //     flags: const YoutubePlayerFlags(
-  //         mute: false,
-  //         autoPlay: false,
-  //         disableDragSeek: false,
-  //         loop: false,
-  //         isLive: false,
-  //         forceHD: false,
-  //         enableCaption: true,
-  //         showLiveFullscreenButton: true),
-  //   );
-  // }
+  Future showYoutubePlayer(MaterialEntity data) async {
+    youtubeController = YoutubePlayerController(
+      initialVideoId: data.youtubeId,
+      flags: const YoutubePlayerFlags(
+          mute: false,
+          autoPlay: false,
+          disableDragSeek: false,
+          loop: false,
+          isLive: false,
+          forceHD: false,
+          enableCaption: true,
+          showLiveFullscreenButton: true),
+    );
+  }
+
+// Future showYoutubePlayer() async {
+//   youtubeController = YoutubePlayerController(
+//     initialVideoId: materialData!.youtubeId.toString(),
+//     flags: const YoutubePlayerFlags(
+//         mute: false,
+//         autoPlay: false,
+//         disableDragSeek: false,
+//         loop: false,
+//         isLive: false,
+//         forceHD: false,
+//         enableCaption: true,
+//         showLiveFullscreenButton: true),
+//   );
+// }
 }

@@ -1,4 +1,7 @@
 import 'package:adb_mobile/src/core/routes/app_route_args.dart';
+import 'package:adb_mobile/src/core/routes/app_route.dart';
+import 'package:adb_mobile/src/core/routes/app_route_args.dart';
+import 'package:adb_mobile/src/core/service/notifier/app_events_notifier.dart';
 import 'package:adb_mobile/src/core/utility/helper.dart';
 import 'package:adb_mobile/src/feature/video/presentation/service/video_service.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +11,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route.dart';
@@ -156,7 +160,8 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>>
                               arguments:
                                   ExamInfoScreenArgs(materialId: item.id, examType: item.type));
                         } else {
-                          loadVideoData(item);
+                          loadVideoData(
+                              item,widget.data.course!.id,widget.data.topic!.id);
                         }
                       },
                     );
@@ -182,25 +187,6 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>>
   @override
   void navigateToBack() {
     // TODO: implement navigateToBack
-  }
-
-  @override
-  void setYoutubeVideo(String url) {
-    youtubeController = YoutubePlayerController(
-      initialVideoId: url,
-      flags: const YoutubePlayerFlags(
-          mute: false,
-          autoPlay: false,
-          disableDragSeek: false,
-          loop: false,
-          isLive: false,
-          forceHD: false,
-          enableCaption: true,
-          showLiveFullscreenButton: true),
-    );
-    setState(() {
-      isYoutube = !isYoutube;
-    });
   }
 
   @override
