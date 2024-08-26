@@ -81,9 +81,9 @@ class AssessmentDataSourceImp extends AssessmentDataSource {
     log(data.toString());
     final responseJson = await Server.instance.postRequest(
         url: "${ApiCredential.saveAnswers}?userId=$userId", postData: data);
-    ResponseModel responseModel =
-        ResponseModel.fromJson(responseJson, (dynamic json) => null);
-    return ResponseModel(message: "message");
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => ExamResultDataModel.fromJson(json));
+    return responseModel;
   }
 
   @override

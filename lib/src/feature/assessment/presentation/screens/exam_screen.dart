@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/circular_loader_widget.dart';
 import '../../../../core/common_widgets/custom_button.dart';
+import '../../../../core/common_widgets/custom_dialog_widget.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/utility/app_label.dart';
@@ -351,5 +352,32 @@ class _ExamScreenState extends State<ExamScreen>
   @override
   void showWarning(String message) {
     CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void showSuccess(String message) {
+    CustomToasty.of(context).showSuccess(message);
+  }
+
+  @override
+  void showExamSubmitDialog() {
+    CustomDialogWidget.show(
+        context: context,
+        icon: Icons.quiz_outlined,
+        title: "উত্তরপত্র সফলভাবে জমা দেওয়া হয়েছে",
+        infoText: "",
+        singleButtonText: "বন্ধ করুন",
+        singleButton: true)
+        .then((value) {
+      if (value) {
+        ///Force close
+        forceClose();
+      }
+    });
+  }
+
+  @override
+  void forceClose() {
+    Navigator.of(context).pop();
   }
 }

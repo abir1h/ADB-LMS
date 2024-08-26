@@ -18,6 +18,9 @@ import '../../domain/use_cases/assessment_use_case.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
+  void showSuccess(String message);
+  void showExamSubmitDialog();
+  void forceClose();
 }
 
 mixin ExamScreenService<T extends StatefulWidget> on State<T>
@@ -149,13 +152,12 @@ mixin ExamScreenService<T extends StatefulWidget> on State<T>
       List<McqDataEntity> mcqData) async {
     ResponseEntity responseEntity = await onSubmit(
         userId, examId, startTime, endTime, autoSubmission, testType, mcqData);
-    // if (responseEntity.error == null && responseEntity.data != null) {
-    //   _view.showExamSubmitDialog();
-    //   _view.showSuccess(responseEntity.message!);
-    //   contentReadPost();
-    // } else {
-    //   _view.showWarning(responseEntity.message!);
-    // }
+    if (responseEntity.data != null) {
+      _view.showExamSubmitDialog();
+      _view.showSuccess(responseEntity.message!);
+    } else {
+      _view.showWarning(responseEntity.message!);
+    }
     return responseEntity;
   }
 

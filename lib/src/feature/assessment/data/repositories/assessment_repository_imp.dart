@@ -55,9 +55,10 @@ class AssessmentRepositoryImp extends AssessmentRepository {
         List<McqDataEntity>.from(mcqData)
             .map((entity) => entity.toMcqDataModel)
             .toList()));
-    return ResponseModelToEntityMapper<ExamInfoDataEntity, ExamInfoDataModel>()
+    return ResponseModelToEntityMapper<ExamResultDataEntity,
+            ExamResultDataModel>()
         .toEntityFromModel(responseModel,
-            (ExamInfoDataModel model) => model.toExamInfoDataEntity);
+            (ExamResultDataModel model) => model.toExamResultDataEntity);
   }
 
   @override

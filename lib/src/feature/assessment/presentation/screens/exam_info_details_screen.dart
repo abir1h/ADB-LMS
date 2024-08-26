@@ -140,8 +140,8 @@ class ExamInfoRowWidget extends StatelessWidget with AppTheme {
     return Row(
       children: [
         Icon(
-          Icons.arrow_forward,
-          size: size.r16,
+          Icons.circle,
+          size: size.r8,
           color: clr.appPrimaryColorBlue,
         ),
         SizedBox(width: size.w4),
