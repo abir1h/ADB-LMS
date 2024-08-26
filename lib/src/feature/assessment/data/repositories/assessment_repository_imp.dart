@@ -1,4 +1,7 @@
+import '../mapper/exam_result_data_mapper.dart';
+import '../../domain/entities/exam_result_data_entity.dart';
 import '../mapper/mcq_data_mapper.dart';
+import '../models/exam_result_data_model.dart';
 import '../models/mcq_data_model.dart';
 import '../../domain/entities/mcq_data_entity.dart';
 import '../data_sources/remote/assessment_data_source.dart';
@@ -55,5 +58,15 @@ class AssessmentRepositoryImp extends AssessmentRepository {
     return ResponseModelToEntityMapper<ExamInfoDataEntity, ExamInfoDataModel>()
         .toEntityFromModel(responseModel,
             (ExamInfoDataModel model) => model.toExamInfoDataEntity);
+  }
+
+  @override
+  Future<List<ExamResultDataEntity>> getExamResults(
+      String materialId, String userId) async {
+    List<ExamResultDataModel> examResultList =
+        (await assessmentDataSource.getExamResultAction(materialId, userId));
+    return List<ExamResultDataModel>.from(examResultList)
+        .map((e) => e.toExamResultDataEntity)
+        .toList();
   }
 }

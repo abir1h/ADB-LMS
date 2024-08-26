@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import '../../models/exam_result_data_model.dart';
 import '../../models/mcq_data_model.dart';
 import '../../models/exam_info_data_model.dart';
 import '../../../../../core/constants/urls.dart';
@@ -18,6 +19,8 @@ abstract class AssessmentDataSource {
       bool autoSubmission,
       int testType,
       List<McqDataModel> mcqData);
+  Future<List<ExamResultDataModel>> getExamResultAction(
+      String materialId, String userId);
 }
 
 class AssessmentDataSourceImp extends AssessmentDataSource {
@@ -81,5 +84,15 @@ class AssessmentDataSourceImp extends AssessmentDataSource {
     ResponseModel responseModel =
         ResponseModel.fromJson(responseJson, (dynamic json) => null);
     return ResponseModel(message: "message");
+  }
+
+  @override
+  Future<List<ExamResultDataModel>> getExamResultAction(
+      String materialId, String userId) async {
+    final responseJson = await Server.instance.getRequest(
+        url: "${ApiCredential.getExamResults}$materialId?userId=$userId");
+    List<ExamResultDataModel> responseModelList =
+        ExamResultDataModel.listFromJson(responseJson['Data']);
+    return responseModelList;
   }
 }
