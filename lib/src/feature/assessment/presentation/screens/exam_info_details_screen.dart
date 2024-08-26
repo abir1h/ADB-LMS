@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../domain/entities/exam_info_data_entity.dart';
 import '../widgets/custom_text_widget.dart';
+import '../../domain/entities/mcq_data_entity.dart';
+import '../services/exam_info_details_screen_service.dart';
 
-class ExamInfoDetailsScreen extends StatelessWidget with AppTheme {
+class ExamInfoDetailsScreen extends StatefulWidget {
   final ExamInfoDataEntity data;
   final String examType;
   const ExamInfoDetailsScreen(
       {super.key, required this.data, required this.examType});
 
+  @override
+  State<ExamInfoDetailsScreen> createState() => _ExamInfoDetailsScreenState();
+}
+
+class _ExamInfoDetailsScreenState extends State<ExamInfoDetailsScreen>
+    with AppTheme, ExamInfoDetailsScreenService {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -34,12 +43,12 @@ class ExamInfoDetailsScreen extends StatelessWidget with AppTheme {
         child: Column(children: [
           ExamInfoRowWidget(
             leftText: "পরীক্ষার নাম",
-            rightText: data.examName,
+            rightText: widget.data.examName,
           ),
           SizedBox(height: size.h20),
           ExamInfoRowWidget(
             leftText: "পরীক্ষার ধরন",
-            rightText: examType,
+            rightText: widget.examType,
           ),
           SizedBox(height: size.h20),
           ExamInfoRowWidget(
@@ -49,12 +58,12 @@ class ExamInfoDetailsScreen extends StatelessWidget with AppTheme {
           SizedBox(height: size.h20),
           ExamInfoRowWidget(
             leftText: "মোট মার্কস",
-            rightText: data.marks.toString(),
+            rightText: widget.data.marks.toString(),
           ),
           SizedBox(height: size.h20),
           ExamInfoRowWidget(
             leftText: "মোট ব্যাপ্তিকাল",
-            rightText: "${data.durationMnt} মিনিট",
+            rightText: "${widget.data.durationMnt} মিনিট",
           ),
           SizedBox(height: size.h20),
           Card(
@@ -72,7 +81,7 @@ class ExamInfoDetailsScreen extends StatelessWidget with AppTheme {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      stringToWidget(input: data.examInstructions),
+                      stringToWidget(input: widget.data.examInstructions),
                     ],
                   ),
                 ),
@@ -81,8 +90,7 @@ class ExamInfoDetailsScreen extends StatelessWidget with AppTheme {
           ),
           SizedBox(height: size.h20),
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, AppRoute.examViewScreen,
-                arguments: ExamScreenArgs(examInfoDataEntity: data)),
+            onTap: () => onTapStartExam(widget.data.id),
             child: Container(
               padding: EdgeInsets.all(size.w10),
               decoration: BoxDecoration(
@@ -107,6 +115,18 @@ class ExamInfoDetailsScreen extends StatelessWidget with AppTheme {
         ]),
       ),
     );
+  }
+
+  @override
+  void onTapExamDetailsScreen(List<McqDataEntity> data) {
+    Navigator.pushNamed(context, AppRoute.examViewScreen,
+        arguments:
+            ExamScreenArgs(examInfoDataEntity: widget.data, examData: data));
+  }
+
+  @override
+  void showWarning(String message) {
+    CustomToasty.of(context).showWarning(message);
   }
 }
 

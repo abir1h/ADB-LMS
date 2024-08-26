@@ -1,3 +1,5 @@
+import 'package:adb_mobile/src/feature/assessment/domain/entities/mcq_data_entity.dart';
+
 import '../../feature/assessment/domain/entities/exam_info_data_entity.dart';
 import '../../feature/dashboard/domain/entities/course_info_data_entity.dart';
 
@@ -20,7 +22,8 @@ class ExamInfoScreenArgs {
 
 class ExamScreenArgs {
   final ExamInfoDataEntity examInfoDataEntity;
-  ExamScreenArgs({required this.examInfoDataEntity});
+  final List<McqDataEntity> examData;
+  ExamScreenArgs({required this.examInfoDataEntity, required this.examData});
 }
 
 class BaseScreenArgs {
