@@ -86,104 +86,36 @@ class _CourseConductScreenState extends State<CourseConductScreen>
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: size.h16),
-                !showVideo && !isYoutube
-                    ? AspectRatio(
-                        aspectRatio: 16 / 8,
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(8.r),
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(8.r),
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl: ApiCredential.mediaBaseUrl +
-                                  data.course!.imagePath,
-                              placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                              errorWidget: (context, url, error) => const Icon(
-                                Icons.error,
-                                color: Colors.red,
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      )
-                    : const SizedBox(),
-                if (showVideo && !isYoutube) ...[
-                  ///Activate solid video player
-                  Stack(
-                    fit: StackFit.loose,
-                    children: [
-                      ContentPlayerWidget(
-                        playerStream: videoDetailsDataStreamController.stream,
-                        playbackStream:
-                            playbackPausePlayStreamController.stream,
-                        // onProgressChanged: onPlaybackProgressChanged,
-                        // interceptSeekTo: onInterceptPlaybackSeekToPosition,
+                SizedBox(height: size.h10),
+                AspectRatio(
+                  aspectRatio: 16 / 8,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(8.r),
                       ),
-                      Positioned(
-                          top: size.h16,
-                          left: size.w16,
-                          child: InkWell(
-                            onTap: onGoBack,
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: clr.shadeWhiteColor2,
-                              size: size.r20,
-                            ),
-                          )),
-                    ],
-                  )
-                ] else if (!showVideo && isYoutube) ...[
-                  ///Activate Youtube video player
-                  youtubeController != null
-                      ? YoutubePlayerBuilder(
-                          player: YoutubePlayer(
-                            controller: youtubeController!,
-                            aspectRatio: 16 / 9,
-                            showVideoProgressIndicator: true,
-                            progressColors: ProgressBarColors(
-                                backgroundColor: clr.progressBGColor,
-                                playedColor: clr.iconColorRed,
-                                handleColor: clr.iconColorRed),
-                          ),
-                          builder: (context, player) {
-                            return Column(
-                              children: [
-                                Stack(
-                                  fit: StackFit.loose,
-                                  children: [
-                                    player,
-                                    Positioned(
-                                        top: size.h16,
-                                        left: size.w16,
-                                        child: InkWell(
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Icon(
-                                            Icons.arrow_back,
-                                            color: clr.shadeWhiteColor2,
-                                            size: size.r20,
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                              ],
-                            );
-                          },
-                        )
-                      : const CircularProgressIndicator()
-                ],
-                SizedBox(height: size.h16),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(8.r),
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            ApiCredential.mediaBaseUrl + data.course!.imagePath,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.error,
+                          color: Colors.red,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: size.h10),
                 CourseTabSectionWidget(
                   tabTitle1: "বিষয়বস্তু",
                   tabTitle2: "বিস্তারিত",

@@ -27,7 +27,7 @@ mixin VideoService<T extends StatefulWidget> on State<T> implements _ViewModel {
   String? videoUrl;
   VideoWatchSession _watchSession = VideoWatchSession.empty();
 
-  YoutubePlayerController? youtubeController;
+  // YoutubePlayerController? youtubeController;
 
   // final CourseUseCase _courseUseCase = CourseUseCase(
   //     courseRepository: CourseRepositoryImp(
