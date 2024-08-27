@@ -120,8 +120,10 @@ class _ExamInfoDetailsScreenState extends State<ExamInfoDetailsScreen>
   @override
   void onTapExamDetailsScreen(List<McqDataEntity> data) {
     Navigator.pushNamed(context, AppRoute.examViewScreen,
-        arguments:
-            ExamScreenArgs(examInfoDataEntity: widget.data, examData: data));
+        arguments: ExamScreenArgs(
+            examInfoDataEntity: widget.data,
+            examData: data,
+            examType: widget.examType));
   }
 
   @override

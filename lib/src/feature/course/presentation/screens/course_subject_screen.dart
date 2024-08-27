@@ -169,7 +169,7 @@ class SubjectItemWidget<T> extends StatelessWidget with AppTheme, Language {
             LinearPercentIndicator(
               animation: true,
               lineHeight: 25.0,
-              animationDuration: 2500,
+              animationDuration: 500,
               barRadius: Radius.circular(size.r10),
               percent: data.progress / 100,
               center: Text(

@@ -23,7 +23,11 @@ class ExamInfoScreenArgs {
 class ExamScreenArgs {
   final ExamInfoDataEntity examInfoDataEntity;
   final List<McqDataEntity> examData;
-  ExamScreenArgs({required this.examInfoDataEntity, required this.examData});
+  final String examType;
+  ExamScreenArgs(
+      {required this.examInfoDataEntity,
+      required this.examData,
+      required this.examType});
 }
 
 class BaseScreenArgs {
@@ -35,6 +39,7 @@ class CertificateViewScreenArgs {
   final String data;
   CertificateViewScreenArgs({required this.data});
 }
+
 class CourseVideoScreenArgs {
   final String? courseId;
   final String? topicId;

@@ -125,7 +125,6 @@ mixin ExamScreenService<T extends StatefulWidget> on State<T>
       examTimer.cancel();
       // _view.showExamSubmitDialog();
 
-      ////TODO: Later
       LocalStorageService.getInstance().then((localStorageService){
         String? userId = localStorageService.getStringValue(StringData.userId);
         onSubmitExam(
@@ -134,7 +133,7 @@ mixin ExamScreenService<T extends StatefulWidget> on State<T>
             _examStartTime.toUtc().toIso8601String(),
             DateTime.now().toUtc().toIso8601String(),
             true,
-            2,
+            screenArgs.examType == "Post Test" ? 2 : 1,
             screenArgs.examData);
         pageStateStreamController.add(
             DataLoadedState<PageState>(TimeExpiredState(screenArgs.examData)));
@@ -245,7 +244,7 @@ mixin ExamScreenService<T extends StatefulWidget> on State<T>
                 _examStartTime.toUtc().toIso8601String(),
                 DateTime.now().toUtc().toIso8601String(),
                 false,
-                2,
+                screenArgs.examType == "Post Test" ? 2 : 1,
                 screenArgs.examData)
             .then((value) {
           examTimer.cancel();

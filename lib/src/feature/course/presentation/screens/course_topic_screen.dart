@@ -1,20 +1,13 @@
-import 'package:adb_mobile/src/core/routes/app_route_args.dart';
-import 'package:adb_mobile/src/core/routes/app_route.dart';
-import 'package:adb_mobile/src/core/routes/app_route_args.dart';
-import 'package:adb_mobile/src/core/service/notifier/app_events_notifier.dart';
-import 'package:adb_mobile/src/core/utility/helper.dart';
-import 'package:adb_mobile/src/feature/video/presentation/service/video_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../../../core/common_widgets/app_stream.dart';
-import '../../../../core/constants/app_theme.dart';
-import '../../../../core/constants/common_imports.dart';
+import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_route.dart';
+import '../../../../core/utility/helper.dart';
+import '../../../video/presentation/service/video_service.dart';
+import '../../../../core/constants/common_imports.dart';
 import '../../domain/entities/course_conduct_data_entity.dart';
 import '../../domain/entities/material_entity.dart';
 
@@ -121,7 +114,7 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>>
               LinearPercentIndicator(
                 animation: true,
                 lineHeight: 25.0,
-                animationDuration: 2500,
+                animationDuration: 500,
                 barRadius: Radius.circular(size.r10),
                 percent: widget.data.progress / 100,
                 center: Text(
@@ -154,14 +147,21 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>>
                     return TopicItemWidget(
                       data: item,
                       onTap: () {
-                        if (item.type != "Video") {
+                        if (item.type == "Post Test") {
                           Navigator.of(context).pushNamed(
                               AppRoute.examInfoViewScreen,
                               arguments:
                                   ExamInfoScreenArgs(materialId: item.id, examType: item.type));
-                        } else {
+                        } else if (item.type == "Pre Test" && !item.restricted){
+                          Navigator.of(context).pushNamed(
+                              AppRoute.examInfoViewScreen,
+                              arguments:
+                              ExamInfoScreenArgs(materialId: item.id, examType: item.type));
+                        }else if(!item.restricted){
                           loadVideoData(
                               item,widget.data.course!.id,widget.data.topic!.id);
+                        }else{
+                          //do nothing
                         }
                       },
                     );
@@ -323,7 +323,7 @@ class TopicItemWidget<T> extends StatelessWidget with AppTheme, Language {
                 SizedBox(
                   width: size.w6,
                 ),
-                data.restricted
+                data.restricted && data.type != "Post Test"
                     ? Expanded(
                         flex: 0,
                         child: Icon(FontAwesomeIcons.lock,

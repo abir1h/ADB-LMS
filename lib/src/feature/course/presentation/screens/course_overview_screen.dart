@@ -104,7 +104,7 @@ class _CourseOverViewScreenState extends State<CourseOverViewScreen>
                         LinearPercentIndicator(
                           animation: true,
                           lineHeight: 20.0,
-                          animationDuration: 2500,
+                          animationDuration: 500,
                           barRadius: Radius.circular(size.r10),
                           percent: data.progress / 100,
                           center: Text(

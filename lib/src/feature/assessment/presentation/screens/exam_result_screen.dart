@@ -4,14 +4,12 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
-import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/constants/common_imports.dart';
-import '../../../../core/routes/app_route.dart';
 import '../../domain/entities/exam_result_data_entity.dart';
 import '../../domain/entities/exam_info_data_entity.dart';
 import '../services/exam_result_screen_service.dart';
 import '../widgets/custom_text_widget.dart';
-import '../../domain/entities/mcq_data_entity.dart';
+
 
 class ExamResultScreen extends StatefulWidget {
   final ExamInfoDataEntity data;
@@ -71,13 +69,6 @@ class _ExamResultScreenState extends State<ExamResultScreen>
             )),
       ),
     );
-  }
-
-  @override
-  void onTapExamDetailsScreen(List<McqDataEntity> data) {
-    Navigator.pushNamed(context, AppRoute.examViewScreen,
-        arguments:
-            ExamScreenArgs(examInfoDataEntity: widget.data, examData: data));
   }
 
   @override

@@ -12,7 +12,6 @@ import '../../domain/entities/mcq_data_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
-  void onTapExamDetailsScreen(List<McqDataEntity> data);
 }
 
 mixin ExamResultScreenService<T extends StatefulWidget> on State<T>
