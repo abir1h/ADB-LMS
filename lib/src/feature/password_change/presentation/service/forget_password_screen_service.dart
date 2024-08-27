@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:adb_mobile/src/core/routes/app_route.dart';
+
 import '../../data/repositories/password_change_repository_imp.dart';
 import '../../domain/use_cases/password_change_use_case.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,11 @@ mixin ForgotPasswordScreenService implements _ViewModel {
     return _passwordChangeUseCase.validateOtpUseCase(phone, otp);
   }
 
+  Future<ResponseEntity> resetPasswordRequest(
+      String phone, String Otp, String password) async {
+    return _passwordChangeUseCase.resetOtpUseCase(phone, Otp, password);
+  }
+
   ///Service configurations
   @override
   void initState() {
@@ -58,8 +65,12 @@ mixin ForgotPasswordScreenService implements _ViewModel {
       if (value.status == 1) {
         CustomToasty.of(context).releaseUI();
 
-        CustomToasty.of(context).showSuccess("OTP send succesfully");
-        _view.changeScreenState(ForgotPasswordState.enterOTP);
+        if (screenState == ForgotPasswordState.enterOTP) {
+          CustomToasty.of(context).showSuccess("OTP send succesfully");
+        } else {
+          _view.changeScreenState(ForgotPasswordState.enterOTP);
+          CustomToasty.of(context).showSuccess("OTP send succesfully");
+        }
 
         return value;
       } else {
@@ -74,16 +85,29 @@ mixin ForgotPasswordScreenService implements _ViewModel {
   Future validate(BuildContext context) async {
     CustomToasty.of(context).lockUI();
     validateOTP(phoneController.text, otpController.text).then((value) {
-      if (value.status == 1) {
+      if (value.data != null && value.data.otp != '') {
         CustomToasty.of(context).releaseUI();
-        CustomToasty.of(context).showSuccess("OTP validated succesfully");
+        CustomToasty.of(context).showSuccess("OTP validated successfully");
         _view.changeScreenState(ForgotPasswordState.enterNewPassword);
-
-        return value;
       } else {
         CustomToasty.of(context).releaseUI();
         CustomToasty.of(context).showWarning(value.message!);
-        return value;
+      }
+    });
+  }
+
+  Future resetPassword(BuildContext context) async {
+    CustomToasty.of(context).lockUI();
+    resetPasswordRequest(
+            phoneController.text, otpController.text, newPassword.text)
+        .then((value) {
+      if (value.status == 1) {
+        CustomToasty.of(context).releaseUI();
+        CustomToasty.of(context).showSuccess("Password changed successfully");
+        Navigator.pushNamed(context, AppRoute.landingScreen);
+      } else {
+        CustomToasty.of(context).releaseUI();
+        CustomToasty.of(context).showWarning(value.message!);
       }
     });
   }

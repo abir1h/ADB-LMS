@@ -16,4 +16,11 @@ class PasswordChangeUseCase {
         _passwordChangeRepository.validateOtpInformation(phone, otp);
     return response;
   }
+
+  Future<ResponseEntity> resetOtpUseCase(
+      String phone, String Otp, String password) async {
+    final response =
+        _passwordChangeRepository.resetOtpInformation(phone, Otp, password);
+    return response;
+  }
 }

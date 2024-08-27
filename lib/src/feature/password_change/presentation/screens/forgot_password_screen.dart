@@ -40,6 +40,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
   }
 
   void startResendTimer() {
+    requestOtp(context);
     setState(() {
       _isResendButtonDisabled = true;
       _start = 60;
@@ -160,7 +161,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
         _buildLottieAnimation(),
         _buildPasswordFields(),
         SizedBox(height: size.h20),
-        CustomButton(onTap: () {}, title: "সাবমিট"),
+        CustomButton(onTap: () {
+          if(newPassword.text!=confirmPassword.text){
+            CustomToasty.of(context).showWarning("New password & confirm password should be same");
+          }else{
+            resetPassword(context);
+          }
+        }, title: "সাবমিট"),
         SizedBox(height: size.h20),
         _buildFooter(),
       ],
@@ -294,12 +301,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
           hintText: "নতুন পাসওয়ার্ড",
           title: "নতুন পাসওয়ার্ড",
           controller: newPassword,
+          obscureText: true,
         ),
         SizedBox(height: size.h12),
         AppTextFieldWithTitle(
           hintText: "পাসওয়ার্ড নিশ্চিত করুন",
           title: "পাসওয়ার্ড নিশ্চিত করুন",
-          controller: newPassword,
+          controller: confirmPassword,          obscureText: true,
+
         ),
         SizedBox(height: size.h20),
       ],
