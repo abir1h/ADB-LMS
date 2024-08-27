@@ -135,7 +135,7 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
 
         hintText: widget.hintText,
 
-        contentPadding: EdgeInsets.symmetric(horizontal: size.w12),
+        //bacboncontentPadding: EdgeInsets.symmetric(horizontal: size.w12),
         hintStyle: TextStyle(
           color: clr.placeHolderTextColorGray,
           fontSize: size.textSmall,
