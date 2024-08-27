@@ -66,6 +66,12 @@ class AssessmentDataSourceImp extends AssessmentDataSource {
           'QuestionId': option.id,
         };
         answerList.add(answerItem);
+      }else{
+        final answerItem = {
+          'Answered': "",
+          'QuestionId': option.id,
+        };
+        answerList.add(answerItem);
       }
     }
     Map<String, dynamic> data = {

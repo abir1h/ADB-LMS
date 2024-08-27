@@ -69,44 +69,50 @@ class _DrawerWidgetState extends State<DrawerWidget>
               ),
               DrawerLinkWidget(
                 text: "প্রোফাইল",
-                onTap: ()=>Navigator.pushNamed(context,AppRoute.baseScreen,arguments: BaseScreenArgs(index: 2)),
+                onTap: () => Navigator.pushNamed(context, AppRoute.baseScreen,
+                    arguments: BaseScreenArgs(index: 2)),
                 icon: Icons.person_2_outlined,
                 iconColor: clr.blackColor,
               ),
               DrawerLinkWidget(
                 text: "ব্যবহারকারীর নির্দেশনাবলী",
-                onTap: ()=>Navigator.pushNamed(context,AppRoute.userMannual),
+                onTap: () => Navigator.pushNamed(context, AppRoute.userMannual),
                 icon: CupertinoIcons.book,
                 iconColor: clr.blackColor,
               ),
               DrawerLinkWidget(
                 text: "প্রজেক্ট সম্পর্কে",
-                onTap: ()=>Navigator.pushNamed(context,AppRoute.projectDetails),
+                onTap: () =>
+                    Navigator.pushNamed(context, AppRoute.projectDetails),
                 icon: CupertinoIcons.book,
                 iconColor: clr.blackColor,
               ),
               DrawerLinkWidget(
                 text: "নোটিফিকেশন ",
-                onTap: () {},
+                onTap: () =>
+                    Navigator.pushNamed(context, AppRoute.notificationScreen),
                 icon: CupertinoIcons.bell,
                 iconColor: clr.blackColor,
               ),
               DrawerLinkWidget(
                 text: "আমার প্রশিক্ষণ",
-                onTap: ()=>Navigator.pushNamed(context,AppRoute.baseScreen,arguments: BaseScreenArgs(index: 1)),
+                onTap: () => Navigator.pushNamed(context, AppRoute.baseScreen,
+                    arguments: BaseScreenArgs(index: 1)),
                 icon: CupertinoIcons.book,
                 iconColor: clr.blackColor,
               ),
               DrawerLinkWidget(
                   text: "সার্টিফিকেশন ",
-                  onTap: ()=>Navigator.pushNamed(context,AppRoute.certificateList),
+                  onTap: () =>
+                      Navigator.pushNamed(context, AppRoute.certificateList),
                   faIcon: FaIcon(
                     FontAwesomeIcons.award,
                     size: size.r24,
                   )),
               DrawerLinkWidget(
                   text: "পাসওয়ার্ড পরিবর্তন করুন  ",
-                  onTap: ()=>Navigator.pushNamed(context,AppRoute.changePassword),
+                  onTap: () =>
+                      Navigator.pushNamed(context, AppRoute.changePassword),
                   faIcon: FaIcon(
                     FontAwesomeIcons.key,
                     size: size.r24,

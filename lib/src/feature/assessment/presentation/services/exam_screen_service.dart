@@ -124,11 +124,20 @@ mixin ExamScreenService<T extends StatefulWidget> on State<T>
       // _view.showExamSubmitDialog();
 
       ////TODO: Later
-      // onSubmitExam(screenArgs.examData);
-
-      // pageStateStreamController.add(
-      //     DataLoadedState<PageState>(TimeExpiredState(screenArgs.examData)));
-      _isExamRunning = false;
+      LocalStorageService.getInstance().then((localStorageService){
+        String? userId = localStorageService.getStringValue(StringData.userId);
+        onSubmitExam(
+            userId!,
+            screenArgs.examInfoDataEntity.id,
+            _examStartTime.toUtc().toIso8601String(),
+            DateTime.now().toUtc().toIso8601String(),
+            true,
+            2,
+            screenArgs.examData);
+        pageStateStreamController.add(
+            DataLoadedState<PageState>(TimeExpiredState(screenArgs.examData)));
+        _isExamRunning = false;
+      });
     }
   }
 

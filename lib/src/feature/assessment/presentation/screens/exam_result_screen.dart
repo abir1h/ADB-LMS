@@ -1,6 +1,4 @@
-import 'package:adb_mobile/src/feature/assessment/domain/entities/exam_result_data_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
@@ -9,13 +7,11 @@ import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route.dart';
-import '../../../../core/utility/app_label.dart';
-import '../../../course/presentation/screens/course_conduct_faq_screen.dart';
+import '../../domain/entities/exam_result_data_entity.dart';
 import '../../domain/entities/exam_info_data_entity.dart';
 import '../services/exam_result_screen_service.dart';
 import '../widgets/custom_text_widget.dart';
 import '../../domain/entities/mcq_data_entity.dart';
-import '../services/exam_info_details_screen_service.dart';
 
 class ExamResultScreen extends StatefulWidget {
   final ExamInfoDataEntity data;
