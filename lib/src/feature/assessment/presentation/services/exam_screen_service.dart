@@ -9,6 +9,7 @@ import '../../../../core/config/local_storage_services.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../../shared/domain/entities/response_entity.dart';
+import '../../domain/entities/exam_result_data_entity.dart';
 import '../../domain/entities/mcq_data_entity.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/common_widgets/app_stream.dart';
@@ -19,7 +20,8 @@ import '../../domain/use_cases/assessment_use_case.dart';
 abstract class _ViewModel {
   void showWarning(String message);
   void showSuccess(String message);
-  void showExamSubmitDialog();
+  void showExamSubmitDialog(ExamResultDataEntity examResultDataEntity);
+  void showExamCancellationDialog();
   void forceClose();
 }
 
@@ -143,12 +145,11 @@ mixin ExamScreenService<T extends StatefulWidget> on State<T>
 
   Future<bool> onGoBack() {
     if (_isExamRunning) {
-      // _view.showExamCancellationDialog();
+      _view.showExamCancellationDialog();
     } else {
-      // _view.forceClose();
+      _view.forceClose();
     }
-    Navigator.of(context).pop();
-    return Future.value(true);
+    return Future.value(false);
   }
 
   Future<ResponseEntity> onSubmitExam(
@@ -162,7 +163,7 @@ mixin ExamScreenService<T extends StatefulWidget> on State<T>
     ResponseEntity responseEntity = await onSubmit(
         userId, examId, startTime, endTime, autoSubmission, testType, mcqData);
     if (responseEntity.data != null) {
-      _view.showExamSubmitDialog();
+      _view.showExamSubmitDialog(responseEntity.data);
       _view.showSuccess(responseEntity.message!);
     } else {
       _view.showWarning(responseEntity.message!);

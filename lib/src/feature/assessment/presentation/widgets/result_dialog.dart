@@ -1,9 +1,13 @@
-import 'package:adb_mobile/src/core/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/common_widgets/custom_button.dart';
+import '../../../../core/constants/app_theme.dart';
+import '../../domain/entities/exam_result_data_entity.dart';
+
 class ResultDialog extends StatefulWidget {
-  const ResultDialog({super.key});
+  final ExamResultDataEntity examResultDataEntity;
+  const ResultDialog({super.key, required this.examResultDataEntity});
 
   @override
   State<ResultDialog> createState() => _ResultDialogState();
@@ -39,14 +43,18 @@ class _ResultDialogState extends State<ResultDialog> with AppTheme {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                     IconButton(onPressed: (){Navigator.pop(context); }, icon:  Icon(
-                       Icons.clear,
-                       color: clr.blackColor,
-                       size: size.r24,
-                     ),)
+                      IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(true);
+                        },
+                        icon: Icon(
+                          Icons.clear,
+                          color: clr.blackColor,
+                          size: size.r24,
+                        ),
+                      )
                     ],
                   ),
-
                   Center(
                       child: Text(
                     "পরীক্ষার ফলাফল",
@@ -78,7 +86,7 @@ class _ResultDialogState extends State<ResultDialog> with AppTheme {
                                     color: clr.whiteColor),
                               ),
                               Text(
-                                " 0 out of 5",
+                                "${widget.examResultDataEntity.noOfCorrectAnsweredQs} out of ${widget.examResultDataEntity.totalQuestions}",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: size.textSmall,
@@ -109,7 +117,7 @@ class _ResultDialogState extends State<ResultDialog> with AppTheme {
                                     color: clr.whiteColor),
                               ),
                               Text(
-                                " 0%",
+                                "${(widget.examResultDataEntity.scored / widget.examResultDataEntity.totalMarks) * 100}%",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: size.textSmall,
@@ -147,6 +155,10 @@ class _ResultDialogState extends State<ResultDialog> with AppTheme {
                       )),
                     ],
                   ),
+                  SizedBox(height: ThemeSize.instance.h32),
+                  CustomButton(
+                      onTap: () => Navigator.of(context).pop(true),
+                      title: "বন্ধ করুন"),
                 ],
               ),
             ),

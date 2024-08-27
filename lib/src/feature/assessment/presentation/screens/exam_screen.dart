@@ -7,11 +7,13 @@ import '../../../../core/common_widgets/custom_dialog_widget.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/utility/app_label.dart';
+import '../../domain/entities/exam_result_data_entity.dart';
 import '../services/exam_screen_service.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../widgets/mcq_answer_widget.dart';
 import '../widgets/question_widget.dart';
+import '../widgets/result_dialog.dart';
 import '../widgets/time_digit_widget.dart';
 
 class ExamScreen extends StatefulWidget {
@@ -185,7 +187,7 @@ class _ExamScreenState extends State<ExamScreen>
                   ),
                   StreamBuilder<Map<String, dynamic>>(
                     initialData: const {
-                      "next": "Next",
+                      "next": "পরবর্তী",
                       "previous": false,
                     },
                     stream: buttonTextStream.stream,
@@ -360,15 +362,42 @@ class _ExamScreenState extends State<ExamScreen>
   }
 
   @override
-  void showExamSubmitDialog() {
-    CustomDialogWidget.show(
+  void showExamSubmitDialog(ExamResultDataEntity examResultDataEntity) {
+    // CustomDialogWidget.show(
+    //         context: context,
+    //         icon: Icons.quiz_outlined,
+    //         title: "উত্তরপত্র সফলভাবে জমা দেওয়া হয়েছে",
+    //         infoText: "",
+    //         singleButtonText: "বন্ধ করুন",
+    //         singleButton: true)
+    //     .then((value) {
+    //   if (value) {
+    //     ///Force close
+    //     forceClose();
+    //   }
+    // });
+    showDialog(
         context: context,
-        icon: Icons.quiz_outlined,
-        title: "উত্তরপত্র সফলভাবে জমা দেওয়া হয়েছে",
-        infoText: "",
-        singleButtonText: "বন্ধ করুন",
-        singleButton: true)
-        .then((value) {
+        barrierDismissible: true,
+        builder: (context) {
+          return ResultDialog(examResultDataEntity: examResultDataEntity,);
+        }).then((value) {
+      if (value) {
+        ///Force close
+        forceClose();
+      }
+    });
+  }
+
+  @override
+  void showExamCancellationDialog() {
+    CustomDialogWidget.show(
+      context: context,
+      title: "আপনি কি নিশ্চিত?",
+      infoText: "আপনি পরীক্ষা বাতিল করতে চান? আপনার উত্তরগুলি জমা দেওয়া হবে না৷\n",
+      leftButtonText: "বাতিল করুন",
+      rightButtonText: "প্রস্থান করুন"
+    ).then((value) {
       if (value) {
         ///Force close
         forceClose();
@@ -380,4 +409,5 @@ class _ExamScreenState extends State<ExamScreen>
   void forceClose() {
     Navigator.of(context).pop();
   }
+
 }
