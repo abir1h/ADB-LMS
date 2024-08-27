@@ -30,5 +30,8 @@ class ApiCredential {
   static String getQuestions = "/exam/pre-post-test/get-questions/";
   static String saveAnswers = "/exam/pre-post-test/save-answers";
   static String getExamResults = "/exam/pre-post-test/get-exam-results/";
+  static String requestOtp = "/account/request-for-otp/";
+  static String validateOtp = "/account/validate-otp";
+  static String resetOtp = "/account/reset-password-by-otp?userId=null";
 
 }

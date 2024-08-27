@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/feature/password_change/presentation/screens/forgot_password_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../feature/authentication/presentation/screens/login_screen.dart';
@@ -42,6 +43,7 @@ class AppRoute {
   static const String examInfoViewScreen = "examInfoViewScreen";
   static const String examViewScreen = "examViewScreen";
   static const String courseVideoScreen = "courseVideoScreen";
+  static const String forgetPassword = "forgetPassword";
 }
 
 mixin RouteGenerator {
@@ -89,6 +91,8 @@ mixin RouteGenerator {
             return ExamScreen(arguments: setting.arguments);
           case AppRoute.courseVideoScreen:
             return CourseVideoScreen(arguments: setting.arguments);
+          case AppRoute.forgetPassword:
+            return const ForgotPasswordScreen();
           default:
             return const SplashScreen();
         }

@@ -5,6 +5,7 @@ class ImageAssets {
   static String get icLogo => 'logo'.png;
   static String get animEmpty => 'Animation - 1706009676891'.json;
   static String get emptyAnimation => 'empty'.json;
+  static String get passwordAnimation => 'password'.json;
 
 
 }

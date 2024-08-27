@@ -79,6 +79,8 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme, Language,L
                     color: clr.appPrimaryColorBlue),
               ),
             ),
+
+
             SizedBox(
               height: size.h20,
             ),
@@ -102,8 +104,24 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme, Language,L
                   offset: Offset(0.0, size.r1 * 5),
                 ),
               ],
-            ) ,SizedBox(
-              height: size.h32,
+            ) , SizedBox(
+              height: size.h16,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                    GestureDetector(
+                      onTap: ()=>Navigator.pushNamed(context,AppRoute.forgetPassword),
+                      child: Text(" পাসওয়ার্ড ভুলে গেছেন? ",
+                                        textAlign: TextAlign.end,
+                                        style: TextStyle(
+                      fontSize: size.textSmall,
+                      fontWeight: FontWeight.w400,
+                      color: clr.appPrimaryColorBlue),),
+                    ),
+              ],
+            ),SizedBox(
+              height: size.h10,
             ),Text(
               StringData.newUserText,
               style: TextStyle(
