@@ -19,6 +19,7 @@ class ThemeColor {
   Color get appPrimaryColorBlue => HexColor("0072BC");
   Color get appSecondaryColorPink => HexColor("BB009C");
   Color get scaffoldBackgroundColor => HexColor("F9FEFD");
+  Color get scaffoldBackgroundColor2 => HexColor("ECFBF7");
   Color get secondaryBackgroundColor => HexColor("FFFEFE");
   Color get cardColor1 => HexColor("34495E");
   Color get cardColorBorder1 => HexColor("71808F");
