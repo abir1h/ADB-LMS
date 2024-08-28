@@ -8,7 +8,10 @@ import '../../models/course_list_data_model.dart';
 abstract class CourseRemoteDataSource {
   Future<ResponseModel> getCourseAction(String userId);
   Future<ResponseModel> getCourseOverViewAction(String userId, String courseId);
-  Future<ResponseModel> getCourseTopicDetailsAction(String userId, String courseId, String topicId);
+  Future<ResponseModel> getCourseTopicDetailsAction(
+      String userId, String courseId, String topicId);
+  Future<ResponseModel> contentStudyAction(
+      String userId, String materialId, int studyTimeSec);
 }
 
 class CourseRemoteDataSourceImp extends CourseRemoteDataSource {
@@ -32,11 +35,27 @@ class CourseRemoteDataSourceImp extends CourseRemoteDataSource {
   }
 
   @override
-  Future<ResponseModel> getCourseTopicDetailsAction(String userId, String courseId, String topicId) async{
+  Future<ResponseModel> getCourseTopicDetailsAction(
+      String userId, String courseId, String topicId) async {
     final responseJson = await Server.instance.getRequest(
-        url: "${ApiCredential.getCourseTopicDetails}?userId=$userId&courseId=$courseId&topicId=$topicId");
+        url:
+            "${ApiCredential.getCourseTopicDetails}?userId=$userId&courseId=$courseId&topicId=$topicId");
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => CourseConductDataModel.fromJson(json));
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> contentStudyAction(
+      String userId, String materialId, int studyTimeSec) async {
+    final responseJson = await Server.instance.getRequest(
+        url:
+            "${ApiCredential.contentStudy}?userId=$userId&materialId=$materialId&studyTimeSec=$studyTimeSec");
+    ResponseModel responseModel = ResponseModel(
+        message: responseJson['Message'],
+        status: responseJson['Status'],
+        error: responseJson['Error'],
+        data: null);
     return responseModel;
   }
 }

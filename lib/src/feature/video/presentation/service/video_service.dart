@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/config/local_storage_services.dart';
+import '../../../../core/constants/common_imports.dart';
 import '../../../../core/service/local_database_service.dart';
+import '../../../course/data/data_sources/remote/course_data_source.dart';
+import '../../../course/data/repositories/course_repository_imp.dart';
 import '../../../course/domain/entities/material_entity.dart';
 import '../../../../core/service/notifier/app_events_notifier.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/routes/app_route.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../course/domain/entities/popup_quiz_data_model.dart';
+import '../../../course/domain/use_cases/course_use_case.dart';
+import '../../../shared/domain/entities/response_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
@@ -28,22 +34,25 @@ mixin VideoService<T extends StatefulWidget> on State<T> implements _ViewModel {
   String? videoUrl;
   VideoWatchSession _watchSession = VideoWatchSession.empty();
 
-  // Future<ResponseEntity> contentRead(
-  //     int contentId,
-  //     String contentType,
-  //     int courseId,
-  //     bool isCompleted,
-  //     String lastWatchTime,
-  //     String attendanceType) async {
-  //   return _courseUseCase.contentReadUseCase(contentId, contentType, courseId,
-  //       isCompleted, lastWatchTime, attendanceType);
-  // }
-
   // Future<ResponseEntity> videoActivity(int circularVideoId, int lastWatchTime,
   //     List<int> questionSeenList) async {
   //   return _videoUseCase.videoActivityUseCase(
   //       circularVideoId, lastWatchTime, questionSeenList);
   // }
+
+  final CourseUseCase _courseUseCase = CourseUseCase(
+    courseRepository: CourseRepositoryImp(
+        courseRemoteDataSource: CourseRemoteDataSourceImp()),
+  );
+
+  Future<ResponseEntity> contentStudy(
+      String materialId, int studyTimeSec) async {
+    LocalStorageService localStorageService =
+        await LocalStorageService.getInstance();
+    String? userId = localStorageService.getStringValue(StringData.userId);
+    return _courseUseCase.contentStudyUseCase(
+        userId!, materialId, studyTimeSec);
+  }
 
   ///Service configurations
   @override
@@ -64,8 +73,6 @@ mixin VideoService<T extends StatefulWidget> on State<T> implements _ViewModel {
       AppStreamController();
   final AppStreamController<bool> playbackPausePlayStreamController =
       AppStreamController();
-
-  ///TODO: Change Later
   final AppStreamController<PopupQuizDataEntity>
       videoQuestionDataStreamController = AppStreamController();
 
@@ -84,47 +91,16 @@ mixin VideoService<T extends StatefulWidget> on State<T> implements _ViewModel {
     });
   }
 
-  ///Load Video details
-  // void loadVideoData(int courseContentId) {
-  //   _getVideoWatchSessions(screenArgs.data.contentId);
-  //   if (!mounted) return;
-  //   videoDetailsDataStreamController.add(LoadingState());
-  //   getVideoDetails(courseContentId).then((value) {
-  //     if (value.error == null &&
-  //         value.data != null &&
-  //         value.data.videoData != null) {
-  //       videoDetailsDataStreamController
-  //           .add(DataLoadedState<VideoContentDataEntity>(value.data));
-  //       if (value.data.videoData.category != VideoCategory.s3.name) {
-  //         _view.setYoutubeVideo(value.data.videoData.videoUrl);
-  //       }
-  //     } else if (value.error == null && value.data == null) {
-  //       _view.showWarning(value.message!);
-  //       videoDetailsDataStreamController.add(EmptyState(message: ""));
-  //     } else {
-  //       _view.showWarning(value.message!);
-  //     }
-  //   });
-  // }
-
   void loadVideoData(
     MaterialEntity materialEntity,
     String courseId,
     String topicId,
   ) {
-    // if (!mounted) return;
-    // videoDetailsDataStreamController.add(LoadingState());
-
-    if (materialEntity.youtubeId.isNotEmpty) {
-      //youtube
-      Navigator.pushReplacementNamed(context, AppRoute.courseVideoScreen,
-          arguments: CourseVideoScreenArgs(
-              data: materialEntity, courseId: courseId, topicId: topicId));
-    } else {
-      Navigator.pushReplacementNamed(context, AppRoute.courseVideoScreen,
-          arguments: CourseVideoScreenArgs(
-              data: materialEntity, courseId: courseId, topicId: topicId));
-    }
+    Navigator.pushReplacementNamed(context, AppRoute.courseVideoScreen,
+        arguments: CourseVideoScreenArgs(
+            data: materialEntity, courseId: courseId, topicId: topicId));
+    ////TODO: Change Later
+    contentStudy(materialEntity.id, materialEntity.videoDurationSecond);
   }
 
   // double onInterceptPlaybackSeekToPosition(

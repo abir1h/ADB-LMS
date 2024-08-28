@@ -6,4 +6,6 @@ abstract class CourseRepository {
       String userId, String courseId);
   Future<ResponseEntity> courseTopicDetails(
       String userId, String courseId, String topicId);
+  Future<ResponseEntity> contentStudy(
+      String userId, String materialId, int studyTimeSec);
 }

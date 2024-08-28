@@ -24,4 +24,11 @@ class CourseUseCase {
         _courseRepository.courseTopicDetails(userId, courseId, topicId);
     return response;
   }
+
+  Future<ResponseEntity> contentStudyUseCase(
+      String userId, String materialId, int studyTimeSec) async {
+    final response =
+        _courseRepository.contentStudy(userId, materialId, studyTimeSec);
+    return response;
+  }
 }

@@ -50,4 +50,16 @@ class CourseRepositoryImp extends CourseRepository {
         .toEntityFromModel(responseModel,
             (CourseConductDataModel model) => model.toCourseConductDataEntity);
   }
+
+  @override
+  Future<ResponseEntity> contentStudy(
+      String userId, String materialId, int studyTimeSec) async {
+    ResponseModel responseModel = (await courseRemoteDataSource
+        .contentStudyAction(userId, materialId, studyTimeSec));
+    return ResponseEntity(
+        message: responseModel.message,
+        error: responseModel.error,
+        status: responseModel.status,
+        data: responseModel.data);
+  }
 }
