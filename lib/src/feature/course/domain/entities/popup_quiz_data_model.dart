@@ -18,8 +18,12 @@ class PopupQuizDataEntity {
   final String modifiedDate;
   final String modifiedBy;
   final String id;
+  bool isOption1Selected;
+  bool isOption2Selected;
+  bool isOption3Selected;
+  bool isOption4Selected;
 
-  const PopupQuizDataEntity({
+  PopupQuizDataEntity({
     required this.timeSpan,
     required this.hour,
     required this.minute,
@@ -39,5 +43,9 @@ class PopupQuizDataEntity {
     required this.modifiedDate,
     required this.modifiedBy,
     required this.id,
+    this.isOption1Selected = false,
+    this.isOption2Selected = false,
+    this.isOption3Selected = false,
+    this.isOption4Selected = false,
   });
 }

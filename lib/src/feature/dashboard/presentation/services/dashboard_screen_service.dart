@@ -53,7 +53,7 @@ mixin DashboardScreenService implements _ViewModel {
       if (value.data != null) {
         traineeCountStreamController
             .add(DataLoadedState<TraineeCountDataEntity>(value.data));
-      } else if (value.data.isEmpty) {
+      } else if (value.data == null) {
         traineeCountStreamController.add(EmptyState(message: 'No Data Found'));
       } else {
         _view.showWarning(value.message!);

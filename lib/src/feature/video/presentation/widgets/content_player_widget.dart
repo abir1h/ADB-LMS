@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
-import '../../../../core/constants/common_imports.dart';
 import '../../../course/domain/entities/material_entity.dart';
 import 'video_player.dart';
 
@@ -12,10 +11,10 @@ class ContentPlayerWidget extends StatefulWidget {
   final Stream<DataState<bool>> playbackStream;
   final Widget? overlay;
 
-  final double Function(MaterialEntity currentContent,
-      double seekPosition, double totalDuration)? interceptSeekTo;
-  final void Function(MaterialEntity currentContent,
-      double playedPosition, double totalDuration)? onProgressChanged;
+  final double Function(MaterialEntity currentContent, double seekPosition,
+      double totalDuration)? interceptSeekTo;
+  final void Function(MaterialEntity currentContent, double playedPosition,
+      double totalDuration)? onProgressChanged;
 
   const ContentPlayerWidget({
     Key? key,
@@ -60,20 +59,21 @@ class _CustomPlayerWidgetState extends State<ContentPlayerWidget> {
     if (!mounted) return;
     _currentContent = (event as DataLoadedState<MaterialEntity>).data;
     _playerController.play(
+        // getVideoFileUrl(
+        //     ApiCredential.mediaBaseUrl + _currentContent.filePath),
+
         getVideoFileUrl(
-            ApiCredential.mediaBaseUrl + _currentContent.filePath),
-          // getVideoFileUrl('https://bbadb.bacbonltd.net/core/Files/CourseTopicMaterial/Videos/VIDSKCE20240424142902.mp4'),
+            "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"),
+        // getVideoFileUrl('https://bbadb.bacbonltd.net/core/Files/CourseTopicMaterial/Videos/VIDSKCE20240424142902.mp4'),
         //   getVideoFileUrl("http://116.204.155.53/video/7b54b930-2fba-46d1-8741-50a60cb9ecdf.mp4"),
 
         autoPlay: true,
-        ///TODO:Change It
-        // playPosition:
-        //     Duration(seconds: _currentContent.videoActivityData != null ? _currentContent.videoActivityData!.lastViewTime : 0)
+        playPosition: Duration(
+            seconds: _currentContent.lastStudyTimeSec ==
+                    _currentContent.videoDurationSecond
+                ? 0
+                : _currentContent.lastStudyTimeSec)
 
-
-
-
-        // playPosition:Duration(seconds: _currentContent.lastPlayedDurationTimeSec)
         // _currentContent.playedDurationTimeSec < _currentContent.videoDurationSecond
         //     ? Duration(seconds: _currentContent.playedDurationTimeSec)
         //     : null,

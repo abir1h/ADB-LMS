@@ -87,7 +87,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
     if(mounted)setState(() {debugPrint("New file played");});
     if(url.isEmpty) return;
 
-    _controller =  VideoPlayerController.networkUrl(Uri.parse(url), );
+    _controller =  VideoPlayerController.networkUrl(Uri.parse(url));
     _controller?.addListener(_playerStateListener);
     _controller?.initialize().then((value){
       if((autoPlay??false) && (_controller?.value.isInitialized??false) && !_controller!.value.isPlaying){

@@ -1,21 +1,18 @@
 import 'dart:async';
 
-import 'package:adb_mobile/src/core/service/notifier/app_events_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:video_player/video_player.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route.dart';
 import '../../../../core/routes/app_route_args.dart';
-import '../../../video/presentation/widgets/content_player_widget.dart';
-import '../../../../core/constants/app_theme.dart';
+import '../../../../core/service/notifier/app_events_notifier.dart';
 import '../../domain/entities/course_conduct_data_entity.dart';
 import '../service/course_conduct_screen_service.dart';
 import '../widgets/course_tab_section_widget.dart';
@@ -152,6 +149,7 @@ class _CourseConductScreenState extends State<CourseConductScreen>
     CustomToasty.of(context).showWarning(message);
   }
 
+
   @override
   void changeOrientationToPortrait() {
     SystemChrome.setPreferredOrientations([
@@ -175,6 +173,11 @@ class _CourseConductScreenState extends State<CourseConductScreen>
       if (action == EventAction.videoWidget) {}
       if (action == EventAction.showYoutube) {}
     }
+  }
+
+  @override
+  void showSuccess(String message) {
+    CustomToasty.of(context).showSuccess(message);
   }
 
   // Future showYoutubePlayer() async {

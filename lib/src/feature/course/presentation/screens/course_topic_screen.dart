@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_route.dart';
 import '../../../../core/utility/helper.dart';
@@ -191,7 +192,12 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>>
 
   @override
   void showWarning(String message) {
-    // TODO: implement showWarning
+    CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void showSuccess(String message) {
+    CustomToasty.of(context).showSuccess(message);
   }
 }
 

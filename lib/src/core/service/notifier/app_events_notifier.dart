@@ -49,4 +49,5 @@ enum EventAction {
   videoWidget,
   showYoutube,
   updateUrl,
+  showPopQuiz,
 }

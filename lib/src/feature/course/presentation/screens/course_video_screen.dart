@@ -20,6 +20,7 @@ import '../../../../core/service/notifier/app_events_notifier.dart';
 import '../service/course_video_screen_service.dart';
 import '../widgets/course_tab_section_widget.dart';
 import '../../../video/presentation/service/video_service.dart';
+import '../widgets/overlay_mcq_widget.dart';
 
 class CourseVideoScreen extends StatefulWidget {
   final Object? arguments;
@@ -82,120 +83,181 @@ class _CourseVideoScreenState extends State<CourseVideoScreen>
             dataBuilder: (context, data) {
               return SafeArea(
                 top: MediaQuery.of(context).orientation == Orientation.portrait,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ///Page Body
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: size.h16),
-                        !showVideo && !isYoutube
-                            ? AspectRatio(
-                          aspectRatio: 16 / 8,
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(8.r),
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(8.r),
-                              ),
-                              child: CachedNetworkImage(
-                                imageUrl: ApiCredential.mediaBaseUrl +
-                                    data.course!.imagePath,
-                                placeholder: (context, url) => const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                                errorWidget: (context, url, error) => const Icon(
-                                  Icons.error,
-                                  color: Colors.red,
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        )
-                            : const SizedBox(),
-                        if (showVideo && !isYoutube) ...[
-                          ///Activate solid video player
-                          Stack(
-                            fit: StackFit.loose,
-                            children: [
-                              ContentPlayerWidget(
-                                playerStream: videoDetailsDataStreamController.stream,
-                                playbackStream:
-                                playbackPausePlayStreamController.stream,
-                                // onProgressChanged: onPlaybackProgressChanged,
-                                // interceptSeekTo: onInterceptPlaybackSeekToPosition,
-                              ),
-                              Positioned(
-                                  top: size.h16,
-                                  left: size.w16,
-                                  child: InkWell(
-                                    onTap: onGoBack,
-                                    child: Icon(
-                                      Icons.arrow_back,
-                                      color: clr.shadeWhiteColor2,
-                                      size: size.r20,
-                                    ),
-                                  )),
-                            ],
-                          )
-                        ] else if (!showVideo && isYoutube) ...[
-                          ///Activate Youtube video player
-                          youtubeController != null
-                              ? YoutubePlayerBuilder(
-                            player: YoutubePlayer(
-                              controller: youtubeController!,
-                              // aspectRatio: 16 / 9,
-                              showVideoProgressIndicator: true,
-                              progressColors: ProgressBarColors(
-                                  backgroundColor: clr.progressBGColor,
-                                  playedColor: clr.iconColorRed,
-                                  handleColor: clr.iconColorRed),
-                            ),
-                            builder: (context, player) {
-                              return Column(
-                                children: [
-                                  Stack(
-                                    fit: StackFit.loose,
-                                    children: [
-                                      player,
-                                      Positioned(
-                                          top: size.h16,
-                                          left: size.w16,
-                                          child: InkWell(
-                                            onTap: onGoBack,
-                                            child: Icon(
-                                              Icons.arrow_back,
-                                              color: clr.shadeWhiteColor2,
-                                              size: size.r20,
-                                            ),
-                                          ))
-                                    ],
+                child: Stack(fit: StackFit.expand, children: [
+                  ///Page Body
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      !showVideo && !isYoutube
+                          ? AspectRatio(
+                              aspectRatio: 16 / 8,
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(8.r),
                                   ),
-                                ],
-                              );
-                            },
-                          )
-                              : const CircularProgressIndicator()
-                        ],
-                        SizedBox(height: size.h16),
-                        CourseTabSectionWidget(
-                          tabTitle1: "বিষয়বস্তু",
-                          tabTitle2: "বিস্তারিত",
-                          tabTitle3: 'আলোচনা',
-                          tabTitle4: "FAQ",
-                          courseConductDataEntity: data,
-                        ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(8.r),
+                                  ),
+                                  child: CachedNetworkImage(
+                                    imageUrl: ApiCredential.mediaBaseUrl +
+                                        data.course!.imagePath,
+                                    placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : const SizedBox(),
+                      if (showVideo && !isYoutube) ...[
+                        ///Activate solid video player
+                        Stack(
+                          fit: StackFit.loose,
+                          children: [
+                            ContentPlayerWidget(
+                              playerStream:
+                                  videoDetailsDataStreamController.stream,
+                              playbackStream:
+                                  playbackPausePlayStreamController.stream,
+                              onProgressChanged: onPlaybackProgressChanged,
+                              // interceptSeekTo: onInterceptPlaybackSeekToPosition,
+                            ),
+                            Positioned(
+                                top: size.h16,
+                                left: size.w16,
+                                child: InkWell(
+                                  onTap: onGoBack,
+                                  child: Icon(
+                                    Icons.arrow_back,
+                                    color: clr.shadeWhiteColor2,
+                                    size: size.r20,
+                                  ),
+                                )),
+                            AppStreamBuilder(
+                                stream:
+                                    videoQuestionDataStreamController.stream,
+                                loadingBuilder: (context) {
+                                  return Container();
+                                },
+                                dataBuilder: (context, data) {
+                                  return showOverlay
+                                      ? AspectRatio(
+                                          aspectRatio: MediaQuery.of(context)
+                                                      .orientation ==
+                                                  Orientation.portrait
+                                              ? 16 / 9
+                                              : 19 / 9,
+                                          child: OverlayMCQWidget(
+                                            data: data,
+                                            onTapSkip: onSkipInteractiveAction,
+                                            options: [
+                                              OverlayMCQAnswerOptionWidget(
+                                                  value: data.option1,
+                                                  isSelected:
+                                                      data.isOption1Selected,
+                                                  onTap: () => setState(() {
+                                                        data.isOption1Selected =
+                                                            !data
+                                                                .isOption1Selected;
+                                                      })),
+                                              OverlayMCQAnswerOptionWidget(
+                                                  value: data.option2,
+                                                  isSelected:
+                                                      data.isOption2Selected,
+                                                  onTap: () => setState(() {
+                                                        data.isOption2Selected =
+                                                            !data
+                                                                .isOption2Selected;
+                                                      })),
+                                              OverlayMCQAnswerOptionWidget(
+                                                  value: data.option3,
+                                                  isSelected:
+                                                      data.isOption3Selected,
+                                                  onTap: () => setState(() {
+                                                        data.isOption3Selected =
+                                                            !data
+                                                                .isOption3Selected;
+                                                      })),
+                                              OverlayMCQAnswerOptionWidget(
+                                                  value: data.option4,
+                                                  isSelected:
+                                                      data.isOption4Selected,
+                                                  onTap: () => setState(() {
+                                                        data.isOption4Selected =
+                                                            !data
+                                                                .isOption4Selected;
+                                                      }))
+                                            ],
+                                            onTapSubmit: () =>
+                                                onTapPopupQuizSubmit(data),
+                                          ),
+                                        )
+                                      : Container();
+                                },
+                                emptyBuilder: (context, message, icon) =>
+                                    Container()),
+                          ],
+                        )
+                      ] else if (!showVideo && isYoutube) ...[
+                        ///Activate Youtube video player
+                        youtubeController != null
+                            ? YoutubePlayerBuilder(
+                                player: YoutubePlayer(
+                                  controller: youtubeController!,
+                                  // aspectRatio: 16 / 9,
+                                  showVideoProgressIndicator: true,
+                                  progressColors: ProgressBarColors(
+                                      backgroundColor: clr.progressBGColor,
+                                      playedColor: clr.iconColorRed,
+                                      handleColor: clr.iconColorRed),
+                                ),
+                                builder: (context, player) {
+                                  return Column(
+                                    children: [
+                                      Stack(
+                                        fit: StackFit.loose,
+                                        children: [
+                                          player,
+                                          Positioned(
+                                              top: size.h16,
+                                              left: size.w16,
+                                              child: InkWell(
+                                                onTap: onGoBack,
+                                                child: Icon(
+                                                  Icons.arrow_back,
+                                                  color: clr.shadeWhiteColor2,
+                                                  size: size.r20,
+                                                ),
+                                              ))
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                },
+                              )
+                            : const CircularProgressIndicator()
                       ],
-                    ),
-                  ]
-                ),
+                      SizedBox(height: size.h16),
+                      CourseTabSectionWidget(
+                        tabTitle1: "বিষয়বস্তু",
+                        tabTitle2: "বিস্তারিত",
+                        tabTitle3: 'আলোচনা',
+                        tabTitle4: "FAQ",
+                        courseConductDataEntity: data,
+                      ),
+                    ],
+                  ),
+                ]),
               );
             },
             emptyBuilder: (context, message, icon) => Padding(
@@ -251,6 +313,9 @@ class _CourseVideoScreenState extends State<CourseVideoScreen>
           isYoutube = false;
         });
       }
+      if (action == EventAction.showPopQuiz) {
+        setState(() {});
+      }
       if (action == EventAction.showYoutube) {}
     }
   }
@@ -268,6 +333,11 @@ class _CourseVideoScreenState extends State<CourseVideoScreen>
           enableCaption: true,
           showLiveFullscreenButton: true),
     );
+  }
+
+  @override
+  void showSuccess(String message) {
+    CustomToasty.of(context).showSuccess(message);
   }
 
 // Future showYoutubePlayer() async {
