@@ -1,5 +1,6 @@
-import 'package:adb_mobile/src/feature/profile/data/models/trainee_user_data_model.dart';
+import 'trainee_user_data_model.dart';
 import 'package:flutter/cupertino.dart';
+
 @immutable
 class UserDataModel {
   final String firstName;
@@ -25,7 +26,7 @@ class UserDataModel {
   final TraineeUserDataModel? traineeUser;
   final String imagePath;
 
-  UserDataModel({
+  const UserDataModel({
     required this.firstName,
     required this.lastName,
     required this.fullName,
@@ -70,7 +71,7 @@ class UserDataModel {
     subUnit: json["SubUnit"]??"",
     dateOfBirth:json["DateOfBirth"]??"",
     dateOfJoining:json["DateOfJoining"]??"",
-    position: json["Position"],
+    position: json["Position"] ?? "",
     traineeUser: json['TraineeUser'] != null
         ? TraineeUserDataModel.fromJson(json['TraineeUser'])
         : null,
