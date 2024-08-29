@@ -1,10 +1,7 @@
-import 'package:adb_mobile/src/feature/faq/data/data_sources/remote/faq_remote_data_source.dart';
-import 'package:adb_mobile/src/feature/faq/data/repositories/faq_repository_imp.dart';
-import 'package:adb_mobile/src/feature/faq/domain/entities/faq_data_entity.dart';
-import 'package:adb_mobile/src/feature/faq/domain/use_cases/faq_use_case.dart';
-
-import '../../../dashboard/domain/entities/course_info_data_entity.dart';
-
+import '../../../faq/data/data_sources/remote/faq_remote_data_source.dart';
+import '../../../faq/data/repositories/faq_repository_imp.dart';
+import '../../../faq/domain/entities/faq_data_entity.dart';
+import '../../../faq/domain/use_cases/faq_use_case.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/config/local_storage_services.dart';
 import '../../../../core/constants/common_imports.dart';
@@ -40,7 +37,7 @@ mixin CourseConductFaqScreenService implements _ViewModel {
     faqStreamController.add(LoadingState());
     getFaqList(userId!, courseId, topicId).then((value) {
       print(value);
-      if (value.data != null) {
+      if (value.data != null && value.data.isNotEmpty) {
         faqStreamController
             .add(DataLoadedState<List<FaqDataEntity>>(value.data));
       } else if (value.data != null && value.data.isEmpty) {

@@ -39,8 +39,7 @@ mixin FaqScreenService implements _ViewModel {
     String? userId = localStorageService.getStringValue(StringData.userId);
     faqStreamController.add(LoadingState());
     getFaqList(userId!, courseId).then((value) {
-      print(value);
-      if (value.data != null) {
+      if (value.data != null && value.data.isNotEmpty) {
         faqStreamController
             .add(DataLoadedState<List<FaqDataEntity>>(value.data));
       }else if(value.data != null && value.data.isEmpty){
