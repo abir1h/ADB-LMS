@@ -45,4 +45,17 @@ class PasswordChangeRepositoryImp extends PasswordChangeRepository {
         status: responseModel.status,
         data: responseModel.data);
   }
+
+  @override
+  Future<ResponseEntity> changePasswordInformation(String userId,
+      String oldPassword, String newPassword, String confirmPassword) async {
+    ResponseModel responseModel =
+        (await passwordChangeDataSource.changePasswordOption(
+            userId, oldPassword, newPassword, confirmPassword));
+    return ResponseEntity(
+        message: responseModel.message,
+        error: responseModel.error,
+        status: responseModel.status,
+        data: responseModel.data);
+  }
 }

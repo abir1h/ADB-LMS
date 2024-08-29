@@ -47,7 +47,8 @@ mixin ExamResultScreenService<T extends StatefulWidget> on State<T>
         resultListStreamController
             .add(DataLoadedState<List<ExamResultDataEntity>>(value));
       } else {
-        _view.showWarning("Something went wrong!");
+        resultListStreamController.add(EmptyState(message: 'No Data Found')) ;
+        _view.showWarning( 'No Data Found');
       }
     });
   }

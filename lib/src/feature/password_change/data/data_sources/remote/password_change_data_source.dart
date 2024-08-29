@@ -9,6 +9,7 @@ abstract class PasswordChangeDataSource {
   Future<ResponseModel> requestOTPAction(String phone);
   Future<ResponseModel> validateOtpAction(String phone,String Otp);
   Future<ResponseModel> resetOtpAction(String phone,String Otp,String password);
+  Future<ResponseModel> changePasswordOption(String userId,String oldPassword,String newPassword,String confirmPassword);
 }
 
 class PasswordChangeDataSourceImp extends PasswordChangeDataSource {
@@ -51,6 +52,26 @@ class PasswordChangeDataSourceImp extends PasswordChangeDataSource {
         message: responseJson['Message'],
         status: responseJson['Status'],
         data: responseJson['Data'] != null ? responseJson['Data'] as String : "");
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> changePasswordOption(String userId,String oldPassword, String newPassword, String confirmPassword) async{
+    Map<String, dynamic> data = {
+      "OldPassword": oldPassword,
+      "NewPassword": newPassword,
+      "ConfirmPassword": confirmPassword
+    };
+    final responseJson = await Server.instance
+        .postRequest(
+        url: "${ApiCredential.changePassword}?userId=$userId",
+        postData: data);
+    // ResponseModel responseModel = ResponseModel.fromJson(
+    //     responseJson, (dynamic json) => AuthDataModel.fromJson(json));
+    ResponseModel responseModel = ResponseModel(
+        message:  responseJson['Message'] != null ? responseJson['Message'] as String : "",
+        status: responseJson['Status'],
+        data: responseJson['Data'] != null ? responseJson['Data']["Message"] : "");
     return responseModel;
   }
 }

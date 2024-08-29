@@ -23,4 +23,11 @@ class PasswordChangeUseCase {
         _passwordChangeRepository.resetOtpInformation(phone, Otp, password);
     return response;
   }
+
+  Future<ResponseEntity> changePasswordUseCase(String userId,
+      String oldPassword, String newPassword, String confirmPassword) async {
+    final response = _passwordChangeRepository.changePasswordInformation(
+        userId, oldPassword, newPassword, confirmPassword);
+    return response;
+  }
 }
