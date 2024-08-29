@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -87,17 +88,15 @@ class _ProfileScreenState extends State<ProfileScreen>
                     badgeStyle: badges.BadgeStyle(
                       elevation: 1,
                       badgeColor: clr.appPrimaryColorBlue,
-                      borderSide:
-                          const BorderSide(color: Colors.white, width: 2),
+                      borderSide: const BorderSide(color: Colors.white, width: 2),
                     ),
                     badgeContent: GestureDetector(
-                        onTap: () {
-                          showImagePickerBottomSheet(context);
-                        },
-                        child: Icon(Icons.edit,
-                            color: Colors.white, size: size.r24)),
-                    position:
-                        badges.BadgePosition.bottomEnd(bottom: 10, end: 2),
+                      onTap: () {
+                        showImagePickerBottomSheet(context);
+                      },
+                      child: Icon(Icons.edit, color: Colors.white, size: size.r24),
+                    ),
+                    position: badges.BadgePosition.bottomEnd(bottom: 10, end: 2),
                     child: CircleAvatar(
                       radius: 68.r,
                       backgroundColor: Colors.grey.withOpacity(.2),
@@ -105,9 +104,17 @@ class _ProfileScreenState extends State<ProfileScreen>
                         radius: 66.r,
                         backgroundColor: Colors.white,
                         child: CircleAvatar(
-                            radius: 64.r,
-                            backgroundImage: NetworkImage(
-                                ApiCredential.mediaBaseUrl + data.imagePath)),
+                          radius: 64.r,
+                          child: CachedNetworkImage(
+                            imageUrl: ApiCredential.mediaBaseUrl + data.imagePath,fit: BoxFit.contain,
+                            imageBuilder: (context, imageProvider) => CircleAvatar(
+                              radius: 64.r,
+                              backgroundImage: imageProvider,
+                            ),
+                            placeholder: (context, url) => CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => Image.asset(ImageAssets.emptyProfile)
+                          ),
+                        ),
                       ),
                     ),
                   ),
