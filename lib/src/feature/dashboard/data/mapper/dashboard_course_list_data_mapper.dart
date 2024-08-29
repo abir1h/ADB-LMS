@@ -3,9 +3,7 @@ import 'package:adb_mobile/src/feature/dashboard/data/models/course_info_data_mo
 import 'package:adb_mobile/src/feature/dashboard/domain/entities/course_info_data_entity.dart';
 
 import '../../domain/entities/dashbaord_course_list_data_entity.dart';
-import '../../domain/entities/trainee_count_data_entity.dart';
 import '../models/dashboard_course_list_data_model.dart';
-import '../models/trainee_count_data_model.dart';
 
 abstract class DashboardCourseListDataMapper<M, E> {
   M fromEntityToModel(E entity);

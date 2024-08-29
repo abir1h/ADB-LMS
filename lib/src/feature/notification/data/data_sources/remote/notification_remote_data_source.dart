@@ -1,6 +1,5 @@
 import 'package:adb_mobile/src/feature/notification/data/models/notification_data_model.dart';
 
-import '../../../../faq/data/models/faq_data_model.dart';
 import '../../../../../core/constants/urls.dart';
 import '../../../../../core/network/api_service.dart';
 import '../../../../shared/data/models/response_model.dart';

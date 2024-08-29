@@ -2,7 +2,6 @@ import 'package:adb_mobile/src/core/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/common_widgets/course_card.dart';
 import '../screens/dashboard_screen.dart';
 class CourseLoader extends StatelessWidget with AppTheme{
   const CourseLoader({super.key});

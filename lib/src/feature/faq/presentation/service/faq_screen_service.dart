@@ -3,7 +3,6 @@ import 'package:adb_mobile/src/feature/faq/data/repositories/faq_repository_imp.
 import 'package:adb_mobile/src/feature/faq/domain/entities/faq_data_entity.dart';
 import 'package:adb_mobile/src/feature/faq/domain/use_cases/faq_use_case.dart';
 
-import '../../../dashboard/domain/entities/course_info_data_entity.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/config/local_storage_services.dart';

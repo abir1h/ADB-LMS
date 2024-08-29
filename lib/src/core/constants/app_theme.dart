@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:get/get.dart';
 
-import '../config/local_storage_services.dart';
-import 'common_imports.dart';
 import '../utility/color_tools.dart';
 
 mixin AppTheme {

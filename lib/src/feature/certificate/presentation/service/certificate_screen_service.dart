@@ -9,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/network/api_service.dart';
-import '../../../dashboard/domain/entities/course_info_data_entity.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/config/local_storage_services.dart';

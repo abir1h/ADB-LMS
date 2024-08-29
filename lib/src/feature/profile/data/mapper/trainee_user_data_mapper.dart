@@ -1,6 +1,4 @@
 import 'package:adb_mobile/src/feature/profile/data/mapper/result_data_mapper.dart';
-import 'package:adb_mobile/src/feature/profile/data/models/result_data_model.dart';
-import 'package:adb_mobile/src/feature/profile/domain/entities/result_data_entity.dart';
 
 import '../../domain/entities/trainee_user_data_entity.dart';
 import '../models/trainee_user_data_model.dart';

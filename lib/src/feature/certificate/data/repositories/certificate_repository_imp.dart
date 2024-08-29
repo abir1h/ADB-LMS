@@ -3,9 +3,6 @@ import 'package:adb_mobile/src/feature/certificate/data/mapper/certificate_list_
 import 'package:adb_mobile/src/feature/certificate/data/models/certificate_list_data_model.dart';
 import 'package:adb_mobile/src/feature/certificate/domain/entities/certificate_list_data_entity.dart';
 import 'package:adb_mobile/src/feature/certificate/domain/repositories/certificate_repository.dart';
-import 'package:adb_mobile/src/feature/course/data/mapper/cource_overview_data_mapper.dart';
-import 'package:adb_mobile/src/feature/course/data/models/course_over_view_data_model.dart';
-import 'package:adb_mobile/src/feature/course/domain/entities/course_overview_data_entity.dart';
 
 import '../../../shared/data/mapper/response_mapper.dart';
 import '../../../shared/data/models/response_model.dart';

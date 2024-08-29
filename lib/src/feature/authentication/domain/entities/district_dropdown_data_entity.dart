@@ -1,4 +1,3 @@
-import 'package:adb_mobile/src/feature/authentication/data/models/district_info_data_model.dart';
 import 'package:adb_mobile/src/feature/authentication/domain/entities/district_info_data_entity.dart';
 
 class DistrictDropDownDataEntity {

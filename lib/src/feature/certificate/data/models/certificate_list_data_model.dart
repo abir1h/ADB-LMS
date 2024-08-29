@@ -1,7 +1,6 @@
 import 'package:adb_mobile/src/feature/certificate/data/models/Certificate_data_model.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../dashboard/data/models/course_info_data_model.dart';
 
 @immutable
 class CertificateListDataModel {

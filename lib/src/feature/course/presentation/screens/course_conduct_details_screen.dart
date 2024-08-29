@@ -2,7 +2,6 @@ import 'package:adb_mobile/src/feature/course/domain/entities/course_conduct_dat
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/constants/app_theme.dart';
-import '../../domain/entities/course_overview_data_entity.dart';
 
 class CourseConductDetailsScreen extends StatefulWidget {
   final CourseConductDataEntity data;

@@ -1,11 +1,7 @@
 import 'package:adb_mobile/src/feature/dashboard/data/mapper/trainee_course_data_mapper.dart';
 
 import '../../domain/entities/course_info_data_entity.dart';
-import '../../domain/entities/trainee_count_data_entity.dart';
-import '../../domain/entities/trainee_course_data_entity.dart';
 import '../models/course_info_data_model.dart';
-import '../models/trainee_count_data_model.dart';
-import '../models/trainee_course_data_model.dart';
 
 abstract class CourseInfoDataMapper<M, E> {
   M fromEntityToModel(E entity);

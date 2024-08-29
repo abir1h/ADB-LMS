@@ -2,7 +2,6 @@ import 'package:adb_mobile/src/feature/dashboard/domain/entities/course_info_dat
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 
 import '../constants/common_imports.dart'; // Adjust the import paths based on your project structure
 
@@ -81,9 +80,9 @@ class CourseCard extends StatelessWidget with AppTheme {
                         ],
                       ),
                       child: Text(
-                        "Assigned",
+                        "নিবন্ধিত ",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.yellow,
                           fontWeight: FontWeight.w600,
                           fontSize: 12.sp,
                         ),

@@ -1,7 +1,6 @@
 import 'package:adb_mobile/src/core/routes/app_route_args.dart';
 import 'package:adb_mobile/src/feature/dashboard/domain/entities/course_info_data_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/common_widgets/drawer_widget.dart';
@@ -11,7 +10,6 @@ import '../../../dashboard/presentation/widgets/course_loader.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/course_card.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
-import '../../../../core/common_widgets/dashboard_card_widget.dart';
 import '../../../../core/routes/app_route.dart';
 import '../service/course_list_screen_service.dart';
 

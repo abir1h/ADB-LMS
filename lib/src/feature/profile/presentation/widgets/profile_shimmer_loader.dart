@@ -1,6 +1,5 @@
 import 'package:adb_mobile/src/core/constants/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/common_widgets/shimmer_loader.dart';

@@ -1,6 +1,5 @@
 import 'package:adb_mobile/src/feature/password_change/data/models/otp_validation_data_model.dart';
 
-import '../../../../authentication/data/models/institute_data_model.dart';
 import '../../../../../core/constants/urls.dart';
 import '../../../../../core/network/api_service.dart';
 import '../../../../shared/data/models/response_model.dart';

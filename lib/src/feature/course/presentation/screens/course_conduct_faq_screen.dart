@@ -3,7 +3,6 @@ import 'package:lottie/lottie.dart';
 
 import '../../domain/entities/course_conduct_data_entity.dart';
 import '../../../faq/domain/entities/faq_data_entity.dart';
-import '../../../faq/presentation/service/faq_screen_service.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../service/course_conduct_faq_service.dart';

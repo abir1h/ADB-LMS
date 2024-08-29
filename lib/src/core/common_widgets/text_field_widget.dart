@@ -1,4 +1,3 @@
-import 'package:adb_mobile/src/core/utility/validator.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/strings.dart';

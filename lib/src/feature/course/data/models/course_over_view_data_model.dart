@@ -1,4 +1,3 @@
-import 'package:adb_mobile/src/feature/course/data/models/material_data_model.dart';
 import 'package:adb_mobile/src/feature/course/data/models/topic_data_model.dart';
 import 'package:flutter/cupertino.dart';
 @immutable

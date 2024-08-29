@@ -1,6 +1,4 @@
-import '../../domain/entities/district_info_data_entity.dart';
 import '../../domain/entities/institute_data_entity.dart';
-import '../models/district_info_data_model.dart';
 import '../models/institute_data_model.dart';
 
 abstract class InstituteDataMapper<M, E> {

@@ -1,13 +1,8 @@
 import 'package:adb_mobile/src/feature/course/data/mapper/resource_data_mapper.dart';
 import 'package:adb_mobile/src/feature/course/data/models/resource_data_model.dart';
 import 'package:adb_mobile/src/feature/course/domain/entities/resource_data_entity.dart';
-import 'package:adb_mobile/src/feature/dashboard/data/mapper/course_info_data_mapper.dart';
-import 'package:adb_mobile/src/feature/dashboard/data/models/course_info_data_model.dart';
-import 'package:adb_mobile/src/feature/dashboard/domain/entities/course_info_data_entity.dart';
 
-import '../../domain/entities/course_list_data_entity.dart';
 import '../../domain/entities/material_data_entity.dart';
-import '../models/course_list_data_model.dart';
 import '../models/material_data_model.dart';
 
 abstract class MaterialDataMapper<M, E> {

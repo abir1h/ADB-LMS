@@ -1,4 +1,3 @@
-import 'package:adb_mobile/src/feature/course/data/models/course_over_view_data_model.dart';
 import 'package:adb_mobile/src/feature/faq/data/models/faq_data_model.dart';
 
 import '../../../../../core/constants/urls.dart';

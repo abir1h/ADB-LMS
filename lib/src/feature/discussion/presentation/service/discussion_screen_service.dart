@@ -2,10 +2,6 @@ import 'package:adb_mobile/src/feature/discussion/data/repositories/discussion_r
 import 'package:adb_mobile/src/feature/discussion/domain/entities/discussion_data_entity.dart';
 import 'package:adb_mobile/src/feature/discussion/domain/entities/video_dropdown_data_entity.dart';
 import 'package:adb_mobile/src/feature/discussion/domain/use_cases/discussion_use_case.dart';
-import 'package:adb_mobile/src/feature/faq/data/data_sources/remote/faq_remote_data_source.dart';
-import 'package:adb_mobile/src/feature/faq/data/repositories/faq_repository_imp.dart';
-import 'package:adb_mobile/src/feature/faq/domain/entities/faq_data_entity.dart';
-import 'package:adb_mobile/src/feature/faq/domain/use_cases/faq_use_case.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/network/api_service.dart';
@@ -13,7 +9,6 @@ import '../../../course/data/data_sources/remote/course_data_source.dart';
 import '../../../course/data/repositories/course_repository_imp.dart';
 import '../../../course/domain/entities/course_overview_data_entity.dart';
 import '../../../course/domain/use_cases/course_use_case.dart';
-import '../../../dashboard/domain/entities/course_info_data_entity.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/config/local_storage_services.dart';

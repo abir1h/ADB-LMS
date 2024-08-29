@@ -1,17 +1,10 @@
-import 'package:adb_mobile/src/feature/authentication/data/mapper/district_dropdown_data_mapper.dart';
 import 'package:adb_mobile/src/feature/authentication/data/mapper/district_info_data_mapper.dart';
 import 'package:adb_mobile/src/feature/authentication/data/mapper/institute_data_mapper.dart';
-import 'package:adb_mobile/src/feature/authentication/data/mapper/institute_list_data_mapper.dart';
-import 'package:adb_mobile/src/feature/authentication/data/models/district_dropdown_data_model.dart';
 import 'package:adb_mobile/src/feature/authentication/data/models/district_info_data_model.dart';
 import 'package:adb_mobile/src/feature/authentication/data/models/institute_data_model.dart';
-import 'package:adb_mobile/src/feature/authentication/data/models/institute_list_data_model.dart';
-import 'package:adb_mobile/src/feature/authentication/domain/entities/district_dropdown_data_entity.dart';
 import 'package:adb_mobile/src/feature/authentication/domain/entities/district_info_data_entity.dart';
 import 'package:adb_mobile/src/feature/authentication/domain/entities/institute_data_entity.dart';
-import 'package:adb_mobile/src/feature/authentication/domain/entities/institute_list_data_entity.dart';
 
-import '../../../course/domain/entities/course_list_data_entity.dart';
 import '../../../shared/data/mapper/response_mapper.dart';
 import '../../../shared/data/models/response_model.dart';
 import '../../../shared/domain/entities/response_entity.dart';

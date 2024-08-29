@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:adb_mobile/src/core/common_widgets/custom_toasty.dart';
 import 'package:adb_mobile/src/core/routes/app_route.dart';
-import 'package:adb_mobile/src/feature/authentication/data/models/institute_data_model.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/constants/common_imports.dart';
