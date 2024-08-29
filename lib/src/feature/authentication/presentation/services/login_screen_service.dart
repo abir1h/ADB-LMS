@@ -1,4 +1,3 @@
-import 'package:adb_mobile/src/core/routes/app_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/auth_data_entity.dart';

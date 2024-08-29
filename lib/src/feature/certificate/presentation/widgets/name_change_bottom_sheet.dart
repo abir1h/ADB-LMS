@@ -1,13 +1,9 @@
-import 'package:adb_mobile/src/core/common_widgets/app_dropdown_widget.dart';
 import 'package:adb_mobile/src/core/common_widgets/custom_toasty.dart';
 import 'package:adb_mobile/src/core/constants/app_theme.dart';
 import 'package:adb_mobile/src/feature/certificate/presentation/service/certificate_screen_service.dart';
-import 'package:adb_mobile/src/feature/course/domain/entities/course_overview_data_entity.dart';
-import 'package:adb_mobile/src/feature/discussion/presentation/service/discussion_screen_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';

@@ -1,6 +1,4 @@
-import '../../domain/entities/trainee_count_data_entity.dart';
 import '../../domain/entities/trainee_course_data_entity.dart';
-import '../models/trainee_count_data_model.dart';
 import '../models/trainee_course_data_model.dart';
 
 abstract class TraineeCourseDataMapper<M, E> {

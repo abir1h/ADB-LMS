@@ -1,10 +1,7 @@
-import 'package:adb_mobile/src/feature/authentication/data/models/district_dropdown_data_model.dart';
 import 'package:adb_mobile/src/feature/authentication/data/models/institute_data_model.dart';
-import 'package:adb_mobile/src/feature/authentication/data/models/institute_list_data_model.dart';
 
 import '../../../../../core/constants/urls.dart';
 import '../../../../../core/network/api_service.dart';
-import '../../../../discussion/data/models/video_dropdown_data_model.dart';
 import '../../../../shared/data/models/response_model.dart';
 import '../../models/auth_data_model.dart';
 import '../../models/district_info_data_model.dart';

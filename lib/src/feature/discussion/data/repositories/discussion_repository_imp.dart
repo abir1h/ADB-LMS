@@ -5,7 +5,6 @@ import 'package:adb_mobile/src/feature/discussion/data/models/video_dropdown_dat
 import 'package:adb_mobile/src/feature/discussion/domain/entities/discussion_data_entity.dart';
 import 'package:adb_mobile/src/feature/discussion/domain/entities/video_dropdown_data_entity.dart';
 import 'package:adb_mobile/src/feature/discussion/domain/repositories/discussion_repository.dart';
-import 'package:adb_mobile/src/feature/faq/domain/repositories/faq_repository.dart';
 
 import '../../../shared/data/mapper/response_mapper.dart';
 import '../../../shared/data/models/response_model.dart';

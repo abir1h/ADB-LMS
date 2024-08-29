@@ -1,4 +1,3 @@
-import 'package:adb_mobile/src/core/common_widgets/app_dropdown_widget.dart';
 import 'package:adb_mobile/src/core/routes/app_route_args.dart';
 import 'package:adb_mobile/src/feature/course/domain/entities/course_overview_data_entity.dart';
 import 'package:adb_mobile/src/feature/course/domain/entities/material_data_entity.dart';
@@ -6,7 +5,6 @@ import 'package:adb_mobile/src/feature/course/domain/entities/topic_data_entity.
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 

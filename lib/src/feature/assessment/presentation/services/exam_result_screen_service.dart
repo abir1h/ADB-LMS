@@ -2,13 +2,11 @@ import 'package:adb_mobile/src/feature/assessment/domain/entities/exam_result_da
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
-import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/config/local_storage_services.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../assessment/data/data_sources/remote/assessment_data_source.dart';
 import '../../../assessment/data/repositories/assessment_repository_imp.dart';
 import '../../../assessment/domain/use_cases/assessment_use_case.dart';
-import '../../domain/entities/mcq_data_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
@@ -47,7 +45,8 @@ mixin ExamResultScreenService<T extends StatefulWidget> on State<T>
         resultListStreamController
             .add(DataLoadedState<List<ExamResultDataEntity>>(value));
       } else {
-        _view.showWarning("Something went wrong!");
+        resultListStreamController.add(EmptyState(message: 'No Data Found')) ;
+        _view.showWarning( 'No Data Found');
       }
     });
   }

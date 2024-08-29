@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:adb_mobile/src/core/network/server_response.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/retry.dart';
 import 'package:http_parser/http_parser.dart';
 
 import '../constants/urls.dart';

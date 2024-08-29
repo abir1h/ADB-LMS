@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utility/app_label.dart';
 import '../constants/common_imports.dart';
-import 'custom_switch_button.dart';
 
 class CustomEmptyWidget extends StatelessWidget with AppTheme, Language {
   final IconData icon;

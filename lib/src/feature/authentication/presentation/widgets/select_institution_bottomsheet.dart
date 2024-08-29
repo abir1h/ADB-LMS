@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/common_widgets/text_field_widget.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../discussion/presentation/service/discussion_screen_service.dart';
 

@@ -1,10 +1,7 @@
-import 'package:adb_mobile/src/core/common_widgets/app_dropdown_widget.dart';
 import 'package:adb_mobile/src/core/constants/app_theme.dart';
 import 'package:adb_mobile/src/feature/course/domain/entities/course_overview_data_entity.dart';
 import 'package:adb_mobile/src/feature/discussion/presentation/service/discussion_screen_service.dart';
 import 'package:adb_mobile/src/feature/discussion/presentation/widgets/discussion_bottom_Sheet.dart';
-import 'package:adb_mobile/src/feature/faq/domain/entities/faq_data_entity.dart';
-import 'package:adb_mobile/src/feature/faq/presentation/service/faq_screen_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

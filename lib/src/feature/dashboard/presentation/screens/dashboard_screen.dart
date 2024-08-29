@@ -11,7 +11,6 @@ import '../../../../core/common_widgets/drawer_widget.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route.dart';
 import '../../../../core/routes/app_route_args.dart';
-import '../../../assessment/presentation/widgets/result_dialog.dart';
 import '../../domain/entities/trainee_count_data_entity.dart';
 import '../services/dashboard_screen_service.dart';
 import '../widgets/course_loader.dart';

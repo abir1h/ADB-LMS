@@ -4,7 +4,6 @@ import '../../../../core/routes/app_route_args.dart';
 import '../../data/data_sources/remote/course_data_source.dart';
 import '../../data/repositories/course_repository_imp.dart';
 import '../../domain/use_cases/course_use_case.dart';
-import '../../../dashboard/domain/entities/course_info_data_entity.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/config/local_storage_services.dart';

@@ -3,15 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/utility/app_label.dart';
-import '../../../discussion/presentation/screens/discussion_screen.dart';
 import '../../domain/entities/course_conduct_data_entity.dart';
 import '../screens/course_conduct_details_screen.dart';
 import '../screens/course_conduct_faq_screen.dart';
 import '../screens/course_topic_screen.dart';
-import '../screens/details_screen.dart';
-import '../../domain/entities/course_overview_data_entity.dart';
-import '../screens/course_subject_screen.dart';
-import '../../../faq/presentation/screens/faq_screen.dart';
 
 class CourseTabSectionWidget extends StatefulWidget {
   final String? tabTitle1, tabTitle2, tabTitle3, tabTitle4;

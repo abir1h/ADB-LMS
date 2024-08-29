@@ -1,14 +1,11 @@
 import 'package:adb_mobile/src/core/constants/app_theme.dart';
 import 'package:adb_mobile/src/feature/course/domain/entities/course_overview_data_entity.dart';
-import 'package:adb_mobile/src/feature/course/presentation/service/course_list_screen_service.dart';
 import 'package:adb_mobile/src/feature/course/presentation/service/course_overview_screen_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
-import '../../../../core/common_widgets/drawer_widget.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route.dart';
 import '../../../../core/routes/app_route_args.dart';

@@ -1,8 +1,6 @@
 import 'package:adb_mobile/src/core/routes/app_route_args.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../config/local_storage_services.dart';
@@ -10,8 +8,6 @@ import '../routes/app_route.dart';
 import '../service/auth_cache_manager.dart';
 import '../service/notifier/app_events_notifier.dart';
 import 'custom_dialog_widget.dart';
-import 'custom_switch_button.dart';
-import '../utility/app_label.dart';
 import '../constants/common_imports.dart';
 
 class DrawerWidget extends StatefulWidget {

@@ -1,5 +1,4 @@
 import 'package:adb_mobile/src/feature/certificate/domain/repositories/certificate_repository.dart';
-import 'package:adb_mobile/src/feature/course/domain/repositories/course_repository.dart';
 
 import '../../../shared/domain/entities/response_entity.dart';
 
