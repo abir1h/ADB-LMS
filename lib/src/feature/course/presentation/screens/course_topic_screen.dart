@@ -148,20 +148,22 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>>
                     return TopicItemWidget(
                       data: item,
                       onTap: () {
-                        if (item.type == "Post Test") {
+                        if ((item.type == "Post Test" && !item.restricted) ||
+                            (item.type == "Post Test" && item.studied)) {
                           Navigator.of(context).pushNamed(
                               AppRoute.examInfoViewScreen,
-                              arguments:
-                                  ExamInfoScreenArgs(materialId: item.id, examType: item.type));
-                        } else if (item.type == "Pre Test" && !item.restricted){
+                              arguments: ExamInfoScreenArgs(
+                                  materialId: item.id, examType: item.type));
+                        } else if (item.type == "Pre Test" &&
+                            !item.restricted) {
                           Navigator.of(context).pushNamed(
                               AppRoute.examInfoViewScreen,
-                              arguments:
-                              ExamInfoScreenArgs(materialId: item.id, examType: item.type));
-                        }else if(!item.restricted){
-                          loadVideoData(
-                              item,widget.data.course!.id,widget.data.topic!.id);
-                        }else{
+                              arguments: ExamInfoScreenArgs(
+                                  materialId: item.id, examType: item.type));
+                        } else if (!item.restricted) {
+                          loadVideoData(item, widget.data.course!.id,
+                              widget.data.topic!.id);
+                        } else {
                           //do nothing
                         }
                       },
@@ -329,11 +331,13 @@ class TopicItemWidget<T> extends StatelessWidget with AppTheme, Language {
                 SizedBox(
                   width: size.w6,
                 ),
-                data.restricted && data.type != "Post Test"
-                    ? Expanded(
-                        flex: 0,
-                        child: Icon(FontAwesomeIcons.lock,
-                            color: clr.appPrimaryColorBlue))
+                data.restricted
+                    ? data.type == "Post Test" && data.studied
+                        ? const SizedBox()
+                        : Expanded(
+                            flex: 0,
+                            child: Icon(FontAwesomeIcons.lock,
+                                color: clr.appPrimaryColorBlue))
                     : const SizedBox(),
                 SizedBox(
                   width: size.w6,
