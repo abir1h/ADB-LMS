@@ -86,7 +86,8 @@ class _CourseVideoScreenState extends State<CourseVideoScreen>
                 child: Stack(fit: StackFit.expand, children: [
                   ///Page Body
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       !showVideo && !isYoutube
                           ? AspectRatio(
@@ -156,7 +157,7 @@ class _CourseVideoScreenState extends State<CourseVideoScreen>
                                                       .orientation ==
                                                   Orientation.portrait
                                               ? 16 / 9
-                                              : 19 / 9,
+                                              : 18.9 / 9,
                                           child: OverlayMCQWidget(
                                             data: data,
                                             onTapSkip: onSkipInteractiveAction,
@@ -214,7 +215,7 @@ class _CourseVideoScreenState extends State<CourseVideoScreen>
                             ? YoutubePlayerBuilder(
                                 player: YoutubePlayer(
                                   controller: youtubeController!,
-                                  // aspectRatio: 16 / 9,
+                                  aspectRatio: 18.9 / 9,
                                   showVideoProgressIndicator: true,
                                   progressColors: ProgressBarColors(
                                       backgroundColor: clr.progressBGColor,
@@ -247,7 +248,9 @@ class _CourseVideoScreenState extends State<CourseVideoScreen>
                               )
                             : const CircularProgressIndicator()
                       ],
-                      SizedBox(height: size.h16),
+
+                      if (MediaQuery.of(context).orientation ==
+                          Orientation.portrait)
                       CourseTabSectionWidget(
                         tabTitle1: "বিষয়বস্তু",
                         tabTitle2: "বিস্তারিত",
