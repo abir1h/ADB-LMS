@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
+import '../../../../core/constants/common_imports.dart';
 import '../../../course/domain/entities/material_entity.dart';
 import 'video_player.dart';
 

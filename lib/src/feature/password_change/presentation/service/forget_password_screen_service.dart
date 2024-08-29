@@ -85,7 +85,7 @@ mixin ForgotPasswordScreenService implements _ViewModel {
   Future validate(BuildContext context) async {
     CustomToasty.of(context).lockUI();
     validateOTP(phoneController.text, otpController.text).then((value) {
-      if (value.data != null && value.data.otp != '') {
+      if (value.status == 1) {
         CustomToasty.of(context).releaseUI();
         CustomToasty.of(context).showSuccess("OTP validated successfully");
         _view.changeScreenState(ForgotPasswordState.enterNewPassword);

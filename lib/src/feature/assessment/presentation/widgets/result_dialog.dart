@@ -117,7 +117,7 @@ class _ResultDialogState extends State<ResultDialog> with AppTheme {
                                     color: clr.whiteColor),
                               ),
                               Text(
-                                "${(widget.examResultDataEntity.scored / widget.examResultDataEntity.totalMarks) * 100}%",
+                                "${widget.examResultDataEntity.scored}%",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: size.textSmall,

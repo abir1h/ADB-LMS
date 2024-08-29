@@ -33,7 +33,6 @@ class CourseVideoScreen extends StatefulWidget {
 class _CourseVideoScreenState extends State<CourseVideoScreen>
     with AppTheme, CourseVideoScreenService, VideoService, AppEventsNotifier {
   // YoutubePlayerController? _youtubeController;
-  YoutubePlayerController? youtubeController;
   VideoPlayerController? _controller;
   // ChewieController? _chewieController;
   final GlobalKey _bodyKey = GlobalKey();

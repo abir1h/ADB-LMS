@@ -1,6 +1,6 @@
-import 'package:adb_mobile/src/core/routes/app_route_args.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/common_widgets/text_field_widget.dart';
 import '../../../../core/common_widgets/custom_button.dart';
@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen>
               height: size.h24,
             ),
             AppTextField(
-              hintText: 'ফোন নম্বর',
+              hintText: StringData.userNameHint,
               prefixIcon: Icon(
                 Icons.person,
                 color: clr.appPrimaryColorBlue,

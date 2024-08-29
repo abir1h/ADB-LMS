@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../core/config/local_storage_services.dart';
 import '../../../../core/constants/common_imports.dart';
@@ -32,6 +33,7 @@ mixin VideoService<T extends StatefulWidget> on State<T> implements _ViewModel {
   bool isYoutube = false;
   VideoData? data = VideoData();
   String? videoUrl;
+  YoutubePlayerController? youtubeController;
   VideoWatchSession _watchSession = VideoWatchSession.empty();
 
   // Future<ResponseEntity> videoActivity(int circularVideoId, int lastWatchTime,
@@ -107,9 +109,9 @@ mixin VideoService<T extends StatefulWidget> on State<T> implements _ViewModel {
   //     MaterialEntity currentContent,
   //     double seekPosition,
   //     double totalDuration) {
-  //   return currentContent.videoActivityData!.lastViewTime * 1000 >= seekPosition
+  //   return currentContent.lastStudyTimeSec * 1000 >= seekPosition
   //       ? seekPosition
-  //       : (currentContent.videoActivityData!.lastViewTime * 1000).toDouble();
+  //       : (currentContent.lastStudyTimeSec * 1000).toDouble();
   // }
   ///Change video playback orientation
   Future<bool> onGoBack() async {
