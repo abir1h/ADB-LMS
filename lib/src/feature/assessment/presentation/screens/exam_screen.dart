@@ -96,6 +96,9 @@ class _ExamScreenState extends State<ExamScreen>
                                     questionText: data.examData
                                         .elementAt(position)
                                         .question,
+                                    questionMarks: data.examData
+                                        .elementAt(position)
+                                        .mark.toString(),
                                     child: ListView(
                                       shrinkWrap: true,
                                       physics:

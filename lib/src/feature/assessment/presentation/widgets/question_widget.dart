@@ -9,6 +9,7 @@ class QuestionWidget extends StatelessWidget with AppTheme, ImagePreviewDialog {
   final String questionText;
   final String questionImage;
   final String questionDescription;
+  final String questionMarks;
   final Widget child;
   const QuestionWidget({
     Key? key,
@@ -16,6 +17,7 @@ class QuestionWidget extends StatelessWidget with AppTheme, ImagePreviewDialog {
     required this.questionText,
     this.questionImage = "",
     this.questionDescription = "",
+    required this.questionMarks,
     required this.child,
   }) : super(key: key);
 
@@ -49,6 +51,15 @@ class QuestionWidget extends StatelessWidget with AppTheme, ImagePreviewDialog {
               children: [
                 TextSpan(
                   text: questionText.trim(),
+                  style: TextStyle(
+                    color: clr.blackColor,
+                    fontSize: size.textSmall,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: StringData.fontFamilyPoppins,
+                  ),
+                ),
+                TextSpan(
+                  text: "  [$questionMarks] ",
                   style: TextStyle(
                     color: clr.blackColor,
                     fontSize: size.textSmall,
