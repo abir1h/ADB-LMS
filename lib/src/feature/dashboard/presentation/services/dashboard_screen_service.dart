@@ -11,6 +11,7 @@ import '../../../shared/domain/entities/response_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
+  void navigateToLandingScreen();
 }
 
 mixin DashboardScreenService implements _ViewModel {
@@ -53,7 +54,10 @@ mixin DashboardScreenService implements _ViewModel {
       if (value.data != null) {
         traineeCountStreamController
             .add(DataLoadedState<TraineeCountDataEntity>(value.data));
-      } else if (value.data == null) {
+      } else if (value.error != null) {
+        //Navigate to landing
+        _view.navigateToLandingScreen();
+      } else if (value.error == null && value.data == null) {
         traineeCountStreamController.add(EmptyState(message: 'No Data Found'));
       } else {
         _view.showWarning(value.message!);
@@ -71,6 +75,9 @@ mixin DashboardScreenService implements _ViewModel {
       if (value.data != null) {
         courseStreamController
             .add(DataLoadedState<List<CourseInfoDataEntity>>(value.data.data));
+      } else if (value.error != null) {
+        //Navigate to landing
+        _view.navigateToLandingScreen();
       } else {
         _view.showWarning(value.message!);
       }

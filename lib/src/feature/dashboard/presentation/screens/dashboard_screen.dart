@@ -1,4 +1,3 @@
-import 'package:adb_mobile/src/feature/dashboard/domain/entities/course_info_data_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
@@ -11,6 +10,7 @@ import '../../../../core/common_widgets/drawer_widget.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route.dart';
 import '../../../../core/routes/app_route_args.dart';
+import '../../domain/entities/course_info_data_entity.dart';
 import '../../domain/entities/trainee_count_data_entity.dart';
 import '../services/dashboard_screen_service.dart';
 import '../widgets/course_loader.dart';
@@ -226,22 +226,14 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   @override
-  void navigateToLoginScreen() {
-    Navigator.of(context).pushNamed(
-      AppRoute.loginScreen,
-    );
-  }
-
-  @override
-  void navigateToSignUpScreen() {
-    Navigator.of(context).pushNamed(
-      AppRoute.regScreen,
-    );
-  }
-
-  @override
   showWarning(String message) {
     CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void navigateToLandingScreen() {
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(AppRoute.landingScreen, (x) => false);
   }
 }
 
