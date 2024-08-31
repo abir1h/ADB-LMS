@@ -464,7 +464,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                             }
                           }
                         },
-                        title: StringData.regText,
+                        title: StringData.regText2,
                         bgColor: clr.appPrimaryColorBlue,
                         boxShadow: [
                           BoxShadow(
