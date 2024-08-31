@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/core/service/notifier/app_events_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -44,7 +45,7 @@ class SubjectItemWidget<T> extends StatefulWidget {
 }
 
 class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>>
-    with AppTheme, Language, VideoService {
+    with AppTheme, Language, VideoService, AppEventsNotifier {
   @override
   Widget build(BuildContext context) {
     widget.data.materials!.sort((a, b) => a.sequence.compareTo(b.sequence));
@@ -163,6 +164,16 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>>
                         } else if (!item.restricted) {
                           loadVideoData(item, widget.data.course!.id,
                               widget.data.topic!.id);
+                         setState(() {
+                           if(   widget.data.materials![item.sequence + 1].type=="Post Test"){
+                             widget.data.materials![item.sequence + 1].restricted =
+                             true;
+                           }else{
+                             widget.data.materials![item.sequence + 1].restricted =
+                             false;
+                           }
+                         });
+
                         } else {
                           //do nothing
                         }
@@ -200,6 +211,26 @@ class _SubjectItemWidgetState<T> extends State<SubjectItemWidget<T>>
   @override
   void showSuccess(String message) {
     CustomToasty.of(context).showSuccess(message);
+  }
+
+  @override
+  void onEventReceived(EventAction action) {
+    if (mounted) {
+      if (action == EventAction.preTest) {
+        setState(() {
+          MaterialEntity materialEntity = widget.data.materials!.first;
+          widget.data.materials![materialEntity.sequence + 1].restricted =
+              false;
+          widget.data.materials![materialEntity.sequence].studied = true;
+        });
+      }
+      if (action == EventAction.postTest) {
+        setState(() {
+          MaterialEntity materialEntity = widget.data.materials!.last;
+          widget.data.materials![materialEntity.sequence].studied = true;
+        });
+      }
+    }
   }
 }
 

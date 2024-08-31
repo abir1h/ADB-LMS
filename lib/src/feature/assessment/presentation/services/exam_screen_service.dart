@@ -164,6 +164,7 @@ mixin ExamScreenService<T extends StatefulWidget> on State<T>
     if (responseEntity.data != null) {
       _view.showExamSubmitDialog(responseEntity.data);
       _view.showSuccess(responseEntity.message!);
+
     } else {
       _view.showWarning(responseEntity.message!);
     }

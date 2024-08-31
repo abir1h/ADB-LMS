@@ -50,4 +50,6 @@ enum EventAction {
   showYoutube,
   updateUrl,
   showPopQuiz,
+  preTest,
+  postTest,
 }

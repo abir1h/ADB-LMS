@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/common_widgets/custom_button.dart';
 import '../../../../core/constants/app_theme.dart';
+import '../../../../core/service/notifier/app_events_notifier.dart';
 import '../../domain/entities/exam_result_data_entity.dart';
 
 class ResultDialog extends StatefulWidget {
@@ -157,7 +158,15 @@ class _ResultDialogState extends State<ResultDialog> with AppTheme {
                   ),
                   SizedBox(height: ThemeSize.instance.h32),
                   CustomButton(
-                      onTap: () => Navigator.of(context).pop(true),
+                      onTap: () {
+                        Navigator.of(context).pop(true);
+
+                        if (widget.examResultDataEntity.testType == 1) {
+                          AppEventsNotifier.notify(EventAction.preTest);
+                        } else {
+                          AppEventsNotifier.notify(EventAction.postTest);
+                        }
+                      },
                       title: "বন্ধ করুন"),
                 ],
               ),

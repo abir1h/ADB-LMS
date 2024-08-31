@@ -8,6 +8,8 @@ class AuthDataEntity {
   final String validaty;
   final String expiredTime;
   final List<String> roles;
+  final String data;
+  final int status;
 
   AuthDataEntity({
     required this.id,
@@ -19,5 +21,7 @@ class AuthDataEntity {
     required this.validaty,
     required this.expiredTime,
     required this.roles,
+    required this.data,
+    required this.status,
   });
 }
