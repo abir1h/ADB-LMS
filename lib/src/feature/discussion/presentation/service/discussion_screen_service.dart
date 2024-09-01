@@ -18,6 +18,7 @@ import '../../data/data_sources/remote/discussion_remote_data_source.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
+  void showSuccess(String message);
 }
 
 mixin DiscussionScreenService implements _ViewModel {

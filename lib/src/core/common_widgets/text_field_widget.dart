@@ -126,6 +126,8 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
       keyboardType: widget.keyboardType,
       obscureText: _obscureText,
       validator: widget.validator,
+
+/*
       decoration: InputDecoration(
         border: InputBorder.none,
         floatingLabelAlignment: FloatingLabelAlignment.center,
@@ -152,6 +154,46 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
             : const SizedBox(),
         prefixIcon: widget.prefixIcon ?? null,
       ),
+*/
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: clr.greyColor,
+          ),
+        ),filled: true, // Enable filling the background
+        fillColor: Colors.white,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: clr.greyColor,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: clr.appPrimaryColorBlue,
+          ),
+        ),
+        hintText: widget.hintText,
+        hintStyle: TextStyle(
+          color: clr.placeHolderTextColorGray,
+          fontSize: size.textSmall,
+          fontWeight: FontWeight.w400,
+          fontFamily: StringData.fontFamilyRoboto,
+        ),
+        suffixIcon: widget.obscureText == true
+            ? IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility : Icons.visibility_off,
+            color: clr.placeHolderTextColorGray,
+          ),
+          onPressed: _toggleObscureText,
+        )
+            : null,
+        prefixIcon: widget.prefixIcon,
+      ),
+
       style: TextStyle(
         color: clr.textColorBlack,
         fontSize: size.textSmall,

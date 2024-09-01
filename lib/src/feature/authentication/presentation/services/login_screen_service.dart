@@ -46,7 +46,7 @@ mixin LoginScreenService<T extends StatefulWidget> on State<T>
         if(authDataEntity.data.isEmpty){
           if (authDataEntity.id.isNotEmpty) {
             _storeUserInfo(authDataEntity);
-            _view.showSuccess("User Logged In");
+            _view.showSuccess( "Successfully logged In");
             CustomToasty.of(context).releaseUI();
             _view.onNavigateToBaseScreen();
           } else {

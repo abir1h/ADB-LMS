@@ -9,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../../core/common_widgets/app_stream.dart';
+import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../domain/entities/discussion_data_entity.dart';
 
@@ -41,9 +42,9 @@ class _DiscussionScreenState extends State<DiscussionScreen>
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      backgroundColor: clr.scaffoldBackgroundColor2,
       builder: (BuildContext context) {
         return CustomBottomSheet(
-
             onSelectionDone: (String selectedFirstItem,
                 String selectedSecondItem, String selectedThirdItem) {
               // Handle the selections here
@@ -123,7 +124,8 @@ class _DiscussionScreenState extends State<DiscussionScreen>
                     padding: EdgeInsets.all(size.h24),
                     child: Center(
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
-                        Lottie.asset(ImageAssets.emptyAnimation, height: size.h64 * 3),
+                        Lottie.asset(ImageAssets.emptyAnimation,
+                            height: size.h64 * 3),
                         SizedBox(height: size.h8),
                         Text(
                           message,
@@ -135,7 +137,10 @@ class _DiscussionScreenState extends State<DiscussionScreen>
                         ),
                       ]),
                     )),
-              ),SizedBox(height: size.h64,)
+              ),
+              SizedBox(
+                height: size.h64,
+              )
             ],
           ),
         );
@@ -145,7 +150,12 @@ class _DiscussionScreenState extends State<DiscussionScreen>
 
   @override
   void showWarning(String message) {
-    // TODO: implement showWarning
+    CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void showSuccess(String message) {
+    CustomToasty.of(context).showSuccess(message);
   }
 }
 
@@ -182,19 +192,19 @@ class DiscussionItemWidget<T> extends StatelessWidget with AppTheme {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+        padding: const EdgeInsets.all(12.0),
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                        child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
 /*
                           CircleAvatar(
                             radius: size.r24,
@@ -203,84 +213,86 @@ class DiscussionItemWidget<T> extends StatelessWidget with AppTheme {
                             backgroundColor: clr.greyColor.withOpacity(.2),
                           ),
 */
-                          CircleAvatar(
-                            radius: size.r24,
-                            backgroundColor: clr.greyColor.withOpacity(.2),
-                            child: CachedNetworkImage(
-                              imageUrl: ApiCredential.mediaBaseUrl + data.imagePath,
-                              imageBuilder: (context, imageProvider) => CircleAvatar(
-                                radius: size.r24,
-                                backgroundImage: imageProvider,
-                              ),
-                              placeholder: (context, url) => CircularProgressIndicator(),
-                              errorWidget: (context, url, error) => Icon(Icons.person,),
+                        CircleAvatar(
+                          radius: size.r24,
+                          backgroundColor: clr.greyColor.withOpacity(.2),
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                ApiCredential.mediaBaseUrl + data.imagePath,
+                            imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                              radius: size.r24,
+                              backgroundImage: imageProvider,
+                            ),
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => Icon(
+                              Icons.person,
                             ),
                           ),
-
-
-                          SizedBox(
-                            width: size.w10,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                data.commenterName,
-                                style: TextStyle(
-                                  color: clr.blackColor,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: size.textMedium,
-                                ),
+                        ),
+                        SizedBox(
+                          width: size.w10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              data.commenterName,
+                              style: TextStyle(
+                                color: clr.blackColor,
+                                fontWeight: FontWeight.w700,
+                                fontSize: size.textMedium,
                               ),
-                              Text(
-                                " ● ${data.material}",
-                                style: TextStyle(
-                                  color: clr.greyColor,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: size.textXXXSmall,
-                                ),
+                            ),
+                            Text(
+                              " ● ${data.material}",
+                              style: TextStyle(
+                                color: clr.greyColor,
+                                fontWeight: FontWeight.w700,
+                                fontSize: size.textXXXSmall,
                               ),
-                              Text(
-                                " ● ${data.phoneNumber}",
-                                style: TextStyle(
-                                  color: clr.greyColor,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: size.textXXXSmall,
-                                ),
+                            ),
+                            Text(
+                              " ● ${data.phoneNumber}",
+                              style: TextStyle(
+                                color: clr.greyColor,
+                                fontWeight: FontWeight.w700,
+                                fontSize: size.textXXXSmall,
                               ),
-                              SizedBox(
-                                height: size.h10,
+                            ),
+                            SizedBox(
+                              height: size.h10,
+                            ),
+                            Text(
+                              data.comment,
+                              style: TextStyle(
+                                color: clr.blackColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: size.textSmall,
                               ),
-                              Text(
-                                data.comment,
-                                style: TextStyle(
-                                  color: clr.blackColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: size.textSmall,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      )),
-
-                ],
-              ),
-            ],
-          ),
-          Positioned(
-              top: size.h2,right: size.w4,
-              child:   Text(
-            timeago.format(
-              DateTime.parse(data.commentTime),
+                            ),
+                          ],
+                        )
+                      ],
+                    )),
+                  ],
+                ),
+              ],
             ),
-            style: TextStyle(
-                fontSize: size.textXXSmall,
-                color: clr.textGrey,
-                fontWeight: FontWeight.w400),
-          ))
-        ],
-      )
-    );
+            Positioned(
+                top: size.h2,
+                right: size.w4,
+                child: Text(
+                  timeago.format(
+                    DateTime.parse(data.commentTime),
+                  ),
+                  style: TextStyle(
+                      fontSize: size.textXXSmall,
+                      color: clr.textGrey,
+                      fontWeight: FontWeight.w400),
+                ))
+          ],
+        ));
   }
 }

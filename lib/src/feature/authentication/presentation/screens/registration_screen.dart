@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/common_imports.dart';
+import '../widgets/custom_dropdown.dart';
 import '../widgets/select_district_bottomsheet.dart';
 import '../widgets/select_institution_bottomsheet.dart';
 import '../../../../core/common_widgets/custom_button.dart';
@@ -74,7 +75,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: clr.scaffoldBackgroundColor,
+      backgroundColor: clr.scaffoldBackgroundColor2,
       resizeToAvoidBottomInset: true,
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -114,9 +115,10 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       ),
                       SizedBox(height: size.h24),
                       AppTextFieldWithTitle(
-                        title: StringData.firstNameText,
+                        title: "${StringData.firstNameText}*",
                         hintText: StringData.firstNameTextHint,
                         controller: firstName,
+
                         validator: (v) {
                           return v!.isEmpty ? "Please Enter FirstName" : null;
                         },
@@ -124,12 +126,13 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       SizedBox(height: size.h20),
                       AppTextFieldWithTitle(
                         title: StringData.lastNameText,
+
                         hintText: StringData.lastNameTextHint,
                         controller: lastName,
                       ),
                       SizedBox(height: size.h20),
                       AppTextFieldWithTitle(
-                        title: StringData.usernameText,
+                        title: "${StringData.usernameText}*",
                         hintText: StringData.userNameHint,
                         controller: userName,
                         validator: (v) {
@@ -138,8 +141,10 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       ),
                       SizedBox(height: size.h20),
                       AppTextFieldWithTitle(
-                        title: StringData.phoneNumText,
+                        title: "${StringData.phoneNumText}*",
                         hintText: StringData.phoneNumTexttHint,
+                        keyboardType: TextInputType.number,
+
                         controller: phone,
                         validator: (v) {
                           return v!.isEmpty ? "Please Enter Phone" : null;
@@ -149,12 +154,16 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       AppTextFieldWithTitle(
                         title: StringData.emailText,
                         hintText: StringData.emailTextHint,
+
                         controller: email,
                       ),
                       SizedBox(height: size.h20),
                       AppTextFieldWithTitle(
-                        title: StringData.passwordText,
+                        title: "${StringData.passwordText}*",
                         hintText: StringData.passwordTextHint,
+
+                        obscureText: true,
+
                         controller: password,
                         validator: (v) {
                           return v!.isEmpty ? "Please Enter Password" : null;
@@ -164,13 +173,14 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       AppTextFieldWithTitle(
                         title: StringData.addressText,
                         hintText: StringData.addressTextHint,
+
                         controller: address,
                       ),
                       SizedBox(height: size.h20),
                       Padding(
                         padding: EdgeInsets.only(bottom: size.h10),
                         child: Text(
-                          StringData.districtText,
+                          "${StringData.districtText}*",
                           style: TextStyle(
                             fontSize: size.textSmall,
                             color: clr.textColorAppleBlack,
@@ -180,7 +190,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       ),
                       GestureDetector(
                         onTap: () {
-                          showModalBottomSheet(
+                          FocusScope.of(context).unfocus();
+                        showModalBottomSheet(
                             context: context,
                             isScrollControlled: true,
                             builder: (BuildContext context) {
@@ -192,6 +203,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                           ).then((v) {
                             setState(() {
                               selectedDistrictItem = v;
+
                             });
                             // print(selectedDistrictItem!.value!);
                           });
@@ -245,6 +257,19 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       SizedBox(
                         height: size.h4,
                       ),
+                      SelectorDropDownList<DropDownItem>(
+                        onLoadData: () async =>genderItems,
+                        onGenerateTitle: (x)=> x.value!,
+                        onSelected: (value){
+                          setState(() {
+                            selectedGenderItem = value;
+                            gender = true;
+                          });
+                        },
+                      ),SizedBox(
+                        height: size.h20,
+                      ),
+/*
                       Container(
                         color: clr.whiteColor,
                         child: DropdownButtonHideUnderline(
@@ -252,7 +277,12 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                             isExpanded: true,
                             dropdownColor: clr.whiteColor,
                             elevation: 2,
-                            hint: const Text('লিঙ্গ নির্বাচন করুন'),
+                            hint:  Text('   লিঙ্গ নির্বাচন করুন',style:  TextStyle(
+                                color:  selectedGenderItem!= null
+                                    ? clr.blackColor
+                                    : clr.greyColor,
+                                fontSize: size.textSmall,
+                                fontWeight: FontWeight.w500),),
                             value: selectedGenderItem,
                             items: genderItems.map((DropDownItem item) {
                               return DropdownMenuItem<DropDownItem>(
@@ -269,9 +299,13 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                 gender = true;
                               });
                             },
+                            onTap: (){
+                              FocusScope.of(context).unfocus();
+                            },
                           ),
                         ),
                       ),
+*/
                       if (showGenderError)
                         Text(
                           "Field Required",
@@ -291,7 +325,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                       padding:
                                           EdgeInsets.only(bottom: size.h10),
                                       child: Text(
-                                        'আপনি কি আগে কোন ঋণ নিয়েছেন? (Did you took any loan before?)',
+                                        'আপনি কি আগে কোন ঋণ নিয়েছেন? (Did you took any loan before?)*"',
                                         style: TextStyle(
                                           fontSize: size.textSmall,
                                           color: clr.textColorAppleBlack,
@@ -301,7 +335,16 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                     ),
                                     SizedBox(
                                       height: size.h4,
+                                    ),  SelectorDropDownList<DropDownItem>(
+                                      onLoadData: () async =>loanItems,
+                                      onGenerateTitle: (x)=> x.value!,
+                                      onSelected: (value){
+                                        setState(() {
+                                          selectedLoanItem = value;
+                                        });
+                                      },
                                     ),
+/*
                                     Container(
                                       color: clr.whiteColor,
                                       child: DropdownButtonHideUnderline(
@@ -310,7 +353,12 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                           // underline: SizedBox(),
                                           dropdownColor: clr.whiteColor,
                                           elevation: 2,
-                                          hint: const Text('নির্বাচন করুন'),
+                                          hint:  Text('  নির্বাচন করুন',style:  TextStyle(
+                                              color: selectedLoanItem != null
+                                                  ? clr.blackColor
+                                                  : clr.greyColor,
+                                              fontSize: size.textSmall,
+                                              fontWeight: FontWeight.w500),),
                                           value: selectedLoanItem,
                                           items: loanItems
                                               .map((DropDownItem item) {
@@ -328,10 +376,13 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                             setState(() {
                                               selectedLoanItem = newValue;
                                             });
-                                          },
+                                          }, onTap: (){
+                                          FocusScope.of(context).unfocus();
+                                        },
                                         ),
                                       ),
                                     ),
+*/
                                     if (showLoanError)
                                       Text(
                                         "Field Required",
@@ -339,6 +390,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                             fontWeight: FontWeight.w400,
                                             color: clr.iconColorRed),
                                       ),
+                                    SizedBox(height: size.h10,),
                                     selectedLoanItem != null
                                         ? selectedLoanItem?.id == 'true'
                                             ? Column(
@@ -347,7 +399,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                     padding: EdgeInsets.only(
                                                         bottom: size.h10),
                                                     child: Text(
-                                                      "কোন প্রতিষ্ঠান থেকে ঋণ নিয়েছেন? (Please mention the name of organization from where you took your loan before)",
+                                                      "কোন প্রতিষ্ঠান থেকে ঋণ নিয়েছেন? (Please mention the name of organization from where you took your loan before)*",
                                                       style: TextStyle(
                                                         fontSize:
                                                             size.textSmall,
@@ -358,8 +410,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                     ),
                                                   ),
                                                   GestureDetector(
-                                                    onTap: () {
-                                                      showModalBottomSheet(
+                                                    onTap: () {FocusScope.of(context).unfocus();
+                                                    showModalBottomSheet(
                                                         context: context,
                                                         isScrollControlled:
                                                             true,

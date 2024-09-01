@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/common_imports.dart';
+
 class CourseConductBottomsheet extends StatefulWidget {
   final CourseConductDataEntity data;
   final Function(String selectedFirstItem, String selectedSecondItem,
@@ -16,7 +18,8 @@ class CourseConductBottomsheet extends StatefulWidget {
       : super(key: key);
 
   @override
-  _CourseConductBottomsheetState createState() => _CourseConductBottomsheetState();
+  _CourseConductBottomsheetState createState() =>
+      _CourseConductBottomsheetState();
 }
 
 class _CourseConductBottomsheetState extends State<CourseConductBottomsheet>
@@ -45,7 +48,7 @@ class _CourseConductBottomsheetState extends State<CourseConductBottomsheet>
   void _fetchThirdDropdownItems(
       String courseId, String type, String topicId) async {
     List<DropDownItem> items =
-    await fetchThirdDropdownItemsFromApi(courseId, type, topicId);
+        await fetchThirdDropdownItemsFromApi(courseId, type, topicId);
     setState(() {
       _videoItems = items
           .map((value) => DropDownItem(id: value.id, value: value.value))
@@ -57,7 +60,9 @@ class _CourseConductBottomsheetState extends State<CourseConductBottomsheet>
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom, // Adjust the padding when the keyboard is open
+        bottom: MediaQuery.of(context)
+            .viewInsets
+            .bottom, // Adjust the padding when the keyboard is open
       ),
       child: SingleChildScrollView(
         child: Container(
@@ -245,22 +250,28 @@ class _CourseConductBottomsheetState extends State<CourseConductBottomsheet>
                             fontWeight: FontWeight.w400,
                             fontFamily: StringData.fontFamilyPoppins),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: clr.greyColor, width: size.w1),
+                          borderSide:
+                              BorderSide(color: clr.greyColor, width: size.w1),
                           borderRadius:
-                          BorderRadius.all(Radius.circular(size.w8)),
+                              BorderRadius.all(Radius.circular(size.w8)),
                         ),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: clr.boxStrokeColor, width: size.w1),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(size.w8))),
+                                BorderRadius.all(Radius.circular(size.w8))),
                       ),
                     ),
                     SizedBox(height: size.h20),
                     GestureDetector(
-                      onTap: (){
-                        uploadComments(commentController.text.trim(),widget.data.course!.id,_selectedTopicItem!.id!,_selectedVideoItem!.id!,0,context);
+                      onTap: () {
+                        uploadComments(
+                            commentController.text.trim(),
+                            widget.data.course!.id,
+                            _selectedTopicItem!.id!,
+                            _selectedVideoItem!.id!,
+                            0,
+                            context);
                       },
                       child: Container(
                         width: 1.sw,
@@ -290,7 +301,11 @@ class _CourseConductBottomsheetState extends State<CourseConductBottomsheet>
 
   @override
   void showWarning(String message) {
-    // TODO: implement showWarning
+    CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void showSuccess(String message) {
+    CustomToasty.of(context).showSuccess(message);
   }
 }
-

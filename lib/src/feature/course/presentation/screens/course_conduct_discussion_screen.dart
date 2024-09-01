@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../domain/entities/course_conduct_data_entity.dart';
 import '../widgets/course_discussion_bottomsheet.dart';
 import '../../../discussion/presentation/service/discussion_screen_service.dart';
@@ -144,8 +145,15 @@ class _CourseConductDiscussionScreenState extends State<CourseConductDiscussionS
 
   @override
   void showWarning(String message) {
-    // TODO: implement showWarning
-  }
+
+
+    CustomToasty.of(context).showWarning(message);  }
+
+  @override
+  void showSuccess(String message) {
+
+
+    CustomToasty.of(context).showWarning(message);  }
 }
 
 class DiscussionSectionWidget<T> extends StatelessWidget with AppTheme {
