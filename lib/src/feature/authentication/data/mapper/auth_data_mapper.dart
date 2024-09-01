@@ -20,6 +20,8 @@ class _AuthDataModelToEntityMapper
       validaty: entity.validaty,
       expiredTime: entity.expiredTime,
       roles: entity.roles,
+      data: entity.data,
+      status: entity.status
     );
   }
 
@@ -35,6 +37,8 @@ class _AuthDataModelToEntityMapper
       validaty: model.validaty,
       expiredTime: model.expiredTime,
       roles: model.roles,
+      data: model.data,
+      status: model.status
     );
   }
 }

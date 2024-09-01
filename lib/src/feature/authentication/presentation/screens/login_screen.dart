@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen>
             SizedBox(
               height: size.h24,
             ),
+            IconButton(onPressed: ()=>Navigator.pop(context), icon: Icon(Icons.arrow_back)),
             Center(
               child: Image.asset(
                 ImageAssets.icLogo,

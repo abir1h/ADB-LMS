@@ -41,16 +41,21 @@ mixin LoginScreenService<T extends StatefulWidget> on State<T>
 
       try {
         AuthDataEntity authDataEntity =
-            await userLogin(username.text, password.text);
+        await userLogin(username.text, password.text);
 
-        if (authDataEntity.id.isNotEmpty) {
-          _storeUserInfo(authDataEntity);
-          _view.showSuccess("User Logged In");
+        if(authDataEntity.data.isEmpty){
+          if (authDataEntity.id.isNotEmpty) {
+            _storeUserInfo(authDataEntity);
+            _view.showSuccess("User Logged In");
+            CustomToasty.of(context).releaseUI();
+            _view.onNavigateToBaseScreen();
+          } else {
+            _view.showWarning("Something went wrong");
+            CustomToasty.of(context).releaseUI();
+          }
+        }else{
           CustomToasty.of(context).releaseUI();
-          _view.onNavigateToBaseScreen();
-        } else {
-          _view.showWarning("Something went wrong");
-          CustomToasty.of(context).releaseUI();
+          _view.showWarning(authDataEntity.data);
         }
       } catch (error) {
         _view.showWarning("An error occurred: $error");
@@ -63,10 +68,12 @@ mixin LoginScreenService<T extends StatefulWidget> on State<T>
 
       if (password.text.isEmpty) {
         _view.showWarning("Password is required");
+      }if (username.text.isEmpty && password.text.isEmpty ) {
+        _view.showWarning("Please enter user name & password");
       }
+
     }
   }
-
   void _storeUserInfo(AuthDataEntity authDataEntity) async {
     if (authDataEntity.userId.isNotEmpty && authDataEntity.token.isNotEmpty) {
       AuthCacheManager.storeUserInfo(

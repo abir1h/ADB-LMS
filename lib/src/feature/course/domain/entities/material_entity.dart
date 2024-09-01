@@ -12,8 +12,8 @@ class MaterialEntity {
   final int fileSizeKb;
   final int videoDurationSecond;
   final int sequence;
-  final bool studied;
-  final bool restricted;
+  bool studied;
+  bool restricted;
   final int lastStudyTimeSec;
   final int requiredStudyTimeSec;
   final bool canDownload;
@@ -22,7 +22,7 @@ class MaterialEntity {
   final bool isCompleted;
   final double progress;
 
-  const MaterialEntity({
+  MaterialEntity({
     required this.id,
     required this.title,
     required this.type,
