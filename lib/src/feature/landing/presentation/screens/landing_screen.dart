@@ -61,7 +61,7 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme, Language,L
             Text(
               StringData.landingDescription,
               style: TextStyle(
-                  fontSize: size.textSmall,
+                  fontSize: size.textXSmall,
                   fontWeight: FontWeight.w400,
                   color: clr.textColorBlack),
             ),
@@ -74,7 +74,7 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme, Language,L
                 StringData.landingDescriptionText,
                 style: TextStyle(
                     decoration: TextDecoration.underline,
-                    fontSize: size.textSmall,
+                    fontSize: size.textXSmall,
                     fontWeight: FontWeight.w400,
                     color: clr.appPrimaryColorBlue),
               ),
