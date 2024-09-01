@@ -37,12 +37,12 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme, Language,L
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: size.h24,
+              height: size.h64
             ),
             Center(
               child: Image.asset(
                 ImageAssets.icLogo,
-                height: size.h56 + size.h56,
+                height: size.h64,
               ),
             ),
             SizedBox(
@@ -51,12 +51,12 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme, Language,L
             Text(
               StringData.splashScreenText,
               style: TextStyle(
-                  fontSize: size.textXMedium,
+                  fontSize: size.textMedium,
                   fontWeight: FontWeight.w700,
                   color: clr.appPrimaryColorBlue),
             ),
             SizedBox(
-              height: size.h24,
+              height: size.h20,
             ),
             Text(
               StringData.landingDescription,

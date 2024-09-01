@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen>
             Center(
               child: Image.asset(
                 ImageAssets.icLogo,
-                height: size.h56 + size.h56,
+                height: size.h64,
               ),
             ),
             SizedBox(
@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen>
             Text(
               StringData.splashScreenText,
               style: TextStyle(
-                  fontSize: size.textXMedium,
+                  fontSize: size.textMedium,
                   fontWeight: FontWeight.w700,
                   color: clr.appPrimaryColorBlue),
             ),

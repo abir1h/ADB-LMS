@@ -1,5 +1,5 @@
-import 'package:adb_mobile/src/feature/course/domain/entities/popup_quiz_data_model.dart';
-import 'package:adb_mobile/src/feature/course/domain/entities/resource_data_entity.dart';
+import 'popup_quiz_data_model.dart';
+import 'resource_data_entity.dart';
 
 class MaterialEntity {
   final String id;

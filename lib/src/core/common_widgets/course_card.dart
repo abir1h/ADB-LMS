@@ -56,7 +56,7 @@ class CourseCard extends StatelessWidget with AppTheme {
                           Icons.error,
                           color: Colors.red,
                         ),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
