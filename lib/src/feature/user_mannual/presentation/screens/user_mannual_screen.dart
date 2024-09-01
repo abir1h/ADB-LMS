@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-
 
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/app_theme.dart';
@@ -21,13 +21,18 @@ class _UserMannualScreenState extends State<UserMannualScreen>
   final StreamController<int> _totalPage = StreamController.broadcast();
   final StreamController<int> _currentPage = StreamController.broadcast();
   final StreamController<bool> _timerActivationStream =
-  StreamController.broadcast();
+      StreamController.broadcast();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      loadFile("https://bbadb.bacbonltd.net/assets/TraineeManual.pdf");
+      // loadFile("https://bbadb.bacbonltd.net/assets/TraineeManual.pdf");
+      fromAsset('assets/pdf/TraineeManual.pdf', 'TraineeManual.pdf').then((f) {
+        setState(() {
+          pathPDF = f.path;
+        });
+      });
     });
   }
 
@@ -49,7 +54,13 @@ class _UserMannualScreenState extends State<UserMannualScreen>
               Icons.arrow_back,
               color: clr.appPrimaryColorBlue,
             )),
-        title: Text("ব্যবহারকারীর নির্দেশনাবলী",style: TextStyle(fontWeight: FontWeight.w600,fontSize: size.textSmall,color: clr.appPrimaryColorBlue),),
+        title: Text(
+          "ব্যবহারকারীর নির্দেশনাবলী",
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: size.textSmall,
+              color: clr.appPrimaryColorBlue),
+        ),
         actions: [
           PageNumberShowWidget(
             currentPageStream: _currentPage.stream,
@@ -57,203 +68,40 @@ class _UserMannualScreenState extends State<UserMannualScreen>
           ),
         ],
       ),
-      body: StreamBuilder<PageState>(
-        stream: pageStateStream,
-        initialData: null,
-        builder: (context, snapshot) {
-          var data = snapshot.data;
-          if (data is PdfLoadedState) {
-            return Stack(
-              fit: StackFit.expand,
-              children: [
-                ///PDF viewer
-                SfPdfViewer.file(
-                  data.file,
-                  key: _pdfViewerKey,
-                  canShowPaginationDialog: false,
-                  onDocumentLoaded: (PdfDocumentLoadedDetails details) {
-                    _totalPage.sink.add(details.document.pages.count);
-                    _timerActivationStream.sink.add(true);
-                  },
-                  onPageChanged: (PdfPageChangedDetails changed) {
-                    _currentPage.sink.add(changed.newPageNumber);
-                  },
-                ),
-
-                ///Download button
-                // if (data.canDownload)
-                //   Align(
-                //     alignment: Alignment.bottomRight,
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.end,
-                //       children: [
-                //         GestureDetector(
-                //           onTap: () {
-                //             showCupertinoModalPopup(
-                //                 context: context,
-                //                 builder: (context) => NoteBottomSheet(
-                //                       noteDataEntity: NoteDataEntity(
-                //                         bookId: (widget.arguments!
-                //                                 as BookViewerScreenArgs)
-                //                             .bookId,
-                //                         emisUserId: 1,
-                //                         note: '',
-                //                       ),
-                //                     ));
-                //           },
-                //           child: Container(
-                //             padding: EdgeInsets.all(size.h8),
-                //             margin: EdgeInsets.only(
-                //                 right: size.h16, bottom: size.h16),
-                //             decoration: BoxDecoration(
-                //               shape: BoxShape.circle,
-                //               color: clr.appPrimaryColorBlack,
-                //               boxShadow: [
-                //                 BoxShadow(
-                //                   color: clr.appPrimaryColorBlack.withOpacity(.5),
-                //                   blurRadius: size.h12,
-                //                 )
-                //               ],
-                //             ),
-                //             child: FittedBox(
-                //               child: Icon(
-                //                 Icons.note,
-                //                 color: clr.whiteColor,
-                //               ),
-                //             ),
-                //           ),
-                //         ),
-                //         GestureDetector(
-                //           onTap: () => onSaveFileToLocalStorage(data.file),
-                //           child: Container(
-                //             padding: EdgeInsets.all(size.h8),
-                //             margin: EdgeInsets.only(
-                //                 right: size.h16, bottom: size.h16),
-                //             decoration: BoxDecoration(
-                //               shape: BoxShape.circle,
-                //               color: clr.appPrimaryColorBlack,
-                //               boxShadow: [
-                //                 BoxShadow(
-                //                   color: clr.appPrimaryColorBlack.withOpacity(.5),
-                //                   blurRadius: size.h12,
-                //                 )
-                //               ],
-                //             ),
-                //             child: FittedBox(
-                //               child: Icon(
-                //                 Icons.download_rounded,
-                //                 color: clr.whiteColor,
-                //               ),
-                //             ),
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: EdgeInsets.all(16.w),
-                    child: AnimatedFabButton(
-                      isDownload: true,
-                      onPressed: (e) {
-                        if (e == "download") {
-                          //onUserBookDownloadCountAction((widget.arguments! as BookViewerScreenArgs).bookId);
-                          onSaveFileToLocalStorage(data.file);
-                        } else {}
-                      },
-                      tooltip: "Filters",
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }
-          if (data is UnknownFileLoadedState) {
-            return Column(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.h32),
-                    child: Center(
-                      child: AspectRatio(
-                        aspectRatio: 0.8,
-                        child: LayoutBuilder(builder: (context, constraints) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ///TODO
-                              // Image.asset(
-                              //   AppConstant.getAssetFileIcon(data.file.path),
-                              //   height: min(constraints.maxWidth * 0.5, constraints.maxHeight * 0.5),
-                              //   width: min(constraints.maxWidth * 0.5, constraints.maxHeight * 0.5),
-                              // ),
-                              SizedBox(
-                                height: size.h16,
-                              ),
-                              Text(
-                                data.title,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: clr.textColorBlack,
-                                  fontSize: size.textXMedium,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: size.h64),
-                            ],
-                          );
-                        }),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.h24, vertical: size.h24),
-                  child: ButtonWidget(
-                    title: "Download",
-                    expanded: true,
-                    onTap: () => onSaveFileToLocalStorage(data.file, true),
-                  ),
-                ),
-              ],
-            );
-          }
-          if (data is ErrorState) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    data.title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: clr.textColorBlack,
-                      fontSize: size.textXMedium,
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.h24,
-                  ),
-                  Text(
-                    data.message,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: clr.textColorBlack,
-                      fontSize: size.textMedium,
-                    ),
-                  )
-                ],
+      body: pathPDF.isNotEmpty ? Stack(
+        fit: StackFit.expand,
+        children: [
+          ///PDF viewer
+          SfPdfViewer.asset(
+            pathPDF,
+            key: _pdfViewerKey,
+            canShowPaginationDialog: false,
+            onDocumentLoaded: (PdfDocumentLoadedDetails details) {
+              _totalPage.sink.add(details.document.pages.count);
+              _timerActivationStream.sink.add(true);
+            },
+            onPageChanged: (PdfPageChangedDetails changed) {
+              _currentPage.sink.add(changed.newPageNumber);
+            },
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: EdgeInsets.all(16.w),
+              child: AnimatedFabButton(
+                isDownload: true,
+                onPressed: (e) {
+                  if (e == "download") {
+                    onSaveFileToLocalStorage(File(pathPDF));
+                  } else {}
+                },
+                tooltip: "Filters",
               ),
-            );
-          } else {
-            return LoadingProgressView(
-              service: this,
-            );
-          }
-        },
+            ),
+          ),
+        ],
+      ) : const Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
@@ -342,8 +190,8 @@ class PageNumberShowWidget extends StatefulWidget {
   final Stream<int> currentPageStream;
   const PageNumberShowWidget(
       {Key? key,
-        required this.totalPageStream,
-        required this.currentPageStream})
+      required this.totalPageStream,
+      required this.currentPageStream})
       : super(key: key);
 
   @override
@@ -390,21 +238,21 @@ class _PageNumberShowWidgetState extends State<PageNumberShowWidget>
   Widget build(BuildContext context) {
     return _totalPage != 0
         ? Container(
-      padding:
-      EdgeInsets.symmetric(horizontal: size.h8, vertical: size.h4),
-      decoration: BoxDecoration(
-          color: clr.blackColor.withOpacity(.7),
-          borderRadius: BorderRadius.all(Radius.circular(size.h4))),
-      child: Row(
-        children: [
-          Text(
-            '${_currentPage.toString()}/${_totalPage.toString()}',
-            style: TextStyle(
-                color: clr.whiteColor, fontSize: size.textSmall),
-          ),
-        ],
-      ),
-    )
+            padding:
+                EdgeInsets.symmetric(horizontal: size.h8, vertical: size.h4),
+            decoration: BoxDecoration(
+                color: clr.blackColor.withOpacity(.7),
+                borderRadius: BorderRadius.all(Radius.circular(size.h4))),
+            child: Row(
+              children: [
+                Text(
+                  '${_currentPage.toString()}/${_totalPage.toString()}',
+                  style: TextStyle(
+                      color: clr.whiteColor, fontSize: size.textSmall),
+                ),
+              ],
+            ),
+          )
         : const Offstage();
   }
 }
@@ -415,9 +263,9 @@ class ButtonWidget extends StatelessWidget with AppTheme {
   final bool expanded;
   const ButtonWidget(
       {Key? key,
-        required this.title,
-        required this.onTap,
-        this.expanded = false})
+      required this.title,
+      required this.onTap,
+      this.expanded = false})
       : super(key: key);
 
   @override
@@ -431,7 +279,7 @@ class ButtonWidget extends StatelessWidget with AppTheme {
         },
         child: Container(
           padding:
-          EdgeInsets.symmetric(horizontal: size.h32, vertical: size.h4),
+              EdgeInsets.symmetric(horizontal: size.h32, vertical: size.h4),
           height: size.w44,
           width: expanded ? double.maxFinite : null,
           decoration: BoxDecoration(

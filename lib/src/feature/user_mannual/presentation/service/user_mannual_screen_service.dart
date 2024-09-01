@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -26,24 +27,9 @@ implements _ViewModel {
   VoidCallback? onFileCached;
   int _readingTime = 0;
   Timer? _timer;
+  String pathPDF = "";
 
   late _ViewModel _view;
-
-/*  final NoteUseCase _noteUseCase = NoteUseCase(
-      noteRepository:
-      NoteRepositoryImp(noteRemoteDataSource: NoteRemoteDataSourceImp()));
-
-  final BookUseCase _bookUseCase = BookUseCase(
-      bookRepository:
-      BookRepositoryImp(bookRemoteDataSource: BookRemoteDataSourceImp()));
-
-  Future<ResponseEntity> createNotes(NoteDataEntity noteDataEntity) async {
-    return _noteUseCase.createNotesUseCase(noteDataEntity);
-  }
-
-  Future<ResponseEntity> userBookDownloadCountAction(int bookId) async {
-    return _bookUseCase.userBookDownloadCountActionUseCase(bookId);
-  }*/
 
   ///Service configurations
   @override
@@ -269,6 +255,22 @@ implements _ViewModel {
   }
 
 
+  Future<File> fromAsset(String asset, String filename) async {
+    Completer<File> completer = Completer();
+
+    try {
+      var dir = await getApplicationDocumentsDirectory();
+      File file = File("${dir.path}/$filename");
+      var data = await rootBundle.load(asset);
+      var bytes = data.buffer.asUint8List();
+      await file.writeAsBytes(bytes, flush: true);
+      completer.complete(file);
+    } catch (e) {
+      throw Exception('Error parsing asset file!');
+    }
+
+    return completer.future;
+  }
 
 }
 
