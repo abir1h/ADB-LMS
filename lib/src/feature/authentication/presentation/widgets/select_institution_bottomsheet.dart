@@ -79,11 +79,13 @@ class _SelectInstitutionBottomsheetState extends State<SelectInstitutionBottomsh
                     SizedBox(height: size.h20),
                     Align(
                       alignment: Alignment.topRight,
-                      child: Icon(
-                        CupertinoIcons.clear,
-                        color: Colors.black,
-                        size: size.r24,
-                      ),
+                      child:GestureDetector(
+                        onTap: ()=>Navigator.pop(context),
+                        child: Icon(
+                          CupertinoIcons.clear,
+                          color: Colors.black,
+                          size: size.r24,
+                        ),)
                     ),
                     SizedBox(height: size.h20),
                     TextField(

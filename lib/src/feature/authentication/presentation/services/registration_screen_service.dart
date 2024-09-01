@@ -122,12 +122,13 @@ mixin RegistrationScreenService implements _ViewModel {
             url: "${ApiCredential.signUp}?userId=null", fields: fields)
         .then((v) {
       if (v['data'] == null && v['Status'] == 1) {
-        _view.showSuccess(v['Message']);
+        _view.showSuccess("Registered Successfully");
         CustomToasty.of(context).releaseUI();
         Navigator.pushNamed(context, AppRoute.landingScreen);
 
       } else {
-        _view.showWarning(v['Message']);    CustomToasty.of(context).releaseUI();
+        _view.showWarning(v['Message']);
+        CustomToasty.of(context).releaseUI();
 
       }
     });
