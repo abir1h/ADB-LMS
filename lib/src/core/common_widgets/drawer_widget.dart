@@ -59,7 +59,8 @@ class _DrawerWidgetState extends State<DrawerWidget>
               SizedBox(height: size.h24),
               DrawerLinkWidget(
                 text: "ড্যাশবোর্ড",
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(context, AppRoute.baseScreen,
+                    arguments: BaseScreenArgs(index: 0)),
                 icon: Icons.home_outlined,
                 iconColor: clr.blackColor,
               ),

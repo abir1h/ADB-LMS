@@ -165,7 +165,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
           if(newPassword.text!=confirmPassword.text){
             CustomToasty.of(context).showWarning("New password & confirm password should be same");
           }else{
-            newPassword.text.length<6?CustomToasty.of(context).showWarning("password must be of 6 chagracters"):resetPassword(context);
+            newPassword.text.length<6?CustomToasty.of(context).showWarning("Password must be 6 characters"):resetPassword(context);
           }
         }, title: "সাবমিট"),
         SizedBox(height: size.h20),
@@ -176,7 +176,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
 
   Widget _buildHeader(String title) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: Text(
