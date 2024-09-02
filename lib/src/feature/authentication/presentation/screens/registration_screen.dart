@@ -510,7 +510,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                 !showInstitutionError) {
                               if (password.text.length < 6) {
                                 CustomToasty.of(context).showWarning(
-                                    "password must be of 6 chagracters");
+                                    "Password must be 6 characters");
                               } else {
                                 signUP(context);
                               }
