@@ -72,8 +72,8 @@ class _UserMannualScreenState extends State<UserMannualScreen>
         fit: StackFit.expand,
         children: [
           ///PDF viewer
-          SfPdfViewer.asset(
-            pathPDF,
+          SfPdfViewer.file(
+            File(pathPDF),
             key: _pdfViewerKey,
             canShowPaginationDialog: false,
             onDocumentLoaded: (PdfDocumentLoadedDetails details) {
