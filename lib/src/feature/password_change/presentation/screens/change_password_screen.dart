@@ -63,7 +63,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
             AppTextFieldWithTitle(
               title: "পাসওয়ার্ড নিশ্চিত করুন",
               hintText: "পাসওয়ার্ড নিশ্চিত করুন...",
-              controller: newPassword,
+              controller: confirmPassword,
               obscureText: true,
             ),
             SizedBox(

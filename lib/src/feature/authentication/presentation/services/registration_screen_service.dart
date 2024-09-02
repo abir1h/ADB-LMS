@@ -97,6 +97,10 @@ mixin RegistrationScreenService implements _ViewModel {
       return [];
     }
   }
+  bool isCamelCase(String input) {
+    final camelCaseRegExp = RegExp(r'^[a-z]+([A-Z][a-z]*)*$');
+    return camelCaseRegExp.hasMatch(input);
+  }
 
   ///userRegistration
   signUP(BuildContext context) async {

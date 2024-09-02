@@ -31,6 +31,7 @@ class _CourseOverViewScreenState extends State<CourseOverViewScreen>
     loadCourses(_courseDetailsScreenArgs!.data!.id);
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
