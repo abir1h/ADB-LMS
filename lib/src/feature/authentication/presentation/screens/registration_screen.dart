@@ -118,7 +118,6 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                         title: "${StringData.firstNameText}*",
                         hintText: StringData.firstNameTextHint,
                         controller: firstName,
-
                         validator: (v) {
                           return v!.isEmpty ? "Please Enter FirstName" : null;
                         },
@@ -126,7 +125,6 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       SizedBox(height: size.h20),
                       AppTextFieldWithTitle(
                         title: StringData.lastNameText,
-
                         hintText: StringData.lastNameTextHint,
                         controller: lastName,
                       ),
@@ -144,7 +142,6 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                         title: "${StringData.phoneNumText}*",
                         hintText: StringData.phoneNumTexttHint,
                         keyboardType: TextInputType.number,
-
                         controller: phone,
                         validator: (v) {
                           return v!.isEmpty ? "Please Enter Phone" : null;
@@ -154,16 +151,13 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       AppTextFieldWithTitle(
                         title: StringData.emailText,
                         hintText: StringData.emailTextHint,
-
                         controller: email,
                       ),
                       SizedBox(height: size.h20),
                       AppTextFieldWithTitle(
                         title: "${StringData.passwordText}*",
                         hintText: StringData.passwordTextHint,
-
                         obscureText: true,
-
                         controller: password,
                         validator: (v) {
                           return v!.isEmpty ? "Please Enter Password" : null;
@@ -173,7 +167,6 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       AppTextFieldWithTitle(
                         title: StringData.addressText,
                         hintText: StringData.addressTextHint,
-
                         controller: address,
                       ),
                       SizedBox(height: size.h20),
@@ -191,7 +184,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       GestureDetector(
                         onTap: () {
                           FocusScope.of(context).unfocus();
-                        showModalBottomSheet(
+                          showModalBottomSheet(
                             context: context,
                             isScrollControlled: true,
                             builder: (BuildContext context) {
@@ -203,7 +196,6 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                           ).then((v) {
                             setState(() {
                               selectedDistrictItem = v;
-
                             });
                             // print(selectedDistrictItem!.value!);
                           });
@@ -258,15 +250,16 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                         height: size.h4,
                       ),
                       SelectorDropDownList<DropDownItem>(
-                        onLoadData: () async =>genderItems,
-                        onGenerateTitle: (x)=> x.value!,
-                        onSelected: (value){
+                        onLoadData: () async => genderItems,
+                        onGenerateTitle: (x) => x.value!,
+                        onSelected: (value) {
                           setState(() {
                             selectedGenderItem = value;
                             gender = true;
                           });
                         },
-                      ),SizedBox(
+                      ),
+                      SizedBox(
                         height: size.h20,
                       ),
 /*
@@ -335,10 +328,11 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                     ),
                                     SizedBox(
                                       height: size.h4,
-                                    ),  SelectorDropDownList<DropDownItem>(
-                                      onLoadData: () async =>loanItems,
-                                      onGenerateTitle: (x)=> x.value!,
-                                      onSelected: (value){
+                                    ),
+                                    SelectorDropDownList<DropDownItem>(
+                                      onLoadData: () async => loanItems,
+                                      onGenerateTitle: (x) => x.value!,
+                                      onSelected: (value) {
                                         setState(() {
                                           selectedLoanItem = value;
                                         });
@@ -390,7 +384,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                             fontWeight: FontWeight.w400,
                                             color: clr.iconColorRed),
                                       ),
-                                    SizedBox(height: size.h10,),
+                                    SizedBox(
+                                      height: size.h10,
+                                    ),
                                     selectedLoanItem != null
                                         ? selectedLoanItem?.id == 'true'
                                             ? Column(
@@ -410,8 +406,10 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                     ),
                                                   ),
                                                   GestureDetector(
-                                                    onTap: () {FocusScope.of(context).unfocus();
-                                                    showModalBottomSheet(
+                                                    onTap: () {
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                      showModalBottomSheet(
                                                         context: context,
                                                         isScrollControlled:
                                                             true,
@@ -510,7 +508,12 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                 !showGenderError &&
                                 !showLoanError &&
                                 !showInstitutionError) {
-                              signUP(context);
+                              if (password.text.length < 6) {
+                                CustomToasty.of(context).showWarning(
+                                    "password must be of 6 chagracters");
+                              } else {
+                                signUP(context);
+                              }
                               print('Form is valid');
                               // Proceed with submission
                             }

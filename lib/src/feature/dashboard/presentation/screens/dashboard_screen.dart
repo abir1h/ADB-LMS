@@ -116,9 +116,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 FontAwesomeIcons.graduationCap,
                                 size: size.h40,
                               ),
-                              onTap: () {
-
-                              },
+                              onTap: ()=>Navigator.pushNamed(context,AppRoute.certificateList),
                             )),
                             SizedBox(
                               width: size.w20,

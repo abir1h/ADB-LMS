@@ -65,16 +65,14 @@ mixin DiscussionScreenService implements _ViewModel {
       if (value.data != null && value.data.isNotEmpty) {
         discussionStreamController
             .add(DataLoadedState<List<DiscussionDataEntity>>(value.data));
-      } else if(value.data != null && value.data.isEmpty){
-        discussionStreamController.add(EmptyState(message: "No Discussions Found"));
-      }else {
-
+      } else if (value.data != null && value.data.isEmpty) {
+        discussionStreamController
+            .add(EmptyState(message: "No Discussions Found"));
+      } else {
         _view.showWarning(value.message!);
       }
     });
   }
-
-
 
   Future<List<DropDownItem>> fetchFirstDropdownItemsFromApi(
       String courseId) async {
@@ -130,7 +128,7 @@ mixin DiscussionScreenService implements _ViewModel {
 
   ///Post Comments
   Future uploadComments(String comment, String courseId, String topicId,
-      String materialId, int type,BuildContext context) async {
+      String materialId, int type, BuildContext context) async {
     LocalStorageService localStorageService =
         await LocalStorageService.getInstance();
     String? userId = localStorageService.getStringValue(StringData.userId);
@@ -148,18 +146,16 @@ mixin DiscussionScreenService implements _ViewModel {
       "ResourceId": null
     };
 
-
     Server.instance
         .postRequest(
-            url: "${ApiCredential.postComment}?userId=$userId",
-            postData: data)
+            url: "${ApiCredential.postComment}?userId=$userId", postData: data)
         .then((v) {
-      if(v['Status']==1){
+      if (v['Status'] == 1) {
         loadDiscussion(courseId);
 
-      Navigator.pop(context);
+        Navigator.pop(context);
       }
-       return v;
+      return v;
     });
   }
 }

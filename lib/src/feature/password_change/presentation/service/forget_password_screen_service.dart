@@ -102,13 +102,18 @@ mixin ForgotPasswordScreenService implements _ViewModel {
             phoneController.text, otpController.text, newPassword.text)
         .then((value) {
       if (value.status == 1) {
+
         CustomToasty.of(context).releaseUI();
         CustomToasty.of(context).showSuccess("Password changed successfully");
         Navigator.pushNamed(context, AppRoute.landingScreen);
-      } else {
+      } else if(value.status==400){
+        print(value);
+      }else {
+
         CustomToasty.of(context).releaseUI();
         CustomToasty.of(context).showWarning(value.message!);
       }
+
     });
   }
 }

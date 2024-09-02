@@ -18,7 +18,7 @@ class ResponseModel<T> {
       Map<String, dynamic> json, T Function(dynamic) fromJsonT) {
     return ResponseModel<T>(
       message: json["Message"] ?? "",
-      error: json["Error"],
+      error: json["Errors"],
       status: json["Status"],
       data: json["Data"] == null ? null : fromJsonT(json["Data"]),
     );
