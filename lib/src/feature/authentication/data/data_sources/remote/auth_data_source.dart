@@ -23,10 +23,14 @@ class AuthRemoteDataSourceImp extends AuthRemoteDataSource {
     };
     final responseJson = await Server.instance
         .postRequest(url: ApiCredential.login, postData: data);
-    // ResponseModel responseModel = ResponseModel.fromJson(
-    //     responseJson, (dynamic json) => AuthDataModel.fromJson(json));
-    AuthDataModel authDataModel = AuthDataModel.fromJson(responseJson);
-    return authDataModel;
+    if (responseJson is String) {
+      Map<String, String> data = {"Data": responseJson.toString()};
+      AuthDataModel authDataModel = AuthDataModel.fromJson(data);
+      return authDataModel;
+    } else {
+      AuthDataModel authDataModel = AuthDataModel.fromJson(responseJson);
+      return authDataModel;
+    }
   }
 
   @override
@@ -34,17 +38,16 @@ class AuthRemoteDataSourceImp extends AuthRemoteDataSource {
     final responseJson = await Server.instance
         .getRequest(url: "${ApiCredential.getDistrict}?userId=");
     ResponseModel responseModel = ResponseModel.fromJson(responseJson,
-            (dynamic json) => DistrictInfoDataModel.listFromJson(json));
+        (dynamic json) => DistrictInfoDataModel.listFromJson(json));
     return responseModel;
   }
+
   @override
   Future<ResponseModel> getInstituteDropdownAction() async {
     final responseJson = await Server.instance
         .getRequest(url: "${ApiCredential.getFinancialInstitute}?userId=");
-    ResponseModel responseModel = ResponseModel.fromJson(responseJson,
-        (dynamic json) => InstituteDataModel.listFromJson(json));
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => InstituteDataModel.listFromJson(json));
     return responseModel;
   }
-
-
 }

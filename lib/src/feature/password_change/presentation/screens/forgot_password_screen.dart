@@ -161,13 +161,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
         _buildLottieAnimation(),
         _buildPasswordFields(),
         SizedBox(height: size.h20),
-        CustomButton(onTap: () {
-          if(newPassword.text!=confirmPassword.text){
-            CustomToasty.of(context).showWarning("New password & confirm password should be same");
-          }else{
-            resetPassword(context);
-          }
-        }, title: "সাবমিট"),
+        CustomButton(
+            onTap: () {
+              if (newPassword.text != confirmPassword.text) {
+                CustomToasty.of(context).showWarning(
+                    "New password & confirm password should be same");
+              } else {
+                resetPassword(context);
+              }
+            },
+            title: "সাবমিট"),
         SizedBox(height: size.h20),
         _buildFooter(),
       ],
@@ -256,6 +259,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
             _isVerifyButtonEnabled = value.length == 6;
           }),
           beforeTextPaste: (text) => true,
+          pastedTextStyle: TextStyle(
+              fontSize: size.textSmall, color: clr.appPrimaryColorBlue),
         ),
       ),
     );
@@ -307,8 +312,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
         AppTextFieldWithTitle(
           hintText: "পাসওয়ার্ড নিশ্চিত করুন",
           title: "পাসওয়ার্ড নিশ্চিত করুন",
-          controller: confirmPassword,          obscureText: true,
-
+          controller: confirmPassword,
+          obscureText: true,
         ),
         SizedBox(height: size.h20),
       ],
