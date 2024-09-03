@@ -1,4 +1,5 @@
 import 'package:adb_mobile/src/core/constants/app_theme.dart';
+import 'package:adb_mobile/src/core/service/notifier/app_events_notifier.dart';
 import 'package:adb_mobile/src/feature/course/domain/entities/course_overview_data_entity.dart';
 import 'package:adb_mobile/src/feature/course/presentation/service/course_overview_screen_service.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class CourseOverViewScreen extends StatefulWidget {
 }
 
 class _CourseOverViewScreenState extends State<CourseOverViewScreen>
-    with AppTheme, CourseOverViewScreenService {
+    with AppTheme, CourseOverViewScreenService, AppEventsNotifier {
   CourseDetailsScreenArgs? _courseDetailsScreenArgs;
 
   @override
@@ -161,5 +162,14 @@ class _CourseOverViewScreenState extends State<CourseOverViewScreen>
   @override
   void showWarning(String message) {
     // TODO: implement showWarning
+  }
+
+  @override
+  void onEventReceived(EventAction action) {
+    if (mounted) {
+      if (action == EventAction.loadOverviewScreen) {
+        loadCourses(_courseDetailsScreenArgs!.data!.id);
+      }
+    }
   }
 }

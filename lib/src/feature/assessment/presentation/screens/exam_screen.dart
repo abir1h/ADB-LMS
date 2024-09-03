@@ -1,3 +1,4 @@
+import 'package:adb_mobile/src/core/service/notifier/app_events_notifier.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
@@ -410,6 +411,7 @@ class _ExamScreenState extends State<ExamScreen>
 
   @override
   void forceClose() {
+    AppEventsNotifier.notify(EventAction.loadConductScreen);
     Navigator.of(context).pop();
   }
 

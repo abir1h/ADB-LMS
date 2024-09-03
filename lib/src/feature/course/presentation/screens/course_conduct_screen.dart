@@ -51,6 +51,11 @@ class _CourseConductScreenState extends State<CourseConductScreen>
       backgroundColor: clr.scaffoldBackgroundColor,
       appBar: AppBar(
         leadingWidth: size.w40,
+        leading: IconButton(
+          onPressed: () => onTapLeadingBack(),
+          icon: const Icon(Icons.arrow_back),
+          color: clr.blackColor,
+        ),
         title: Text(
           "প্রশিক্ষণ",
           style: TextStyle(
@@ -172,6 +177,9 @@ class _CourseConductScreenState extends State<CourseConductScreen>
     if (mounted) {
       if (action == EventAction.videoWidget) {}
       if (action == EventAction.showYoutube) {}
+      if (action == EventAction.loadConductScreen) {
+        loadCourseTopicDetails(screenArgs.courseId!, screenArgs.topicId!);
+      }
     }
   }
 

@@ -119,6 +119,7 @@ mixin VideoService<T extends StatefulWidget> on State<T> implements _ViewModel {
       _view.changeOrientationToPortrait();
     }
     _view.navigateToBack();
+    AppEventsNotifier.notify(EventAction.loadOverviewScreen);
     // videoActivity(_watchSession.circularVideoId,
     //         _watchSession.lastPlayedDuration, _watchSession.videoQuestionSeenId)
     //     .then((value) {

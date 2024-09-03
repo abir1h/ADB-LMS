@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/routes/app_route_args.dart';
+import '../../../../core/service/notifier/app_events_notifier.dart';
 import '../../data/data_sources/remote/course_data_source.dart';
 import '../../data/repositories/course_repository_imp.dart';
 import '../../domain/use_cases/course_use_case.dart';
@@ -55,5 +56,10 @@ mixin CourseConductScreenService<T extends StatefulWidget> on State<T>
         _view.showWarning(value.message!);
       }
     });
+  }
+
+  void onTapLeadingBack(){
+    AppEventsNotifier.notify(EventAction.loadOverviewScreen);
+    Navigator.of(context).pop();
   }
 }

@@ -52,4 +52,6 @@ enum EventAction {
   showPopQuiz,
   preTest,
   postTest,
+  loadOverviewScreen,
+  loadConductScreen
 }
