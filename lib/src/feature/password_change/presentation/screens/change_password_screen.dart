@@ -74,8 +74,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
                 if ([oldPassword.text, newPassword.text, confirmPassword.text]
                     .every((text) => text.isNotEmpty)) {
                   if (newPassword.text == confirmPassword.text) {
-                    changePasswordRequest(context, oldPassword.text,
-                        newPassword.text, confirmPassword.text);
+                    if (newPassword.text.length < 6) {
+                      CustomToasty.of(context)
+                          .showWarning("Password must be of 6 characters");
+                    } else {
+                      changePasswordRequest(context, oldPassword.text,
+                          newPassword.text, confirmPassword.text);
+                    }
                   } else {
                     CustomToasty.of(context).showWarning(
                         "New password & confirm password must be the same");
