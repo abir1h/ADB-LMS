@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../constants/strings.dart';
 import '../constants/app_theme.dart';
@@ -14,6 +15,7 @@ class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
   final bool autoMaxLine;
   final Widget? prefixIcon;
   final FormFieldValidator<String>? validator;
+  final bool? isLowerCase;
 
   AppTextFieldWithTitle({
     super.key,
@@ -27,6 +29,7 @@ class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
     this.autoMaxLine = false,
     this.prefixIcon,
     this.validator,
+    this.isLowerCase,
   });
 
   @override
@@ -35,7 +38,7 @@ class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (title != '')
+        if (title.isNotEmpty)
           Padding(
             padding: EdgeInsets.only(bottom: size.h4),
             child: Text(
@@ -56,7 +59,8 @@ class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
           keyboardType: keyboardType,
           focusNode: focusNode,
           validator: validator,
-          prefixIcon: null,
+          isLowerCase: isLowerCase, // Pass the isLowerCase flag
+          prefixIcon: prefixIcon,
         ),
       ],
     );
@@ -75,9 +79,10 @@ class AppTextField extends StatefulWidget {
   final bool autoMaxLine;
   final VoidCallback? onTaped;
   final FormFieldValidator<String>? validator;
+  final bool? isLowerCase;
 
   const AppTextField({
-    Key? key,
+    super.key,
     this.readOnly = false,
     required this.hintText,
     required this.controller,
@@ -89,7 +94,8 @@ class AppTextField extends StatefulWidget {
     this.autoMaxLine = false,
     this.validator,
     this.onTaped,
-  }) : super(key: key);
+    this.isLowerCase,
+  });
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -126,42 +132,17 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
       keyboardType: widget.keyboardType,
       obscureText: _obscureText,
       validator: widget.validator,
-
-/*
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        floatingLabelAlignment: FloatingLabelAlignment.center,
-          filled: true, // Enable filling the background
-          fillColor: Colors.white,
-
-        hintText: widget.hintText,
-
-        //bacboncontentPadding: EdgeInsets.symmetric(horizontal: size.w12),
-        hintStyle: TextStyle(
-          color: clr.placeHolderTextColorGray,
-          fontSize: size.textSmall,
-          fontWeight: FontWeight.w400,
-          fontFamily: StringData.fontFamilyRoboto,
-        ),
-        suffixIcon: widget.obscureText == true
-            ? IconButton(
-                icon: Icon(
-                  _obscureText ? Icons.visibility : Icons.visibility_off,
-                  color: clr.placeHolderTextColorGray,
-                ),
-                onPressed: _toggleObscureText,
-              )
-            : const SizedBox(),
-        prefixIcon: widget.prefixIcon ?? null,
-      ),
-*/
+      inputFormatters: widget.isLowerCase == true
+          ? [LowerCaseTextFormatter()]
+          : [], // Use conditional logic here
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
             color: clr.greyColor,
           ),
-        ),filled: true, // Enable filling the background
+        ),
+        filled: true,
         fillColor: Colors.white,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -193,13 +174,23 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
             : null,
         prefixIcon: widget.prefixIcon,
       ),
-
       style: TextStyle(
         color: clr.textColorBlack,
         fontSize: size.textSmall,
         fontWeight: FontWeight.w400,
         fontFamily: StringData.fontFamilyRoboto,
       ),
+    );
+  }
+}
+
+class LowerCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toLowerCase(),
+      selection: newValue.selection,
     );
   }
 }

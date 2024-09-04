@@ -13,9 +13,9 @@ import '../../../profile/domain/entities/user_data_entity.dart';
 class NameChangeButtomSheet extends StatefulWidget {
   final BuildContext context2;
   const NameChangeButtomSheet({
-    Key? key,
+    super.key,
     required this.context2,
-  }) : super(key: key);
+  });
 
   @override
   _NameChangeButtomSheetState createState() => _NameChangeButtomSheetState();
@@ -217,14 +217,7 @@ class _NameChangeButtomSheetState extends State<NameChangeButtomSheet>
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: GestureDetector(
-                              onTap: () {
-                                CustomToasty.of(widget.context2).lockUI();
-
-                                changeName();
-                                CustomToasty.of(context).releaseUI();
-
-                                Navigator.pop(context);
-                              },
+                              onTap: ()=>changeName(widget.context2),
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.w10, vertical: size.h10),
@@ -304,12 +297,14 @@ class _NameChangeButtomSheetState extends State<NameChangeButtomSheet>
   }
 
   @override
-  void showWarning(String message) {
-    CustomToasty.of(context).showWarning(message);
+  void showSuccess(String message) {
+    // TODO: implement showSuccess
   }
 
   @override
-  void showSuccess(String message) {
-    CustomToasty.of(context).showSuccess(message);
+  void showWarning(String message) {
+    // TODO: implement showWarning
   }
+
+
 }

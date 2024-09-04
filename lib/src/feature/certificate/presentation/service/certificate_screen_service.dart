@@ -118,13 +118,12 @@ mixin CertificateListScreenService implements _ViewModel {
     } else {
       CustomToasty.of(context).releaseUI();
       _view.showWarning(responseJson["Message"]);
-
     }
-
   }
 
   ///Name change
-  changeName() async {
+  changeName(BuildContext context) async {
+    CustomToasty.of(context).lockUI();
     LocalStorageService localStorageService =
         await LocalStorageService.getInstance();
     String? userId = localStorageService.getStringValue(StringData.userId);
@@ -140,13 +139,18 @@ mixin CertificateListScreenService implements _ViewModel {
         .postRequestFormData(
             url: "${ApiCredential.updateProfile}?userId=$userId",
             fields: fields)
-        .then((v) {
-      if (v['data'] == null && v['Status'] == 1) {
+        .then((value) {
+      if (value['data'] == null && value['Status'] == 1) {
         _loadProfileData();
+        CustomToasty.of(context).showSuccess(value['Message']);
 
-        _view.showSuccess(v['Message']);
+        CustomToasty.of(context).releaseUI();
+        Navigator.pop(context);
       } else {
-        _view.showWarning(v['Message']);
+        CustomToasty.of(context).showSuccess(value['Message']);
+        Navigator.pop(context);
+
+        CustomToasty.of(context).releaseUI();
       }
     });
   }

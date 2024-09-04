@@ -60,11 +60,14 @@ class _ProfileScreenState extends State<ProfileScreen>
         actions: [
           Padding(
               padding: const EdgeInsets.all(8.0),
-              child: IconButton(onPressed: ()=>Navigator.pushNamed(context,AppRoute.notificationScreen), icon: Icon(
-                Icons.notifications_sharp,
-                color: clr.appPrimaryColorBlue,
-              ),)
-          )
+              child: IconButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, AppRoute.notificationScreen),
+                icon: Icon(
+                  Icons.notifications_sharp,
+                  color: clr.appPrimaryColorBlue,
+                ),
+              ))
         ],
       ),
       body: SingleChildScrollView(
@@ -88,15 +91,18 @@ class _ProfileScreenState extends State<ProfileScreen>
                     badgeStyle: badges.BadgeStyle(
                       elevation: 1,
                       badgeColor: clr.appPrimaryColorBlue,
-                      borderSide: const BorderSide(color: Colors.white, width: 2),
+                      borderSide:
+                          const BorderSide(color: Colors.white, width: 2),
                     ),
                     badgeContent: GestureDetector(
                       onTap: () {
                         showImagePickerBottomSheet(context);
                       },
-                      child: Icon(Icons.edit, color: Colors.white, size: size.r24),
+                      child:
+                          Icon(Icons.edit, color: Colors.white, size: size.r24),
                     ),
-                    position: badges.BadgePosition.bottomEnd(bottom: 10, end: 2),
+                    position:
+                        badges.BadgePosition.bottomEnd(bottom: 10, end: 2),
                     child: CircleAvatar(
                       radius: 68.r,
                       backgroundColor: Colors.grey.withOpacity(.2),
@@ -106,14 +112,18 @@ class _ProfileScreenState extends State<ProfileScreen>
                         child: CircleAvatar(
                           radius: 64.r,
                           child: CachedNetworkImage(
-                            imageUrl: ApiCredential.mediaBaseUrl + data.imagePath,fit: BoxFit.contain,
-                            imageBuilder: (context, imageProvider) => CircleAvatar(
-                              radius: 64.r,
-                              backgroundImage: imageProvider,
-                            ),
-                            placeholder: (context, url) => CircularProgressIndicator(),
-                            errorWidget: (context, url, error) => Image.asset(ImageAssets.emptyProfile)
-                          ),
+                              imageUrl:
+                                  ApiCredential.mediaBaseUrl + data.imagePath,
+                              fit: BoxFit.contain,
+                              imageBuilder: (context, imageProvider) =>
+                                  CircleAvatar(
+                                    radius: 64.r,
+                                    backgroundImage: imageProvider,
+                                  ),
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Image.asset(ImageAssets.emptyProfile)),
                         ),
                       ),
                     ),
@@ -125,122 +135,47 @@ class _ProfileScreenState extends State<ProfileScreen>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'ইউজারের নাম	',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: clr.greyColor,
-                          fontSize: size.textSmall),
+                    /*   ProfileWidget(iconData: Icon(Icons.person,size: 30.r,),title: data.userName,),
+                    SizedBox(height: size.h10,),
+                    ProfileWidget(iconData: Icon(Icons.person,size: 30.r,),title: data.firstName+data.lastName,),*/
+                    ProfileWidget(
+                      title: 'ইউজারের নাম	',
+                      subTitle: data.userName,
                     ),
                     SizedBox(
                       height: size.h16,
                     ),
-                    Text(
-                      data.userName,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: clr.blackColor,
-                          fontSize: size.textSmall),
+                    ProfileWidget(
+                      title: 'নাম	',
+                      subTitle: data.fullName,
                     ),
                     SizedBox(
                       height: size.h16,
                     ),
-                    Text(
-                      'নাম	',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: clr.greyColor,
-                          fontSize: size.textSmall),
+                    ProfileWidget(
+                      title: 'লিঙ্গ	',
+                      subTitle: data.gender,
                     ),
                     SizedBox(
                       height: size.h16,
                     ),
-                    Text(
-                      data.fullName,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: clr.blackColor,
-                          fontSize: size.textSmall),
+                    ProfileWidget(
+                      title: 'ইমেইল	',
+                      subTitle: data.email.isEmpty ? "N/A" : data.email,
                     ),
                     SizedBox(
                       height: size.h16,
                     ),
-                    Text(
-                      'লিঙ্গ		',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: clr.greyColor,
-                          fontSize: size.textSmall),
+                    ProfileWidget(
+                      title: 'ফোন	',
+                      subTitle: data.phoneNumber,
                     ),
                     SizedBox(
                       height: size.h16,
                     ),
-                    Text(
-                      data.gender,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: clr.blackColor,
-                          fontSize: size.textSmall),
-                    ),
-                    SizedBox(
-                      height: size.h16,
-                    ),
-                    Text(
-                      'ইমেইল		',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: clr.greyColor,
-                          fontSize: size.textSmall),
-                    ),
-                    SizedBox(
-                      height: size.h16,
-                    ),
-                    Text(
-                      data.email,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: clr.blackColor,
-                          fontSize: size.textSmall),
-                    ),
-                    SizedBox(
-                      height: size.h16,
-                    ),
-                    Text(
-                      'ফোন		',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: clr.greyColor,
-                          fontSize: size.textSmall),
-                    ),
-                    SizedBox(
-                      height: size.h16,
-                    ),
-                    Text(
-                      data.phoneNumber,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: clr.blackColor,
-                          fontSize: size.textSmall),
-                    ),
-                    SizedBox(
-                      height: size.h16,
-                    ),
-                    Text(
-                      'ঠিকানা		',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: clr.greyColor,
-                          fontSize: size.textSmall),
-                    ),
-                    SizedBox(
-                      height: size.h16,
-                    ),
-                    Text(
-                      data.address,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: clr.blackColor,
-                          fontSize: size.textSmall),
+                    ProfileWidget(
+                      title: 'ঠিকানা	',
+                      subTitle: data.address,
                     ),
                     SizedBox(
                       height: size.h16,
@@ -329,6 +264,37 @@ class _ProfileScreenState extends State<ProfileScreen>
           ),
         );
       },
+    );
+  }
+}
+
+class ProfileWidget extends StatelessWidget with AppTheme {
+  final String title, subTitle;
+  const ProfileWidget({super.key, required this.title, required this.subTitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: clr.greyColor,
+              fontSize: size.textSmall),
+        ),
+        SizedBox(
+          height: size.h10,
+        ),
+        Text(
+          subTitle,
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: clr.blackColor,
+              fontSize: size.textSmall),
+        ),
+      ],
     );
   }
 }

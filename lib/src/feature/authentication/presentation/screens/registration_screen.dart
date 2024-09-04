@@ -133,6 +133,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                         title: "${StringData.usernameText}*",
                         hintText: StringData.userNameHint,
                         controller: userName,
+                        isLowerCase: true,
                         validator: (v) {
                           return v!.isEmpty ? "Please Enter User Name" : null;
                         },
