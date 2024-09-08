@@ -1,5 +1,4 @@
-import 'package:adb_mobile/src/feature/dashboard/domain/entities/course_info_data_entity.dart';
-
+import '../../domain/entities/course_info_data_entity.dart';
 import '../../data/data_sources/remote/trainee_count_data_source.dart';
 import '../../data/repositories/trainee_count_repository_imp.dart';
 import '../../domain/entities/trainee_count_data_entity.dart';
