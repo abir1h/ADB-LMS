@@ -511,11 +511,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                 !showInstitutionError) {
                               if (password.text.length < 6) {
                                 CustomToasty.of(context).showWarning(
-                                    "Password must be of 6 chagracters");
-                              } else if (RegExp(r'^[a-z]+([A-Z][a-z]*)*$')
-                                  .hasMatch(userName.text)) {
-                                CustomToasty.of(context).showWarning(
-                                    "Username must be in lowercase");
+                                    "Password must be of 6 characters");
                               } else {
                                 signUP(context);
                               }

@@ -1,11 +1,11 @@
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../domain/entities/user_data_entity.dart';
 import '../widgets/profile_shimmer_loader.dart';
 import '../../../../core/common_widgets/app_stream.dart';
@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                       child: CircleAvatar(
                         radius: 66.r,
                         backgroundColor: Colors.white,
-                        child: CircleAvatar(
+                          child: CircleAvatar(
                           radius: 64.r,
                           child: CachedNetworkImage(
                               imageUrl:
