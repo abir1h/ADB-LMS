@@ -1,12 +1,12 @@
-import '../../../course/domain/entities/course_overview_data_entity.dart';
-import '../service/discussion_screen_service.dart';
-import '../widgets/discussion_bottom_Sheet.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import '../../../course/domain/entities/course_overview_data_entity.dart';
+import '../service/discussion_screen_service.dart';
+import '../widgets/discussion_bottom_Sheet.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/common_imports.dart';

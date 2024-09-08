@@ -1,7 +1,6 @@
-import 'package:adb_mobile/src/core/constants/app_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../constants/app_theme.dart';
 
 class DashboardCardWidget extends StatelessWidget with AppTheme {
   final bool? primary;
