@@ -24,15 +24,6 @@ class _DiscussionScreenState extends State<DiscussionScreen>
     with AppTheme, DiscussionScreenService {
   bool _isFabVisible = true;
 
-/*
-  void _fetchThirdDropdownItems(String selectedFirstItem, String selectedSecondItem) async {
-    // Replace with your API call to get the third dropdown items based on the first and second selections
-    List<String> items = await fetchThirdDropdownItemsFromApi(selectedFirstItem, selectedSecondItem);
-    setState(() {
-      thirdDropdownItems = items;
-    });
-  }
-*/
   void _onFabPressed() {
     setState(() {
       _isFabVisible = false;
@@ -47,9 +38,7 @@ class _DiscussionScreenState extends State<DiscussionScreen>
             onSelectionDone: (String selectedFirstItem,
                 String selectedSecondItem, String selectedThirdItem) {
               // Handle the selections here
-              print("Selected First Item: $selectedFirstItem");
-              print("Selected Second Item: $selectedSecondItem");
-              print("Selected Third Item: $selectedThirdItem");
+
               setState(() {
                 _isFabVisible = true; // Show FAB again after selection is done
               });
